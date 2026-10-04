@@ -1,0 +1,2515 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Fortune's Weave — Leda &amp; Cai Reference</title>
+<script type="application/json" id="fw-embedded-progress"></script>
+<style>
+
+:root {
+  --bg:#101216; --panel:#171a20; --panel2:#1d2129; --text:#edf1f7; --muted:#aab3c2;
+  --line:#2b3240; --accent:#e0ad4f; --accent2:#8fc8ff; --good:#8bd49c; --warn:#ffcc70;
+  --chip:#252b35; --shadow:0 8px 24px rgba(0,0,0,.22);
+}
+:root.light {
+  --bg:#f4f6f9; --panel:#fff; --panel2:#f7f8fb; --text:#202631; --muted:#657083;
+  --line:#d8dee8; --accent:#8a5b00; --accent2:#176aa8; --good:#247a39; --warn:#8a5700;
+  --chip:#edf1f6; --shadow:0 6px 20px rgba(29,38,55,.08);
+}
+* { box-sizing:border-box; }
+body { margin:0; font:15px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; background:var(--bg); color:var(--text); }
+main { max-width:1050px; margin:0 auto; padding:22px 16px 70px; }
+header { display:flex; gap:14px; align-items:flex-start; justify-content:space-between; margin-bottom:16px; }
+h1 { font-size:clamp(23px,4vw,34px); margin:0 0 5px; }
+.subtitle { color:var(--muted); max-width:760px; }
+button, input[type="search"] { font:inherit; }
+button { border:1px solid var(--line); background:var(--panel); color:var(--text); border-radius:10px; padding:8px 11px; cursor:pointer; }
+button:hover { border-color:var(--accent2); }
+.backup-actions { display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin-top:12px; }
+.backup-actions button { font-size:13px; padding:6px 9px; }
+.backup-status { color:var(--muted); font-size:12px; }
+section.tab-panel, details.nested, details.gift-card {
+  border:1px solid var(--line); background:var(--panel); border-radius:13px; box-shadow:var(--shadow);
+}
+section.tab-panel { margin:12px 0; overflow:hidden; }
+section.tab-panel[hidden] { display:none; }
+.tab-nav { position:sticky; top:0; z-index:10; display:flex; gap:6px; overflow-x:auto; padding:8px 0; background:var(--bg); scrollbar-width:thin; }
+.tab-nav button { flex:none; white-space:nowrap; border-radius:9px; font-weight:650; }
+.tab-nav button[aria-selected="true"] { background:var(--accent); color:var(--bg); border-color:var(--accent); }
+.tab-nav button:focus-visible { outline:2px solid var(--accent2); outline-offset:2px; }
+.tab-panel:focus { outline:none; }
+details.nested { margin:9px 0; background:var(--panel2); box-shadow:none; }
+details.gift-card { margin:7px 0; background:var(--panel2); box-shadow:none; }
+summary { cursor:pointer; user-select:none; }
+.panel-title { margin:0; padding:14px 16px; font-size:18px; font-weight:750; }
+.nested > summary { padding:11px 13px; font-weight:700; }
+.gift-card > summary { padding:10px 12px; display:flex; align-items:center; justify-content:space-between; gap:12px; font-weight:700; }
+.section-content { padding:0 16px 16px; }
+.nested > .section-content, .nested > .checklist { padding:0 13px 13px; }
+.gift-body { padding:0 12px 12px; color:var(--muted); }
+.gift-body strong { color:var(--text); }
+.specific { margin-top:6px; }
+.tags { color:var(--muted); font-size:13px; font-weight:500; text-align:right; }
+.item { display:inline-block; background:var(--chip); border:1px solid var(--line); border-radius:999px; padding:2px 7px; margin:2px 2px 2px 0; color:var(--text); }
+.badge { display:inline-block; border:1px solid var(--line); border-radius:999px; padding:2px 7px; font-size:12px; }
+.free { color:var(--good); }
+.warn { color:var(--warn); }
+.muted { color:var(--muted); }
+.callout { border-left:4px solid var(--accent); background:var(--panel2); padding:10px 12px; border-radius:6px; margin:10px 0; }
+table { width:100%; border-collapse:collapse; margin:8px 0; }
+th, td { text-align:left; border-bottom:1px solid var(--line); padding:9px 7px; vertical-align:top; }
+th { color:var(--accent2); font-size:13px; }
+.small { font-size:13px; color:var(--muted); }
+.searchbar { width:100%; padding:10px 12px; border:1px solid var(--line); border-radius:10px; background:var(--panel2); color:var(--text); margin:4px 0 10px; }
+.stat-scroll { overflow-x:auto; }
+.stat-table { width:100%; border-collapse:collapse; font-size:12px; font-variant-numeric:tabular-nums; }
+.stat-table th, .stat-table td { padding:4px 2px; vertical-align:middle; white-space:nowrap; }
+.stat-table th { font-size:11px; }
+.stat-table th:first-child, .stat-table td:first-child { position:sticky; left:0; z-index:1; background:var(--panel2); }
+.stat-table input { width:2.65rem; min-width:0; padding:4px 2px; border:1px solid var(--line); border-radius:5px; background:var(--panel); color:var(--text); font:inherit; text-align:center; }
+.stat-table input[type="number"] { appearance:textfield; -moz-appearance:textfield; }
+.stat-table input[type="number"]::-webkit-inner-spin-button { appearance:none; margin:0; }
+.stat-table input[data-field="name"] { width:6.7rem; text-align:left; }
+.stat-table input[data-field="class"] { width:6.4rem; text-align:left; }
+.stat-table select { width:3.2rem; padding:4px 1px; border:1px solid var(--line); border-radius:5px; background:var(--panel); color:var(--text); font:inherit; }
+.stat-table input:disabled { opacity:1; color:var(--text); background:transparent; border-color:transparent; }
+.stat-table select:disabled { opacity:1; color:var(--text); background:transparent; border-color:transparent; appearance:none; }
+.stat-table button { padding:3px 5px; font-size:11px; }
+.stat-table button:disabled { display:none; }
+.stat-table-reference th:first-child, .stat-table-reference td:first-child { min-width:6.7rem; }
+.stat-table-reference th:nth-child(2), .stat-table-reference td:nth-child(2) { min-width:6.4rem; }
+.stat-actions { display:flex; flex-wrap:wrap; gap:8px; margin:8px 0; }
+.planner-controls { display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin:10px 0; }
+.planner-controls input, .planner-controls select, .planner-cell select, .planner-cell input { border:1px solid var(--line); border-radius:6px; background:var(--panel); color:var(--text); font:inherit; }
+.planner-controls input { padding:7px; min-width:150px; flex:1 1 170px; }
+.planner-controls select { padding:7px; }
+.planner-scroll { overflow-x:auto; }
+.planner-table { table-layout:fixed; min-width:900px; font-size:12px; }
+.planner-table th { width:20%; }
+.planner-table th:first-child { width:11%; }
+.planner-table th:nth-child(2) { width:9%; }
+.planner-table td { overflow-wrap:anywhere; }
+.planner-table td:first-child { font-weight:700; }
+.planner-table tbody tr:nth-child(even) > td { background:var(--panel2); }
+.planner-priority { display:block; margin-top:3px; color:var(--muted); font-size:11px; font-weight:400; }
+.planner-hide { display:block; margin-top:6px; padding:3px 6px; font-size:11px; border-radius:6px; }
+.planner-table tr.is-hidden .planner-priority { font-style:italic; }
+.planner-cell { padding:4px 5px; border-radius:7px; }
+.planner-gate { font-weight:700; }
+.planner-extra { color:var(--muted); font-size:11px; margin-top:2px; }
+.planner-cell select, .planner-cell input { width:100%; padding:4px 5px; margin-top:5px; }
+.planner-cell.is-recruited { background:rgba(224,173,79,.16); }
+.planner-cell.is-cleared { background:rgba(74,169,104,.24); }
+.planner-cell.is-cleared select { border-color:var(--good); }
+.planner-cell input::placeholder { color:var(--muted); }
+.route-plan-scroll { overflow-x:auto; }
+.route-plan { min-width:890px; font-size:13px; }
+.route-plan .growth { display:block; margin-top:3px; color:var(--muted); font-size:12px; line-height:1.3; font-weight:400; }
+.route-plan th:nth-child(2), .route-plan td:nth-child(2) { width:20%; }
+.class-gates { min-width:690px; }
+.class-gates th:first-child, .class-gates td:first-child { width:16%; }
+.future-team-table { min-width:940px; }
+.future-team-table th:first-child, .future-team-table td:first-child { width:13%; font-weight:400; }
+.future-team-table th:nth-child(2), .future-team-table td:nth-child(2) { width:11%; }
+.future-team-table th:nth-child(3), .future-team-table td:nth-child(3) { width:17%; }
+.future-team-table th:nth-child(4), .future-team-table td:nth-child(4) { width:27%; }
+.future-team-table td { vertical-align:top; }
+.future-team-table .priority { display:block; margin-top:3px; color:var(--good); font-size:11px; font-weight:600; }
+.future-team-table .priority.reserve { color:var(--muted); }
+.combined-plan { width:100%; table-layout:fixed; font-size:12px; line-height:1.35; }
+.combined-plan th, .combined-plan td { padding:7px 8px; vertical-align:top; overflow-wrap:anywhere; }
+.combined-plan th:first-child, .combined-plan td:first-child { width:15%; }
+.combined-plan th:nth-child(2), .combined-plan td:nth-child(2),
+.combined-plan th:nth-child(3), .combined-plan td:nth-child(3) { width:42.5%; }
+.combined-plan tbody tr:nth-child(even) > td { background:var(--panel); }
+.combined-plan .plan-gate { display:block; color:var(--accent); font-weight:700; font-size:11px; }
+.combined-plan .plan-path { display:block; margin-top:3px; }
+.combined-plan .plan-why { display:block; margin-top:3px; color:var(--muted); }
+.combined-plan .plan-priority { display:inline-block; font-size:10px; color:var(--good); font-weight:700; }
+.combined-plan .plan-priority.reserve { color:var(--muted); }
+.route-plan th, .route-plan td { padding:6px 8px; }
+.route-plan th:first-child, .route-plan td:first-child { font-weight:700; width:22%; }
+.route-plan tbody tr:nth-child(even) > td { background:var(--panel); }
+.checkrow { display:flex; gap:9px; align-items:flex-start; padding:7px 0; border-bottom:1px dashed var(--line); }
+.checkrow:last-child { border-bottom:0; }
+.checkrow input { margin-top:4px; transform:scale(1.12); }
+.date { float:right; color:var(--accent); font-weight:650; }
+.grid2 { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.kicker { color:var(--accent); font-weight:800; letter-spacing:.04em; text-transform:uppercase; font-size:12px; }
+a { color:var(--accent2); }
+ul { margin-top:6px; }
+hr { border:0; border-top:1px solid var(--line); margin:14px 0; }
+@media (max-width:720px) {
+  .grid2 { grid-template-columns:1fr; }
+  .gift-card > summary { display:block; }
+  .tags { display:block; text-align:left; margin-top:3px; }
+  th:nth-child(4), td:nth-child(4) { display:none; }
+  #statLog th:nth-child(4), #statLog td:nth-child(4),
+  #originalStats th:nth-child(4), #originalStats td:nth-child(4),
+  #sharedPlanner th:nth-child(4), #sharedPlanner td:nth-child(4),
+  #buildGuide .route-plan th:nth-child(4), #buildGuide .route-plan td:nth-child(4) { display:table-cell; }
+  .combined-plan, .combined-plan tbody, .combined-plan tr,
+  .combined-plan th, .combined-plan td { display:block; width:100% !important; }
+  .combined-plan thead { display:none; }
+  .combined-plan tr { margin:8px 0; border:1px solid var(--line); border-radius:9px; overflow:hidden; }
+  .combined-plan th, .combined-plan td { padding:8px 10px; font-size:12px; border-bottom:1px solid var(--line); }
+  .combined-plan td:last-child { border-bottom:0; }
+  .combined-plan td::before { display:block; color:var(--accent2); font-weight:700; margin-bottom:2px; }
+  .combined-plan td:nth-child(2)::before { content:"Cai"; }
+  .combined-plan td:nth-child(3)::before { content:"Leda"; }
+}
+@media print {
+  body { background:#fff; color:#000; }
+  main { max-width:none; padding:0; }
+  button, .searchbar, .tab-nav { display:none; }
+  section.tab-panel[hidden] { display:block; }
+  details { break-inside:avoid; box-shadow:none !important; }
+}
+
+.route-block > summary { font-size:17px; }
+.route-toolbar { display:flex; flex-wrap:wrap; gap:8px; margin:10px 0; }
+details.cycle > summary .date { float:none; margin-left:8px; }
+.adv-shell { display:flex; align-items:flex-start; gap:10px; width:max-content; max-width:100%; }
+.adv-wrap { overflow:auto; flex:0 1 auto; min-width:0; max-width:calc(100% - 50px); padding-right:8px; }
+.adv-skills-toggle {
+  flex:none;
+  position:sticky;
+  top:12px;
+  writing-mode:vertical-rl;
+  transform:rotate(180deg);
+  padding:10px 8px;
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:.04em;
+  border-radius:0 9px 9px 0;
+  align-self:flex-start;
+  height:min(240px, 42vh);
+  z-index:2;
+}
+.stat-table th, .stat-table td {
+  padding:5px 6px;
+  border-right:1px solid var(--line);
+}
+.stat-table th:last-child, .stat-table td:last-child { border-right:0; }
+.stat-table thead th, .adv-table thead th {
+  background:var(--bg);
+  color:var(--accent);
+  font-weight:750;
+  letter-spacing:.03em;
+  border-bottom:2px solid var(--accent);
+}
+.stat-table thead th { font-size:12px; }
+.stat-table thead th:first-child { background:var(--bg); }
+.stat-table tbody tr:nth-child(odd) > * { background:var(--panel2); }
+.stat-table tbody tr:nth-child(even) > * { background:var(--chip); }
+.stat-table tbody tr:nth-child(odd) td:first-child { background:var(--panel2); }
+.stat-table tbody tr:nth-child(even) td:first-child { background:var(--chip); }
+.adv-table { width:100%; min-width:980px; border-collapse:collapse; font-size:13px; line-height:1.3; }
+.adv-table th, .adv-table td { padding:5px 6px; vertical-align:top; border-right:1px solid var(--line); }
+.adv-table th:last-child, .adv-table td:last-child { border-right:0; }
+.adv-table thead th { position:sticky; top:0; z-index:1; font-size:12px; }
+.adv-table tbody th { text-align:left; white-space:nowrap; font-size:14px; }
+.adv-table tbody tr:nth-child(even):not(.adv-group) td,
+.adv-table tbody tr:nth-child(even):not(.adv-group) th { background:var(--chip); }
+.adv-table .adv-group th {
+  border-right:0;
+  background:var(--accent);
+  color:var(--bg);
+  font-size:16px;
+  font-weight:750;
+  letter-spacing:.02em;
+  text-align:left;
+  white-space:normal;
+  padding:8px 10px;
+}
+.adv-table .adv-group .why { display:block; margin-top:3px; font-size:12px; font-weight:500; letter-spacing:0; color:var(--bg); opacity:.88; }
+.adv-table .sub { display:block; color:var(--muted); font-weight:400; font-size:11px; white-space:normal; max-width:160px; }
+.adv-table th:last-child, .adv-table td:last-child {
+  max-width:22em;
+  overflow:hidden;
+  transition:max-width .22s ease, padding .22s ease, opacity .18s ease;
+}
+#advClasses.skills-collapsed .adv-table { min-width:0; width:max-content; }
+#advClasses.skills-collapsed .adv-table thead th:last-child,
+#advClasses.skills-collapsed .adv-table tbody td:last-child {
+  max-width:0 !important;
+  width:0 !important;
+  padding:0 !important;
+  opacity:0;
+  border:0;
+  overflow:hidden;
+  pointer-events:none;
+  font-size:0;
+  line-height:0;
+}
+.adv-table .g { font-variant-numeric:tabular-nums; text-align:right; white-space:nowrap; }
+.adv-table .g.pos { color:var(--good); font-weight:650; }
+.adv-table .g.neg { color:var(--accent); font-weight:650; }
+.adv-table .g.z { color:var(--muted); }
+.adv-table .on, .adv-table .mast, .adv-table .unl { display:block; }
+.adv-table .mast { margin-top:2px; }
+.adv-table .unl { margin-top:2px; color:var(--accent); font-size:10px; }
+@media (max-width:720px) {
+  #advClasses th:nth-child(4), #advClasses td:nth-child(4) { display:table-cell; }
+}
+
+</style>
+</head>
+<body>
+<main>
+<header>
+  <div>
+    <div class="kicker">Spoiler-light reference</div>
+    <h1>Fortune's Weave — Leda &amp; Cai sheet</h1>
+    <div class="subtitle">Gifts, Leda and Cai cycle missables, builds, Advanced classes, stats, and shared recruitment. Part I / II only — no later-arc story. Marks save in this browser. To move PCs, copy the HTML plus a progress JSON, or download the sheet with progress baked in.</div>
+    <div class="backup-actions">
+      <button type="button" id="exportBackup">Download progress JSON</button>
+      <button type="button" id="importBackup">Import progress JSON</button>
+      <button type="button" id="linkProgressFile">Use a progress file</button>
+      <button type="button" id="exportSheet">Download sheet with progress</button>
+      <input type="file" id="importBackupFile" accept=".json,application/json" hidden aria-label="Choose a Fortune's Weave progress backup">
+      <span id="backupStatus" class="backup-status" role="status"></span>
+    </div>
+  </div>
+  <button id="themeBtn" type="button">Light mode</button>
+</header>
+
+<nav class="tab-nav" role="tablist" aria-label="Cheat sheet sections">
+  <button type="button" role="tab" id="tab-gifts" aria-controls="gifts" aria-selected="false" tabindex="-1">Gifts</button>
+  <button type="button" role="tab" id="tab-cycles" aria-controls="cycles" aria-selected="false" tabindex="-1">Cycles</button>
+  <button type="button" role="tab" id="tab-builds" aria-controls="buildGuide" aria-selected="false" tabindex="-1">Builds</button>
+  <button type="button" role="tab" id="tab-classes" aria-controls="advClasses" aria-selected="false" tabindex="-1">Classes</button>
+  <button type="button" role="tab" id="tab-stats" aria-controls="statLog" aria-selected="false" tabindex="-1">Stats</button>
+  <button type="button" role="tab" id="tab-original" aria-controls="originalStats" aria-selected="false" tabindex="-1">Original stats</button>
+  <button type="button" role="tab" id="tab-recruits" aria-controls="sharedPlanner" aria-selected="false" tabindex="-1">Shared recruits</button>
+</nav>
+<section class="tab-panel" id="gifts" role="tabpanel" aria-labelledby="tab-gifts" hidden>
+  <h2 class="panel-title">Gift giving guide</h2>
+  <div class="section-content">
+    <div class="callout"><strong>Fast rule:</strong> category descriptions are useful but imperfect. Community testing suggests rare gifts often perform better than their category alone implies. Save especially rare gifts for hard-to-raise recruits.</div>
+    <input id="giftSearch" class="searchbar" type="search" placeholder="Search character, category, or item…">
+    <div id="giftList">
+      
+    <details class="gift-card" data-search="alexandra horses • training beard grass mane ornament horse grooming kit pegasus painting">
+      <summary><span>Alexandra</span><span class="tags">horses • training</span></summary>
+      <div class="gift-body">
+        <div><strong>Good categories / profile clues:</strong> horses • training</div>
+        <div class="specific"><strong>Specific named gifts:</strong> <span class='item'>Beard Grass</span>, <span class='item'>Mane Ornament</span>, <span class='item'>Horse Grooming Kit</span>, <span class='item'>Pegasus Painting</span></div>
+      </div>
+    </details>
+    
+
+    <details class="gift-card" data-search="anatolia divination • training • books/fashion bagua divination set eastern black silk tales of a master tales of adventure">
+      <summary><span>Anatolia</span><span class="tags">divination • training • books/fashion</span></summary>
+      <div class="gift-body">
+        <div><strong>Good categories / profile clues:</strong> divination • training • books/fashion</div>
+        <div class="specific"><strong>Specific named gifts:</strong> <span class='item'>Bagua Divination Set</span>, <span class='item'>Eastern Black Silk</span>, <span class='item'>Tales of a Master</span>, <span class='item'>Tales of Adventure</span></div>
+      </div>
+    </details>
+    
+
+    <details class="gift-card" data-search="anna bargains • curios • trends">
+      <summary><span>Anna</span><span class="tags">bargains • curios • trends</span></summary>
+      <div class="gift-body">
+        <div><strong>Good categories / profile clues:</strong> bargains • curios • trends</div>
+        <div class="specific"><strong>Specific named gifts:</strong> <span class='muted'>No specific named item I could verify confidently.</span></div>
+      </div>
+    </details>
+    
+
+    <details class="gift-card" data-search="aurora books • stargazing • learning">
+      <summary><span>Aurora</span><span class="tags">books • stargazing • learning</span></summary>
+      <div class="gift-body">
+        <div><strong>Good categories / profile clues:</strong> books • stargazing • learning</div>
+        <div class="specific"><strong>Specific named gifts:</strong> <span class='muted'>No specific named item I could verify confidently.</span></div>
+      </div>
+    </details>
+    
+
+    <details class="gift-card" data-search="benditz weapons • tactics/history • board games decorative war medal">
+      <summary><span>Benditz</span><span class="tags">weapons • tactics/history • board games</span></summary>
+      <div class="gift-body">
+        <div><strong>Good categories / profile clues:</strong> weapons • tactics/history • board games</div>
+        <div class="specific"><strong>Specific named gifts:</strong> <span class='item'>Decorative War Medal</span></div>
+      </div>
+    </details>
+    
+
+    <details class="gift-card" data-search="bertrand smithing • weapons • salted food/garum • books/board games">
+      <summary><span>Bertrand</span><span class="tags">smithing • weapons • salted food/garum • books/board games</span></summary>
+      <div class="gift-body">
+        <div><strong>Good categories / profile clues:</strong> smithing • weapons • salted food/garum • books/board games</div>
+        <div class="specific"><strong>Specific named gifts:</strong> <span class='muted'>No specific named item I could verify confidently.</span></div>
+      </div>
+    </details>
+    
+
+    <details class="gift-card" data-search="bonaventure books • knowledge • cooking">
+      <summary><span>Bonaventure</span><span class="tags">books • knowledge • cooking</span></summary>
+      <div class="gift-body">
+        <div><strong>Good categories / profile clues:</strong> books • knowledge • cooking</div>
+        <div class="specific"><strong>Specific named gifts:</strong> <span class='muted'>No specific named item I could verify confidently.</span></div>
+      </div>
+    </details>
+    
+
+    <details class="gift-card" data-search="buccar training • military • cooking • fermented drinks mature ghosh volcano ghosh">
+      <summary><span>Buccar</span><span class="tags">training • military • cooking • fermented drinks</span></summary>
+      <div class="gift-body">
+        <div><strong>Good categories / profile clues:</strong> training • military • cooking • fermented drinks</div>
+        <div class="specific"><strong>Specific named gifts:</strong> <span class='item'>Mature Ghosh</span>, <span class='item'>Volcano Ghosh</span></div>
+      </div>
+    </details>
+    
+
+    <details class="gift-card" data-search="cai horses • training • fishing beard grass mane ornament horse grooming kit">
+      <summary><span>Cai</span><span class="tags">horses • training • fishing</span></summary>
+      <div class="gift-body">
+        <div><strong>Good categories / profile clues:</strong> horses • training • fishing</div>
+        <div class="specific"><strong>Specific named gifts:</strong> <span class='item'>Beard Grass</span>, <span class='item'>Mane Ornament</span>, <span class='item'>Horse Grooming Kit</span></div>
+      </div>
+    </details>
+    
+
+    <details class="gift-card" data-search="catania coffee • paintings • high-quality/rare gifts">
+      <summary><span>Catania</span><span class="tags">coffee • paintings • high-quality/rare gifts</span></summary>
+      <div class="gift-body">
+        <div><strong>Good categories / profile clues:</strong> coffee • paintings • high-quality/rare gifts</div>
+        <div class="specific"><strong>Specific named gifts:</strong> <span class='muted'>No specific named item I could verify confidently.</span></div>
+      </div>
+    </details>
+    
+
+    <details class="gift-card" data-search="centurio board games • study">
+      <summary><span>Centurio</span><span class="tags">board games • study</span></summary>
+      <div class="gift-body">
+        <div><strong>Good categories / profile clues:</strong> board games • study</div>
+        <div class="specific"><strong>Specific named gifts:</strong> <span class='muted'>No specific named item I could verify confidently.</span></div>
+      </div>
+    </details>
+    
+
+    <details class="gift-card" data-search="creek military strategy • arts">
+      <summary><span>Creek</span><span class="tags">military strategy • arts</span></summary>
+      <div class="gift-body">
+        <div><strong>Good categories / profile clues:</strong> military strategy • arts</div>
+        <div class="specific"><strong>Specific named gifts:</strong> <span class='muted'>No specific named item I could verify confidently.</span></div>
+      </div>
+    </details>
+    
+
+    <details class="gift-card" data-search="dadao food • machines • fighting cervi drinks">
+      <summary><span>Dadao</span><span class="tags">food • machines • fighting</span></summary>
+      <div class="gift-body">
+        <div><strong>Good categories / profile clues:</strong> food • machines • fighting</div>
+        <div class="specific"><strong>Specific named gifts:</strong> <span class='item'>Cervi drinks</span></div>
+      </div>
+    </details>
+    
+
+    <details class="gift-card" data-search="dante coffee • books">
+      <summary><span>Dante</span><span class="tags">coffee • books</span></summary>
+      <div class="gift-body">
+        <div><strong>Good categories / profile clues:</strong> coffee • books</div>
+        <div class="specific"><strong>Specific named gifts:</strong> <span class='muted'>No specific named item I could verify confidently.</span></div>
+      </div>
+    </details>
+    
+
+    <details class="gift-card" data-search="diego archery • books • board games decorative arrows joint-relief gloves bow maintenance kit">
+      <summary><span>Diego</span><span class="tags">archery • books • board games</span></summary>
+      <div class="gift-body">
+        <div><strong>Good categories / profile clues:</strong> archery • books • board games</div>
+        <div class="specific"><strong>Specific named gifts:</strong> <span class='item'>Decorative Arrows</span>, <span class='item'>Joint-Relief Gloves</span>, <span class='item'>Bow Maintenance Kit</span></div>
+      </div>
+    </details>
+    
+
+    <details class="gift-card" data-search="dietrich sweets • pastries • beauty/art">
+      <summary><span>Dietrich</span><span class="tags">sweets • pastries • beauty/art</span></summary>
+      <div class="gift-body">
+        <div><strong>Good categories / profile clues:</strong> sweets • pastries • beauty/art</div>
+        <div class="specific"><strong>Specific named gifts:</strong> <span class='muted'>No specific named item I could verify confidently.</span></div>
+      </div>
+    </details>
+    
+
+    <details class="gift-card" data-search="esmeralda fishing fish hooks fishing rod fish eye brined fish guts">
+      <summary><span>Esmeralda</span><span class="tags">fishing</span></summary>
+      <div class="gift-body">
+        <div><strong>Good categories / profile clues:</strong> fishing</div>
+        <div class="specific"><strong>Specific named gifts:</strong> <span class='item'>Fish Hooks</span>, <span class='item'>Fishing Rod</span>, <span class='item'>Fish Eye</span>, <span class='item'>Brined Fish Guts</span></div>
+      </div>
+    </details>
+    
+
+    <details class="gift-card" data-search="fabio coffee • art/drawing">
+      <summary><span>Fabio</span><span class="tags">coffee • art/drawing</span></summary>
+      <div class="gift-body">
+        <div><strong>Good categories / profile clues:</strong> coffee • art/drawing</div>
+        <div class="specific"><strong>Specific named gifts:</strong> <span class='muted'>No specific named item I could verify confidently.</span></div>
+      </div>
+    </details>
+    
+
+    <details class="gift-card" data-search="fianna books • coffee/tea • strong seasoning">
+      <summary><span>Fianna</span><span class="tags">books • coffee/tea • strong seasoning</span></summary>
+      <div class="gift-body">
+        <div><strong>Good categories / profile clues:</strong> books • coffee/tea • strong seasoning</div>
+        <div class="specific"><strong>Specific named gifts:</strong> <span class='muted'>No specific named item I could verify confidently.</span></div>
+      </div>
+    </details>
+    
+
+    <details class="gift-card" data-search="gaitz weapons • tea • horses beard grass mane ornament horse grooming kit">
+      <summary><span>Gaitz</span><span class="tags">weapons • tea • horses</span></summary>
+      <div class="gift-body">
+        <div><strong>Good categories / profile clues:</strong> weapons • tea • horses</div>
+        <div class="specific"><strong>Specific named gifts:</strong> <span class='item'>Beard Grass</span>, <span class='item'>Mane Ornament</span>, <span class='item'>Horse Grooming Kit</span></div>
+      </div>
+    </details>
+    
+
+    <details class="gift-card" data-search="goliath food • training • animals • board games/coffee">
+      <summary><span>Goliath</span><span class="tags">food • training • animals • board games/coffee</span></summary>
+      <div class="gift-body">
+        <div><strong>Good categories / profile clues:</strong> food • training • animals • board games/coffee</div>
+        <div class="specific"><strong>Specific named gifts:</strong> <span class='muted'>No specific named item I could verify confidently.</span></div>
+      </div>
+    </details>
+    
+
+    <details class="gift-card" data-search="guzran fermented drinks ghosh shosh">
+      <summary><span>Guzran</span><span class="tags">fermented drinks</span></summary>
+      <div class="gift-body">
+        <div><strong>Good categories / profile clues:</strong> fermented drinks</div>
+        <div class="specific"><strong>Specific named gifts:</strong> <span class='item'>Ghosh</span>, <span class='item'>Shosh</span></div>
+      </div>
+    </details>
+    
+
+    <details class="gift-card" data-search="halvin vegetables/gardening • tricks potted vegetables magic set">
+      <summary><span>Halvin</span><span class="tags">vegetables/gardening • tricks</span></summary>
+      <div class="gift-body">
+        <div><strong>Good categories / profile clues:</strong> vegetables/gardening • tricks</div>
+        <div class="specific"><strong>Specific named gifts:</strong> <span class='item'>Potted Vegetables</span>, <span class='item'>Magic Set</span></div>
+      </div>
+    </details>
+    
+
+    <details class="gift-card" data-search="hong hua no reliable gift category documented yet">
+      <summary><span>Hong Hua</span><span class="tags">no reliable gift category documented yet</span></summary>
+      <div class="gift-body">
+        <div><strong>Good categories / profile clues:</strong> no reliable gift category documented yet</div>
+        <div class="specific"><strong>Specific named gifts:</strong> <span class='muted'>No specific named item I could verify confidently.</span></div>
+      </div>
+    </details>
+    
+
+    <details class="gift-card" data-search="inyoni archery • fishing • practical/outdoors decorative arrows joint-relief gloves bow maintenance kit">
+      <summary><span>Inyoni</span><span class="tags">archery • fishing • practical/outdoors</span></summary>
+      <div class="gift-body">
+        <div><strong>Good categories / profile clues:</strong> archery • fishing • practical/outdoors</div>
+        <div class="specific"><strong>Specific named gifts:</strong> <span class='item'>Decorative Arrows</span>, <span class='item'>Joint-Relief Gloves</span>, <span class='item'>Bow Maintenance Kit</span></div>
+      </div>
+    </details>
+    
+
+    <details class="gift-card" data-search="io horses • discipline beard grass mane ornament horse grooming kit">
+      <summary><span>Io</span><span class="tags">horses • discipline</span></summary>
+      <div class="gift-body">
+        <div><strong>Good categories / profile clues:</strong> horses • discipline</div>
+        <div class="specific"><strong>Specific named gifts:</strong> <span class='item'>Beard Grass</span>, <span class='item'>Mane Ornament</span>, <span class='item'>Horse Grooming Kit</span></div>
+      </div>
+    </details>
+    
+
+    <details class="gift-card" data-search="jasmine board games • cooking • garum training weights">
+      <summary><span>Jasmine</span><span class="tags">board games • cooking • garum</span></summary>
+      <div class="gift-body">
+        <div><strong>Good categories / profile clues:</strong> board games • cooking • garum</div>
+        <div class="specific"><strong>Specific named gifts:</strong> <span class='item'>Training Weights</span></div>
+      </div>
+    </details>
+    
+
+    <details class="gift-card" data-search="jester coffee • knives • fashion • pastries/sweets">
+      <summary><span>Jester</span><span class="tags">coffee • knives • fashion • pastries/sweets</span></summary>
+      <div class="gift-body">
+        <div><strong>Good categories / profile clues:</strong> coffee • knives • fashion • pastries/sweets</div>
+        <div class="specific"><strong>Specific named gifts:</strong> <span class='muted'>No specific named item I could verify confidently.</span></div>
+      </div>
+    </details>
+    
+
+    <details class="gift-card" data-search="kiroc flowers • fashion">
+      <summary><span>Kiroc</span><span class="tags">flowers • fashion</span></summary>
+      <div class="gift-body">
+        <div><strong>Good categories / profile clues:</strong> flowers • fashion</div>
+        <div class="specific"><strong>Specific named gifts:</strong> <span class='muted'>No specific named item I could verify confidently.</span></div>
+      </div>
+    </details>
+    
+
+    <details class="gift-card" data-search="leda fashion • gemstones • paintings/beauty">
+      <summary><span>Leda</span><span class="tags">fashion • gemstones • paintings/beauty</span></summary>
+      <div class="gift-body">
+        <div><strong>Good categories / profile clues:</strong> fashion • gemstones • paintings/beauty</div>
+        <div class="specific"><strong>Specific named gifts:</strong> <span class='muted'>No specific named item I could verify confidently.</span></div>
+      </div>
+    </details>
+    
+
+    <details class="gift-card" data-search="lilian fashion • flowers • gemstones eastern earrings blue rose bouquet">
+      <summary><span>Lilian</span><span class="tags">fashion • flowers • gemstones</span></summary>
+      <div class="gift-body">
+        <div><strong>Good categories / profile clues:</strong> fashion • flowers • gemstones</div>
+        <div class="specific"><strong>Specific named gifts:</strong> <span class='item'>Eastern Earrings</span>, <span class='item'>Blue Rose Bouquet</span></div>
+      </div>
+    </details>
+    
+
+    <details class="gift-card" data-search="loretta sweets • pastries • fishing">
+      <summary><span>Loretta</span><span class="tags">sweets • pastries • fishing</span></summary>
+      <div class="gift-body">
+        <div><strong>Good categories / profile clues:</strong> sweets • pastries • fishing</div>
+        <div class="specific"><strong>Specific named gifts:</strong> <span class='muted'>No specific named item I could verify confidently.</span></div>
+      </div>
+    </details>
+    
+
+    <details class="gift-card" data-search="ludia coffee • books • paintings">
+      <summary><span>Ludia</span><span class="tags">coffee • books • paintings</span></summary>
+      <div class="gift-body">
+        <div><strong>Good categories / profile clues:</strong> coffee • books • paintings</div>
+        <div class="specific"><strong>Specific named gifts:</strong> <span class='muted'>No specific named item I could verify confidently.</span></div>
+      </div>
+    </details>
+    
+
+    <details class="gift-card" data-search="lysander weapons • training • riding ceremonial spear training pillar training weights imitation medal">
+      <summary><span>Lysander</span><span class="tags">weapons • training • riding</span></summary>
+      <div class="gift-body">
+        <div><strong>Good categories / profile clues:</strong> weapons • training • riding</div>
+        <div class="specific"><strong>Specific named gifts:</strong> <span class='item'>Ceremonial Spear</span>, <span class='item'>Training Pillar</span>, <span class='item'>Training Weights</span>, <span class='item'>Imitation Medal</span></div>
+      </div>
+    </details>
+    
+
+    <details class="gift-card" data-search="majide fermented drinks • fighting ghosh shosh">
+      <summary><span>Majide</span><span class="tags">fermented drinks • fighting</span></summary>
+      <div class="gift-body">
+        <div><strong>Good categories / profile clues:</strong> fermented drinks • fighting</div>
+        <div class="specific"><strong>Specific named gifts:</strong> <span class='item'>Ghosh</span>, <span class='item'>Shosh</span></div>
+      </div>
+    </details>
+    
+
+    <details class="gift-card" data-search="maria no reliable gift category documented yet">
+      <summary><span>Maria</span><span class="tags">no reliable gift category documented yet</span></summary>
+      <div class="gift-body">
+        <div><strong>Good categories / profile clues:</strong> no reliable gift category documented yet</div>
+        <div class="specific"><strong>Specific named gifts:</strong> <span class='muted'>No specific named item I could verify confidently.</span></div>
+      </div>
+    </details>
+    
+
+    <details class="gift-card" data-search="mikaela coffee • cooking/baking • exercise training weights">
+      <summary><span>Mikaela</span><span class="tags">coffee • cooking/baking • exercise</span></summary>
+      <div class="gift-body">
+        <div><strong>Good categories / profile clues:</strong> coffee • cooking/baking • exercise</div>
+        <div class="specific"><strong>Specific named gifts:</strong> <span class='item'>Training Weights</span></div>
+      </div>
+    </details>
+    
+
+    <details class="gift-card" data-search="mu sweets • pastries • coffee • cervi drinks">
+      <summary><span>Mu</span><span class="tags">sweets • pastries • coffee • Cervi drinks</span></summary>
+      <div class="gift-body">
+        <div><strong>Good categories / profile clues:</strong> sweets • pastries • coffee • Cervi drinks</div>
+        <div class="specific"><strong>Specific named gifts:</strong> <span class='muted'>No specific named item I could verify confidently.</span></div>
+      </div>
+    </details>
+    
+
+    <details class="gift-card" data-search="nathan battle training • loyalty">
+      <summary><span>Nathan</span><span class="tags">battle training • loyalty</span></summary>
+      <div class="gift-body">
+        <div><strong>Good categories / profile clues:</strong> battle training • loyalty</div>
+        <div class="specific"><strong>Specific named gifts:</strong> <span class='muted'>No specific named item I could verify confidently.</span></div>
+      </div>
+    </details>
+    
+
+    <details class="gift-card" data-search="nezha vegetables • board games • training/food">
+      <summary><span>Nezha</span><span class="tags">vegetables • board games • training/food</span></summary>
+      <div class="gift-body">
+        <div><strong>Good categories / profile clues:</strong> vegetables • board games • training/food</div>
+        <div class="specific"><strong>Specific named gifts:</strong> <span class='muted'>No specific named item I could verify confidently.</span></div>
+      </div>
+    </details>
+    
+
+    <details class="gift-card" data-search="ninae flowers • paintings • fashion eastern black silk">
+      <summary><span>Ninae</span><span class="tags">flowers • paintings • fashion</span></summary>
+      <div class="gift-body">
+        <div><strong>Good categories / profile clues:</strong> flowers • paintings • fashion</div>
+        <div class="specific"><strong>Specific named gifts:</strong> <span class='item'>Eastern Black Silk</span></div>
+      </div>
+    </details>
+    
+
+    <details class="gift-card" data-search="noctula training training pillar training weights">
+      <summary><span>Noctula</span><span class="tags">training</span></summary>
+      <div class="gift-body">
+        <div><strong>Good categories / profile clues:</strong> training</div>
+        <div class="specific"><strong>Specific named gifts:</strong> <span class='item'>Training Pillar</span>, <span class='item'>Training Weights</span></div>
+      </div>
+    </details>
+    
+
+    <details class="gift-card" data-search="nuzzuo cooking • vegetables outdoor cooking set">
+      <summary><span>Nuzzuo</span><span class="tags">cooking • vegetables</span></summary>
+      <div class="gift-body">
+        <div><strong>Good categories / profile clues:</strong> cooking • vegetables</div>
+        <div class="specific"><strong>Specific named gifts:</strong> <span class='item'>Outdoor Cooking Set</span></div>
+      </div>
+    </details>
+    
+
+    <details class="gift-card" data-search="nydine archery • horses • books decorative arrows joint-relief gloves bow maintenance kit horse grooming kit">
+      <summary><span>Nydine</span><span class="tags">archery • horses • books</span></summary>
+      <div class="gift-body">
+        <div><strong>Good categories / profile clues:</strong> archery • horses • books</div>
+        <div class="specific"><strong>Specific named gifts:</strong> <span class='item'>Decorative Arrows</span>, <span class='item'>Joint-Relief Gloves</span>, <span class='item'>Bow Maintenance Kit</span>, <span class='item'>Horse Grooming Kit</span></div>
+      </div>
+    </details>
+    
+
+    <details class="gift-card" data-search="olympia flowers • paintings • beauty • board games">
+      <summary><span>Olympia</span><span class="tags">flowers • paintings • beauty • board games</span></summary>
+      <div class="gift-body">
+        <div><strong>Good categories / profile clues:</strong> flowers • paintings • beauty • board games</div>
+        <div class="specific"><strong>Specific named gifts:</strong> <span class='muted'>No specific named item I could verify confidently.</span></div>
+      </div>
+    </details>
+    
+
+    <details class="gift-card" data-search="orchel animals • music • cooking • plants • books">
+      <summary><span>Orchel</span><span class="tags">animals • music • cooking • plants • books</span></summary>
+      <div class="gift-body">
+        <div><strong>Good categories / profile clues:</strong> animals • music • cooking • plants • books</div>
+        <div class="specific"><strong>Specific named gifts:</strong> <span class='muted'>No specific named item I could verify confidently.</span></div>
+      </div>
+    </details>
+    
+
+    <details class="gift-card" data-search="peppe coffee • hunting/outdoors">
+      <summary><span>Peppe</span><span class="tags">coffee • hunting/outdoors</span></summary>
+      <div class="gift-body">
+        <div><strong>Good categories / profile clues:</strong> coffee • hunting/outdoors</div>
+        <div class="specific"><strong>Specific named gifts:</strong> <span class='muted'>No specific named item I could verify confidently.</span></div>
+      </div>
+    </details>
+    
+
+    <details class="gift-card" data-search="peter sweets • cervi drinks • cooking pastry cookbook">
+      <summary><span>Peter</span><span class="tags">sweets • Cervi drinks • cooking</span></summary>
+      <div class="gift-body">
+        <div><strong>Good categories / profile clues:</strong> sweets • Cervi drinks • cooking</div>
+        <div class="specific"><strong>Specific named gifts:</strong> <span class='item'>Pastry Cookbook</span></div>
+      </div>
+    </details>
+    
+
+    <details class="gift-card" data-search="seteth fishing • books/teaching fishing rod barbed fishhook">
+      <summary><span>Seteth</span><span class="tags">fishing • books/teaching</span></summary>
+      <div class="gift-body">
+        <div><strong>Good categories / profile clues:</strong> fishing • books/teaching</div>
+        <div class="specific"><strong>Specific named gifts:</strong> <span class='item'>Fishing Rod</span>, <span class='item'>Barbed Fishhook</span></div>
+      </div>
+    </details>
+    
+
+    <details class="gift-card" data-search="sha lan cooking • tea • food/drink">
+      <summary><span>Sha Lan</span><span class="tags">cooking • tea • food/drink</span></summary>
+      <div class="gift-body">
+        <div><strong>Good categories / profile clues:</strong> cooking • tea • food/drink</div>
+        <div class="specific"><strong>Specific named gifts:</strong> <span class='muted'>No specific named item I could verify confidently.</span></div>
+      </div>
+    </details>
+    
+
+    <details class="gift-card" data-search="simon vegetables • food">
+      <summary><span>Simon</span><span class="tags">vegetables • food</span></summary>
+      <div class="gift-body">
+        <div><strong>Good categories / profile clues:</strong> vegetables • food</div>
+        <div class="specific"><strong>Specific named gifts:</strong> <span class='muted'>No specific named item I could verify confidently.</span></div>
+      </div>
+    </details>
+    
+
+    <details class="gift-card" data-search="sirocco fermented drinks • paintings • books portrait of yu phas">
+      <summary><span>Sirocco</span><span class="tags">fermented drinks • paintings • books</span></summary>
+      <div class="gift-body">
+        <div><strong>Good categories / profile clues:</strong> fermented drinks • paintings • books</div>
+        <div class="specific"><strong>Specific named gifts:</strong> <span class='item'>Portrait of Yu Phas</span></div>
+      </div>
+    </details>
+    
+
+    <details class="gift-card" data-search="sofia sweets • garum • cooking">
+      <summary><span>Sofia</span><span class="tags">sweets • garum • cooking</span></summary>
+      <div class="gift-body">
+        <div><strong>Good categories / profile clues:</strong> sweets • garum • cooking</div>
+        <div class="specific"><strong>Specific named gifts:</strong> <span class='muted'>No specific named item I could verify confidently.</span></div>
+      </div>
+    </details>
+    
+
+    <details class="gift-card" data-search="talimun fermented drinks • coffee • books • board games • paintings">
+      <summary><span>Talimun</span><span class="tags">fermented drinks • coffee • books • board games • paintings</span></summary>
+      <div class="gift-body">
+        <div><strong>Good categories / profile clues:</strong> fermented drinks • coffee • books • board games • paintings</div>
+        <div class="specific"><strong>Specific named gifts:</strong> <span class='muted'>No specific named item I could verify confidently.</span></div>
+      </div>
+    </details>
+    
+
+    <details class="gift-card" data-search="theodora training • coffee • fashion • cooking portrait of yu phas">
+      <summary><span>Theodora</span><span class="tags">training • coffee • fashion • cooking</span></summary>
+      <div class="gift-body">
+        <div><strong>Good categories / profile clues:</strong> training • coffee • fashion • cooking</div>
+        <div class="specific"><strong>Specific named gifts:</strong> <span class='item'>Portrait of Yu Phas</span></div>
+      </div>
+    </details>
+    
+
+    <details class="gift-card" data-search="tialla books • cervi drinks • board games">
+      <summary><span>Tialla</span><span class="tags">books • Cervi drinks • board games</span></summary>
+      <div class="gift-body">
+        <div><strong>Good categories / profile clues:</strong> books • Cervi drinks • board games</div>
+        <div class="specific"><strong>Specific named gifts:</strong> <span class='muted'>No specific named item I could verify confidently.</span></div>
+      </div>
+    </details>
+    
+
+    <details class="gift-card" data-search="tobias fermented drinks ghosh shosh">
+      <summary><span>Tobias</span><span class="tags">fermented drinks</span></summary>
+      <div class="gift-body">
+        <div><strong>Good categories / profile clues:</strong> fermented drinks</div>
+        <div class="specific"><strong>Specific named gifts:</strong> <span class='item'>Ghosh</span>, <span class='item'>Shosh</span></div>
+      </div>
+    </details>
+    
+
+    <details class="gift-card" data-search="troy nature • weapon maintenance">
+      <summary><span>Troy</span><span class="tags">nature • weapon maintenance</span></summary>
+      <div class="gift-body">
+        <div><strong>Good categories / profile clues:</strong> nature • weapon maintenance</div>
+        <div class="specific"><strong>Specific named gifts:</strong> <span class='muted'>No specific named item I could verify confidently.</span></div>
+      </div>
+    </details>
+    
+
+    <details class="gift-card" data-search="ultand garum • books • cooking">
+      <summary><span>Ultand</span><span class="tags">garum • books • cooking</span></summary>
+      <div class="gift-body">
+        <div><strong>Good categories / profile clues:</strong> garum • books • cooking</div>
+        <div class="specific"><strong>Specific named gifts:</strong> <span class='muted'>No specific named item I could verify confidently.</span></div>
+      </div>
+    </details>
+    
+
+    <details class="gift-card" data-search="ursula coffee • board games • books • paintings • flowers">
+      <summary><span>Ursula</span><span class="tags">coffee • board games • books • paintings • flowers</span></summary>
+      <div class="gift-body">
+        <div><strong>Good categories / profile clues:</strong> coffee • board games • books • paintings • flowers</div>
+        <div class="specific"><strong>Specific named gifts:</strong> <span class='muted'>No specific named item I could verify confidently.</span></div>
+      </div>
+    </details>
+    
+
+    <details class="gift-card" data-search="yang jie fermented drinks • books ghosh shosh">
+      <summary><span>Yang Jie</span><span class="tags">fermented drinks • books</span></summary>
+      <div class="gift-body">
+        <div><strong>Good categories / profile clues:</strong> fermented drinks • books</div>
+        <div class="specific"><strong>Specific named gifts:</strong> <span class='item'>Ghosh</span>, <span class='item'>Shosh</span></div>
+      </div>
+    </details>
+    
+
+    <details class="gift-card" data-search="zarcone vegetables">
+      <summary><span>Zarcone</span><span class="tags">vegetables</span></summary>
+      <div class="gift-body">
+        <div><strong>Good categories / profile clues:</strong> vegetables</div>
+        <div class="specific"><strong>Specific named gifts:</strong> <span class='muted'>No specific named item I could verify confidently.</span></div>
+      </div>
+    </details>
+    
+    </div>
+
+    <details class="nested">
+      <summary>Community-tested notes (WIP as of Sep. 25, 2026)</summary>
+      <div class="section-content">
+        <ul>
+          <li><strong>Portrait of Yu Phas</strong> and <strong>Tales of Adventure</strong> are reported as unusually broadly liked high-rarity gifts.</li>
+          <li>Paintings seem to land well with many characters even when “art” is not an obvious profile category.</li>
+          <li>Gift Crates can be an efficient source of rare gifts, but contents are random.</li>
+          <li>Specific community additions included Mikaela → <strong>Training Weights</strong>, Seteth → <strong>Fishing Rod / Barbed Fishhook</strong>, Benditz → <strong>Decorative War Medal</strong>, and Jester → coffee gifts.</li>
+        </ul>
+        <div class="small">These community findings are newer and less fully verified than the base category list, so I kept them visibly separate.</div>
+      </div>
+    </details>
+  </div>
+</section>
+
+<section class="tab-panel" id="cycles" role="tabpanel" aria-labelledby="tab-cycles" hidden>
+  <h2 class="panel-title">Cycle checklists — Leda &amp; Cai missables</h2>
+  <div class="section-content">
+    <div class="callout"><strong>No battle/story walkthroughs here.</strong> Dates and windows follow RPG Site’s Part I Leda and Cai walkthroughs. Generic subquests vary by which path you already cleared; route-specific Perform/Kindness quests, paralogues, and optional pulses still need attention.</div>
+    <div class="route-toolbar">
+      <button type="button" id="openLedaOnly">Leda only</button>
+      <button type="button" id="openCaiOnly">Cai only</button>
+      <button type="button" id="openBothRoutes">Both open</button>
+      <button type="button" id="resetChecks">Reset cycle checkboxes</button>
+    </div>
+
+    <details class="nested route-block persist-open" id="route-leda" data-persist-open="route-leda">
+      <summary>Leda’s path</summary>
+      <div class="section-content">
+        <p class="small">Eagle Obelisk. Perform Quests are unique to Leda (gold + Renown; some unlock map locations). She cannot farm or use battalions. Track optional pulses at the Obelisk Chamber pedestal.</p>
+
+        <details class="nested cycle persist-open" data-persist-open="leda-ft0">
+          <summary>Opening / before Free Time 1 <span class="date">Before 3/21</span></summary>
+          <div class="checklist">
+            <label class="checkrow"><input type="checkbox" class="persist" id="leda-0-0"><span><strong>Perform quests:</strong> Dance at the Tavern (ends 11/27) and Dance for Yaaman (ends 5/28). The game forces the Yaaman trip; it also opens a Search tutorial at Choking-Wind Valley.</span></label>
+            <label class="checkrow"><input type="checkbox" class="persist" id="leda-0-1"><span><strong>Recruit seed:</strong> the route tutorial points at Catania (low gate). Gift her once so Inn meals unlock.</span></label>
+          </div>
+        </details>
+
+        <details class="nested cycle persist-open" data-persist-open="leda-ft1">
+          <summary>Free Time 1 <span class="date">3/21–4/4</span></summary>
+          <div class="section-content small">Arena Training is still locked; it opens in Chapter 5. Weekly chores in Dagsion do not cost Turns.</div>
+          <div class="checklist">
+            <label class="checkrow"><input type="checkbox" class="persist" id="leda-1-0"><span><strong>Optional scene:</strong> shopping area — Mikaela.</span></label>
+            <label class="checkrow"><input type="checkbox" class="persist" id="leda-1-1"><span><strong>Optional scene:</strong> shopping area — Talimun. RPG Site notes this may be missing on the very first Turn of this block; catch it on a later Dagsion visit before the chapter ends.</span></label>
+            <label class="checkrow"><input type="checkbox" class="persist" id="leda-1-2"><span><strong>Perform:</strong> Dance for Regia and Dance for Daimon (both end 5/28). Simple Drink Recipes (3 Sweet Leaves from Verdant Hollow after Daimon; needs Renown 3) ends 11/27 and usually cannot turn in until next chapter.</span></label>
+            <label class="checkrow"><input type="checkbox" class="persist" id="leda-1-3"><span><strong>Prep:</strong> Yaamanthemum from Yaaman is used by a later quest. Talk to orange-dot characters.</span></label>
+          </div>
+        </details>
+
+        <details class="nested cycle persist-open" data-persist-open="leda-ft2">
+          <summary>Free Time 2 <span class="date">4/7–5/7</span></summary>
+          <div class="checklist">
+            <label class="checkrow"><input type="checkbox" class="persist" id="leda-2-0"><span><strong>Optional scene:</strong> Kalla’s Shrine — Kalla.</span></label>
+            <label class="checkrow"><input type="checkbox" class="persist" id="leda-2-1"><span><strong>Leda-only quest:</strong> Monster in the Night — evening (18:00+) eastern alleys of Dagsion; Event Clash. Deadline 5/7.</span></label>
+            <label class="checkrow"><input type="checkbox" class="persist" id="leda-2-2"><span><strong>Classes:</strong> Beginner licenses for Buccar, Sirocco, Mu, and Catania if they are on the team.</span></label>
+            <label class="checkrow"><input type="checkbox" class="persist" id="leda-2-3"><span><strong>Perform:</strong> Dance for Callianeira Port and Dance for Aguino (end 6/28). After Simple Drink Recipes, Captains’ Drink Recipes needs Pepper Leaves (Chapter 7) and Renown 6.</span></label>
+          </div>
+        </details>
+
+        <details class="nested cycle persist-open" data-persist-open="leda-ft3">
+          <summary>Free Time 3 <span class="date">5/9–5/28</span></summary>
+          <div class="checklist">
+            <label class="checkrow"><input type="checkbox" class="persist" id="leda-3-0"><span><strong>Unlock:</strong> Blacksmith. First-playthrough bulletin “Ever Employed A Blacksmith?” if it appears.</span></label>
+            <label class="checkrow"><input type="checkbox" class="persist" id="leda-3-1"><span><strong>Optional scene:</strong> Olympia — Temple Row.</span></label>
+            <label class="checkrow"><input type="checkbox" class="persist" id="leda-3-2"><span><strong>Optional scene:</strong> talk to Alexandra in City Streets, then the Lowtown pulse.</span></label>
+            <label class="checkrow"><input type="checkbox" class="persist" id="leda-3-3"><span><strong>Perform:</strong> Dance for Raivo Port and Dance for Zoste (end 9/1).</span></label>
+            <label class="checkrow"><input type="checkbox" class="persist" id="leda-3-4"><span><strong>Deadline:</strong> Dance for Yaaman / Regia / Daimon still end 5/28 if unfinished.</span></label>
+          </div>
+        </details>
+
+        <details class="nested cycle persist-open" data-persist-open="leda-ft4">
+          <summary>Free Time 4 <span class="date">5/29–6/28</span></summary>
+          <div class="checklist">
+            <label class="checkrow"><input type="checkbox" class="persist" id="leda-4-0"><span><strong>Unlocks:</strong> Theater at Renown 7; Thermae at Renown 8.</span></label>
+            <label class="checkrow"><input type="checkbox" class="persist" id="leda-4-1"><span><strong>Leda-only quest:</strong> Learning More about Mehdel — Sirocco in Temple Rows, talk marked people, then Sunlit Garden. Deadline 6/28.</span></label>
+            <label class="checkrow"><input type="checkbox" class="persist" id="leda-4-2"><span><strong>Perform:</strong> Dance for Mons, Alecto, and Barsh Post Town (end 10/15). Popular Drink Recipes (Bitter Leaves, Renown 8) waits until Chapter 10.</span></label>
+            <label class="checkrow"><input type="checkbox" class="persist" id="leda-4-3"><span><strong>Team:</strong> aim for Specialty classes (Renown 4, around Lv 20, skill gates). Next battle allows 7 units.</span></label>
+          </div>
+        </details>
+
+        <details class="nested cycle persist-open" data-persist-open="leda-ft5">
+          <summary>Free Time 5 — short <span class="date">6/30–7/9</span></summary>
+          <div class="checklist">
+            <label class="checkrow"><input type="checkbox" class="persist" id="leda-5-0"><span><strong>Turn safety:</strong> short block. Do weekly Dagsion chores and any quests that expire soon before burning Turns on the map.</span></label>
+          </div>
+        </details>
+
+        <details class="nested cycle persist-open" data-persist-open="leda-ft6">
+          <summary>Free Time 6 — long; September skip <span class="date">7/12–9/1</span></summary>
+          <div class="section-content small">The calendar skips most of September after this block. Finish 9/1 expirations here, and treat 10/15 Perform/quest ends as the next hard line.</div>
+          <div class="checklist">
+            <label class="checkrow"><input type="checkbox" class="persist" id="leda-6-0"><span><strong>Timed optional scene:</strong> 18:00 any day — Sirocco in Temple Row; then follow him toward the Hightown road for the second pulse.</span></label>
+            <label class="checkrow"><input type="checkbox" class="persist" id="leda-6-1"><span><strong>Leda-only quest:</strong> Great Dancer’s Successor — deliver Hingosh at Baina Oasis. Deadline 10/15.</span></label>
+            <label class="checkrow"><input type="checkbox" class="persist" id="leda-6-2"><span><strong>Perform:</strong> Orens, Port of Pandora, Mahon Castle Town, Twalinn, Breston, Whill (all end 11/27).</span></label>
+            <label class="checkrow"><input type="checkbox" class="persist" id="leda-6-3"><span><strong>Licenses:</strong> Dagsion Advanced licenses wait until Chapter 10; Megaira may sell some earlier.</span></label>
+          </div>
+        </details>
+
+        <details class="nested cycle persist-open" data-persist-open="leda-ft7">
+          <summary>Free Time 7 — first paralogue <span class="date">9/28–10/15</span></summary>
+          <div class="checklist">
+            <label class="checkrow"><input type="checkbox" class="persist" id="leda-7-0"><span><strong>Anatolia paralogue (Queen of the Erased):</strong> talk to Anatolia in City Streets 10/5–10/14; deadline 10/17. Do it early in this window, not on the last day.</span></label>
+            <label class="checkrow"><input type="checkbox" class="persist" id="leda-7-1"><span><strong>Leda-only Trial:</strong> level 30 Clash at Kalla’s Main Temple — Kalla’s Bow.</span></label>
+            <label class="checkrow"><input type="checkbox" class="persist" id="leda-7-2"><span><strong>Shop:</strong> Anna’s shop can appear north of Temple Row with rotating stock.</span></label>
+            <label class="checkrow"><input type="checkbox" class="persist" id="leda-7-3"><span><strong>Perform:</strong> Osiris and Niiza Port (end 11/27). Elegant Drink Recipes (Wonder Leaves, Renown 10) unlocks Ranger and Troubadour; Wonder Leaves come in Chapter 11, deadline 11/17.</span></label>
+            <label class="checkrow"><input type="checkbox" class="persist" id="leda-7-4"><span><strong>Deadline:</strong> Mons / Alecto / Barsh / Great Dancer’s Successor still end 10/15.</span></label>
+          </div>
+        </details>
+
+        <details class="nested cycle persist-open" data-persist-open="leda-ft8">
+          <summary>Free Time 8 — paralogue cluster <span class="date">10/16–11/6</span></summary>
+          <div class="section-content small">Be in Dagsion for accept windows. Cai’s paralogue battle is a fixed date. Leda cannot play her own paralogue on this path.</div>
+          <div class="checklist">
+            <label class="checkrow"><input type="checkbox" class="persist" id="leda-8-0"><span><strong>Cai paralogue (Great Escape):</strong> Cai in City Streets 10/16–10/22; battle resolves 10/22 in Dagsion.</span></label>
+            <label class="checkrow"><input type="checkbox" class="persist" id="leda-8-1"><span><strong>Dietrich paralogue (Sealed-Off Past):</strong> Fabio near the Arena 10/16–10/29; deadline 11/1.</span></label>
+            <label class="checkrow"><input type="checkbox" class="persist" id="leda-8-2"><span><strong>Orchel paralogue (Orchel’s Regret):</strong> Lower Temple Row 10/18–10/25; deadline 10/27.</span></label>
+            <label class="checkrow"><input type="checkbox" class="persist" id="leda-8-3"><span><strong>Perform:</strong> Dance for Benetnasch (end 11/27).</span></label>
+          </div>
+        </details>
+
+        <details class="nested cycle persist-open" data-persist-open="leda-ft9">
+          <summary>Free Time 9 — Part I cleanup <span class="date">11/7–11/27</span></summary>
+          <div class="checklist">
+            <label class="checkrow"><input type="checkbox" class="persist" id="leda-9-0"><span><strong>Recruitment:</strong> finish anyone you want to carry forward before ending Part I.</span></label>
+            <label class="checkrow"><input type="checkbox" class="persist" id="leda-9-1"><span><strong>Perform / drinks:</strong> remaining Perform Quests end 11/27; Elegant Drink Recipes ends 11/17 if still open.</span></label>
+            <label class="checkrow"><input type="checkbox" class="persist" id="leda-9-2"><span><strong>Weekly actions:</strong> use the last useful Sunday resets rather than dumping leftover Turns immediately.</span></label>
+          </div>
+        </details>
+      </div>
+    </details>
+
+    <details class="nested route-block persist-open" id="route-cai" data-persist-open="route-cai">
+      <summary>Cai’s path</summary>
+      <div class="section-content">
+        <p class="small">Fox Obelisk. Kindness Quests, Farming, Lure, Stables, and Mentoring are unique to Cai. World-map access is narrower than other Part I paths. Track optional pulses at the Obelisk Chamber pedestal.</p>
+
+        <details class="nested cycle persist-open" data-persist-open="cai-ft0">
+          <summary>Opening / before Free Time 1 <span class="date">Before 2/20</span></summary>
+          <div class="checklist">
+            <label class="checkrow"><input type="checkbox" class="persist" id="cai-0-0"><span><strong>Optional pulse:</strong> on first arrival in Dagsion, Castor/Centurio to the east — see it before the bulletin-board / inn sequence.</span></label>
+            <label class="checkrow"><input type="checkbox" class="persist" id="cai-0-1"><span><strong>Kindness tutorial:</strong> Lost Hair Clip — Niraga Mine; deadline 2/28. Gift Guzran (Mature Ghosh) during the recruitment tutorial if you want him.</span></label>
+          </div>
+        </details>
+
+        <details class="nested cycle persist-open" data-persist-open="cai-ft1">
+          <summary>Free Time 1 — short <span class="date">2/20–2/28</span></summary>
+          <div class="section-content small">Restricted compared with later blocks. Divine Services are not open yet.</div>
+          <div class="checklist">
+            <label class="checkrow"><input type="checkbox" class="persist" id="cai-1-0"><span><strong>Kindness:</strong> Furious Vengeance (Rolling Breeze Hill) and The Fabled Sunset (Magnus Plateau). Both end 2/28; turn them in.</span></label>
+            <label class="checkrow"><input type="checkbox" class="persist" id="cai-1-1"><span><strong>Recruit seed:</strong> Noctula is a low-gate sixth once you have Renown 4 (that is usually the next block).</span></label>
+          </div>
+        </details>
+
+        <details class="nested cycle persist-open" data-persist-open="cai-ft2">
+          <summary>Free Time 2 — short <span class="date">3/1–3/7</span></summary>
+          <div class="checklist">
+            <label class="checkrow"><input type="checkbox" class="persist" id="cai-2-0"><span><strong>Optional scene:</strong> Bertrand in the jail, before other chores. Sword EXP.</span></label>
+            <label class="checkrow"><input type="checkbox" class="persist" id="cai-2-1"><span><strong>Kindness:</strong> The Missing Granddaughter ends 3/7 (same city). Cleaning an Abandoned House (Forsaken Lakehouse) ends 4/10.</span></label>
+            <label class="checkrow"><input type="checkbox" class="persist" id="cai-2-2"><span><strong>Tutorials this chapter:</strong> Vandahl trade, world-map Search, Mentoring (Centurio — Archer’s Ring).</span></label>
+          </div>
+        </details>
+
+        <details class="nested cycle persist-open" data-persist-open="cai-ft3">
+          <summary>Free Time 3 <span class="date">3/15–4/10</span></summary>
+          <div class="checklist">
+            <label class="checkrow"><input type="checkbox" class="persist" id="cai-3-0"><span><strong>Unlock:</strong> Divine Services (weekly, no Turn cost). First-playthrough “Find Fellowship at the Temples” if it appears.</span></label>
+            <label class="checkrow"><input type="checkbox" class="persist" id="cai-3-1"><span><strong>Kindness:</strong> Hidden Memories (Collapsed Fort, Jurah Carving) ends 7/9. Request to Capture Orniuses (2 Wild Ornius; fish bait east of Dagsion) ends 9/1. A Peculiar Message (two broom women) ends 5/20.</span></label>
+            <label class="checkrow"><input type="checkbox" class="persist" id="cai-3-2"><span><strong>Mentoring:</strong> Castor Terrain Tips — Bolt Gem. At Renown 4, Aurora Staying Healthy — Healing Staff; consider recruiting Noctula.</span></label>
+            <label class="checkrow"><input type="checkbox" class="persist" id="cai-3-3"><span><strong>Prep:</strong> next chapter wants 20 Linaria and 30 Coffee Berries / Zang / Pongo; Farming starts then.</span></label>
+            <label class="checkrow"><input type="checkbox" class="persist" id="cai-3-4"><span><strong>Deadline:</strong> Cleaning an Abandoned House still ends 4/10.</span></label>
+          </div>
+        </details>
+
+        <details class="nested cycle persist-open" data-persist-open="cai-ft4">
+          <summary>Free Time 4 <span class="date">4/20–5/20</span></summary>
+          <div class="checklist">
+            <label class="checkrow"><input type="checkbox" class="persist" id="cai-4-0"><span><strong>Story:</strong> Ultand joins automatically. Farming unlocks (Cai-only). Vegetables for Saramis Guests (30 Coffee Berries, Zang, or Pongo) ends 11/27.</span></label>
+            <label class="checkrow"><input type="checkbox" class="persist" id="cai-4-1"><span><strong>Unlock:</strong> Blacksmith. First-playthrough blacksmith bulletin if it appears.</span></label>
+            <label class="checkrow"><input type="checkbox" class="persist" id="cai-4-2"><span><strong>Kindness:</strong> Lost Temple Cat (fountain) ends 5/20. A Bouquet of Eternal Love (20 Linaria) and Helping a Bug Hater (Sandbael Tails, Klytius Plains) end 9/1.</span></label>
+            <label class="checkrow"><input type="checkbox" class="persist" id="cai-4-3"><span><strong>Mentoring:</strong> Renown 5 Bertrand Know Your Enemy — Halberd. Renown 6 Centurio Against Large Foes — Levin Sword.</span></label>
+            <label class="checkrow"><input type="checkbox" class="persist" id="cai-4-4"><span><strong>Optional scene:</strong> before the Ahm Lu story marker, mural pulse (Tialla points the way).</span></label>
+          </div>
+        </details>
+
+        <details class="nested cycle persist-open" data-persist-open="cai-ft5">
+          <summary>Free Time 5 <span class="date">6/9–7/9</span></summary>
+          <div class="checklist">
+            <label class="checkrow"><input type="checkbox" class="persist" id="cai-5-0"><span><strong>Unlocks:</strong> Theater at Renown 7; Thermae at Renown 8.</span></label>
+            <label class="checkrow"><input type="checkbox" class="persist" id="cai-5-1"><span><strong>Kindness:</strong> Trouble at the Gate (Hugo Stronghold passable) and The Artisans of Megaira (Custom Axle — carriages) end 11/27; do Artisans early. Help My Feelings Take Wing (talk to Alexandra) ends 7/9. Fish Are Gross (Grady Goby, Fina Reef) ends 10/23.</span></label>
+            <label class="checkrow"><input type="checkbox" class="persist" id="cai-5-2"><span><strong>Mentoring:</strong> Renown 7 Castor Special Request from Pop — 2 Angelica (Starbirth Garden / Messalina Orchards) unlocks Caladrius; ends 11/27.</span></label>
+            <label class="checkrow"><input type="checkbox" class="persist" id="cai-5-3"><span><strong>Prep:</strong> next block wants 30 combined Melara / Shaktoh / Usamos. Hidden Memories still ends 7/9.</span></label>
+          </div>
+        </details>
+
+        <details class="nested cycle persist-open" data-persist-open="cai-ft6">
+          <summary>Free Time 6 <span class="date">7/20–9/1</span></summary>
+          <div class="checklist">
+            <label class="checkrow"><input type="checkbox" class="persist" id="cai-6-0"><span><strong>Kindness:</strong> Bringing Peace, Vegetables for Arago Guests (30 Melara/Shaktoh/Usamos), and Beasts Blocking the Path Home (Libertas Stronghold / Idyia) all end 11/27. Open Idyia when convenient.</span></label>
+            <label class="checkrow"><input type="checkbox" class="persist" id="cai-6-1"><span><strong>Mentoring:</strong> Renown 8 Aurora Special Request from Mom — Fortuna’s Temple; unlocks Dragoon; ends 11/27.</span></label>
+            <label class="checkrow"><input type="checkbox" class="persist" id="cai-6-2"><span><strong>Prep:</strong> later 30 combined Cocominj / Oda Monja / Jin Ba Jiao, and a Wild Pegasus lure. Advanced licenses can be bought in Megaira (one per chapter) before Dagsion sells them.</span></label>
+            <label class="checkrow"><input type="checkbox" class="persist" id="cai-6-3"><span><strong>Deadline:</strong> Ornius capture, Linaria bouquet, and Sandbael Tails still end 9/1.</span></label>
+          </div>
+        </details>
+
+        <details class="nested cycle persist-open" data-persist-open="cai-ft7">
+          <summary>Free Time 7 — short <span class="date">9/3–9/11</span></summary>
+          <div class="checklist">
+            <label class="checkrow"><input type="checkbox" class="persist" id="cai-7-0"><span><strong>Note:</strong> Ultand is unavailable this chapter; she returns next.</span></label>
+            <label class="checkrow"><input type="checkbox" class="persist" id="cai-7-1"><span><strong>Kindness:</strong> Missing Master (pier in the port) ends 10/15.</span></label>
+            <label class="checkrow"><input type="checkbox" class="persist" id="cai-7-2"><span><strong>Mentoring:</strong> Renown 10 Bertrand The White-Maned Demon’s Request — Galen Fort Ruins; Advanced License; ends 11/27.</span></label>
+          </div>
+        </details>
+
+        <details class="nested cycle persist-open" data-persist-open="cai-ft8">
+          <summary>Free Time 8 — paralogue-heavy <span class="date">9/15–10/15</span></summary>
+          <div class="section-content small">Cai cannot access Leda’s, Theodora’s, or Anatolia’s paralogues on this path. Be in Dagsion for accept dates; do not auto-advance Turns across a window.</div>
+          <div class="checklist">
+            <label class="checkrow"><input type="checkbox" class="persist" id="cai-8-0"><span><strong>Bertrand paralogue:</strong> Gabriel in Arena Square 9/17–9/25; deadline 9/25.</span></label>
+            <label class="checkrow"><input type="checkbox" class="persist" id="cai-8-1"><span><strong>Talimun paralogue:</strong> near the Port 9/17–9/22 or 10/1–10/10; deadline 10/12.</span></label>
+            <label class="checkrow"><input type="checkbox" class="persist" id="cai-8-2"><span><strong>Anna paralogue:</strong> Dagsion Summit 9/24–10/5; deadline 10/5.</span></label>
+            <label class="checkrow"><input type="checkbox" class="persist" id="cai-8-3"><span><strong>Kindness:</strong> Brawlers of the Plains and Vegetables for the Arena Basement (30 Cocominj/Oda Monja/Jin Ba Jiao) end 11/27. Eternal Prisoner (Lind, prison cell) ends 10/15.</span></label>
+            <label class="checkrow"><input type="checkbox" class="persist" id="cai-8-4"><span><strong>Prep:</strong> catch a Wild Pegasus for next chapter. Missing Master still ends 10/15.</span></label>
+          </div>
+        </details>
+
+        <details class="nested cycle persist-open" data-persist-open="cai-ft9">
+          <summary>Free Time 9 — narrow Orchel window <span class="date">10/16–10/23</span></summary>
+          <div class="checklist">
+            <label class="checkrow"><input type="checkbox" class="persist" id="cai-9-0"><span><strong>Orchel paralogue:</strong> Lower Temple Row 10/18–10/20; deadline 10/21. Narrower than on other routes — be in Dagsion on 10/18.</span></label>
+            <label class="checkrow"><input type="checkbox" class="persist" id="cai-9-1"><span><strong>Kindness:</strong> A Flying Steed (Wild Pegasus) ends 11/27. Fish Are Gross still ends 10/23.</span></label>
+          </div>
+        </details>
+
+        <details class="nested cycle persist-open" data-persist-open="cai-ft10">
+          <summary>Free Time 10 — Part I cleanup <span class="date">11/4–11/27</span></summary>
+          <div class="checklist">
+            <label class="checkrow"><input type="checkbox" class="persist" id="cai-10-0"><span><strong>Kindness:</strong> That Dark Hero (Dietrich near Mars Temple) and The Mystery of Headman’s Rock (necrodragon) end 11/27, along with remaining 11/27 Kindness/Mentoring.</span></label>
+            <label class="checkrow"><input type="checkbox" class="persist" id="cai-10-1"><span><strong>Recruitment:</strong> finish anyone you want to carry forward before ending Part I.</span></label>
+            <label class="checkrow"><input type="checkbox" class="persist" id="cai-10-2"><span><strong>Weekly actions:</strong> use the last useful Sunday resets rather than dumping leftover Turns immediately.</span></label>
+          </div>
+        </details>
+      </div>
+    </details>
+  </div>
+</section>
+<section class="tab-panel" id="buildGuide" role="tabpanel" aria-labelledby="tab-builds" hidden>
+  <h2 class="panel-title">Cai &amp; Leda builds</h2>
+  <div class="section-content">
+        <div class="callout"><strong>What this table is for:</strong> Merge keeps the higher stat. Cai and Leda raise leftovers the Part 3 line will actually use (no White on physical units, no axes on mages). Stat order is <strong>DPS (Str or Mag) → bulk (Def/Res) → Speed/Dex</strong>. Put the highest remaining hole on the <em>earlier</em> join; a Renown 10 recruit is for filling a map slot, not a new growth project. Split classes so each route has a healer, a fast fighter, a wall, and some damage — not two walls and no speed.</div>
+    <p class="small">Typical Part II clear is lv 45–50 for people you actually deploy. Growths are class modifiers while equipped. Specialty ~R4; Advanced ~R8. Fallback if the exam will not happen.</p>
+    <p class="small"><strong>Cai map core:</strong> Noctula (axe/bulk), Mikaela (speed), Ultand (heal + spear), Ninae (brigand damage), Lilian (bow), Alexandra (flyer). <strong>Leda map core:</strong> Olympia (heal), Mu (speed), Loretta (brigand damage), Esmeralda (armor wall), Mikaela (Guardian bulk), Lilian (bow). Sofia is backup staff on both; Esmeralda is skippable on Cai.</p>
+    <table class="combined-plan"><thead><tr><th scope="col">Character<br><small>Intended · DPS → bulk → Spd/Dex</small></th><th scope="col">Cai</th><th scope="col">Leda</th></tr></thead><tbody>
+      <tr><th scope="row">Mu<span class="plan-why">Warrior. Str 39 done · Def 27 / Res 21 OK · next Spd 30. Leda auto / Cai R9.</span></th><td><span class="plan-gate">R9 · S3 · 3 Glirmosa</span><span class="plan-priority">Late flex</span><span class="plan-path"><strong>Gladiator → Pugilist.</strong> Axe A / Brawl A+ already banked.</span><span class="plan-why">Too late for a new weapon. Field the axe/brawl class. Do not start Shaman or Sniper for a handful of levels.</span></td><td><span class="plan-gate">Automatic · early</span><span class="plan-priority ">Core</span><span class="plan-path"><strong>Gladiator → Myrmidon → Shido.</strong> Sword C → B (already B).</span><span class="plan-why">DPS and bulk are already fine, so the early join is spent on Speed. Leda’s starting roster is tanky; she is the speed fighter for that route.</span></td></tr>
+      <tr><th scope="row">Olympia<span class="plan-why">White Bishop. Mag 40 done · Def 25 / Res 37 · Dex 21 Spd 26 last. Leda auto / Cai R8.</span></th><td><span class="plan-gate">R8 · S3 · 3 requests</span><span class="plan-priority">Late flex</span><span class="plan-path"><strong>Diviner → Priest → Bishop.</strong> White A already banked. Not Shaman.</span><span class="plan-why">Shaman’s Defense −10 fights the bulk-before-Speed rule, and Black is not her Part 3 weapon. Extra staff/mage for Cai beside Ultand. Few levels left; stay on White.</span></td><td><span class="plan-gate">Automatic · early</span><span class="plan-priority ">Core</span><span class="plan-path"><strong>Diviner → Priest → Bishop.</strong> White C → B (already A).</span><span class="plan-why">Leda’s healer. Mag is done, so this is ranks + map heals, not a Mag fishing trip. Do not Blacksmith for Strength 18.</span></td></tr>
+      <tr><th scope="row">Noctula<span class="plan-why">Brawl/axe Warrior. Str 39 done · Res 11 is the bulk hole · Spd 29 fine. Cai R4 / Leda R8.</span></th><td><span class="plan-gate">R4 · S1</span><span class="plan-priority ">Core</span><span class="plan-path"><strong>Gladiator → Pugilist → Blacksmith.</strong> Axe already A; Black D is exam tax only.</span><span class="plan-why">Earliest physical recruit, worst Resistance. Blacksmith Defense/Resistance +10 is the bulk patch while she still has most of the route to level. Cai’s axe frontliner.</span></td><td><span class="plan-gate">R8 · S3</span><span class="plan-priority">Late flex</span><span class="plan-path"><strong>Pugilist / Warrior.</strong> Not Archer.</span><span class="plan-why">Resistance is Cai’s job. R8 is too late to open Bow. Field the intended class so Leda is not stacking another armor project.</span></td></tr>
+      <tr><th scope="row">Mikaela<span class="plan-why">Axe Warrior. Str 43 done · Res 13 bulk · Spd 24 Dex 22 last. Cai R5 / Leda R6.</span></th><td><span class="plan-gate">R5 · S3 · 3,000G</span><span class="plan-priority ">Core</span><span class="plan-path"><strong>Gladiator → Myrmidon → Shido.</strong> Sword A already banked.</span><span class="plan-why">Cai already has Noctula as a bulky axe. Shido is the speed melee that roster is missing. Speed is third in the stat list, but the other route still takes Resistance — this split is for a playable Cai team.</span></td><td><span class="plan-gate">R6 · S3 · 3,000G</span><span class="plan-priority ">Core</span><span class="plan-path"><strong>Soldier → Guardian.</strong> Spear B banked. Not Sniper.</span><span class="plan-why">Resistance 13 is the real leftover hole. Guardian Resistance +15, still physical. Leda already has Mu at Speed, so this is the spear wall beside Esmeralda’s armor, not a second Shido and not a bow.</span></td></tr>
+      <tr><th scope="row">Loretta<span class="plan-why">Sword Shido. Str 23 is DPS · Res 18 / Def 24 bulk · Spd 37 done. Leda R5 / Cai R7.</span></th><td><span class="plan-gate">R7 · S3 · 3 Iron Swords</span><span class="plan-priority">Late flex</span><span class="plan-path"><strong>Soldier → Guardian.</strong> Spear already B+.</span><span class="plan-why">Shorter window, so take the class that still grows Strength <em>and</em> Resistance without a new weapon. Cai already has Mikaela at Speed; another Shido is redundant. Gladiator if Spear is not offered.</span></td><td><span class="plan-gate">R5 · S3 · 3 Iron Swords</span><span class="plan-priority ">Core</span><span class="plan-path"><strong>Gladiator → Brigand.</strong> Sword C + Axe C.</span><span class="plan-why">Strength 23 is the first hole, and R5 is the join that can still feed it levels. Brigand Strength +15. Leda’s damage axe beside Mu’s speed and Esmeralda’s wall. Stay Gladiator if Axe C lags.</span></td></tr>
+      <tr><th scope="row">Ninae<span class="plan-why">Physical spear. Str 28 is DPS · Def 26 / Res 27 OK · Spd 30 fine. Ignore Mag 16. Cai R6 / Leda R8.</span></th><td><span class="plan-gate">R6 · S3 · Paradise Fish</span><span class="plan-priority ">Core</span><span class="plan-path"><strong>Gladiator → Brigand.</strong> Axe C (already C+). Not Priest.</span><span class="plan-why">Strength is the only stat that still matters. Brigand Strength +15 on a mid join. Cai’s dedicated damage unit so the roster is not Ultand + Ninae + Loretta all as Guardian. Never White.</span></td><td><span class="plan-gate">R8 · S3 · Paradise Fish</span><span class="plan-priority">Late flex</span><span class="plan-path"><strong>Keep Shido.</strong></span><span class="plan-why">Speed is already banked and R8 will not move Strength much. Field the physical class she has. Do not open a staff line.</span></td></tr>
+      <tr><th scope="row">Ultand<span class="plan-why">Spear + White Guardian. Mag 31 OK · Str 24 / Def 18 both need Guardian. Cai auto / Leda R8.</span></th><td><span class="plan-gate">Automatic · Ch 6</span><span class="plan-priority ">Core</span><span class="plan-path"><strong>Soldier → Guardian.</strong> Spear B; keep a staff in hand.</span><span class="plan-why">Guardian Strength/Defense +10 is DPS and bulk in one exam, and it is her intended line. Cai’s healer-frontliner. Do not stay Bishop — Mag is already 31.</span></td><td><span class="plan-gate">R8 · S3 · request</span><span class="plan-priority">Late flex</span><span class="plan-path"><strong>Skip.</strong> Olympia already heals Leda.</span><span class="plan-why">R8 would duplicate Bishop Mag or start Spear from C with few levels. Cai already patches Str/Def. Do not make Leda a second staff-tank roster.</span></td></tr>
+      <tr><th scope="row">Esmeralda<span class="plan-why">Lance armor. Str 46 / Def 48 done · Res 16 then Spd 14. Leda R6 / Cai R7.</span></th><td><span class="plan-gate">R7 · S3 · request</span><span class="plan-priority ">Optional</span><span class="plan-path"><strong>Skip, or deploy Dreadnought if you need a wall.</strong> No new exam.</span><span class="plan-why">Cai already has Noctula and Ultand in bulk classes. Another armor exam is how you end up with all Dreadnoughts. Spend Turns on Alexandra/Lilian instead.</span></td><td><span class="plan-gate">R6 · S3 · request</span><span class="plan-priority ">Core</span><span class="plan-path"><strong>Deploy Dreadnought.</strong> Optional Soldier → Guardian only if you refuse to field armor.</span><span class="plan-why">Leda’s wall. Strength and Defense are done, so do not Shido — Mu already covers Speed, and Speed is third anyway. Guardian would patch Resistance 16 but would also give Leda two spear tanks with Mikaela; armor keeps the roles distinct. Res 16 is the leftover we are accepting.</span></td></tr>
+      <tr><th scope="row">Sofia<span class="plan-why">White Bishop. Mag 50 / Res 38 / Def 26 / Dex 37 done. Ignore Str 18. Leda R7 / Cai R9.</span></th><td><span class="plan-gate">R9 · S3</span><span class="plan-priority">Late flex</span><span class="plan-path"><strong>Priest / stay Ovate.</strong> Not Brigand, not Archer.</span><span class="plan-why">No real hole left in the mage stats. R9 is backup heals so Ultand can sit on Guardian. Do not spend the scraps on Strength.</span></td><td><span class="plan-gate">R7 · S3</span><span class="plan-priority ">Secondary</span><span class="plan-path"><strong>Priest → Bishop, or stay Ovate.</strong> Skip Blacksmith.</span><span class="plan-why">Second staff behind Olympia. Same rule: she is finished as a mage. Axe growth is wasted.</span></td></tr>
+      <tr><th scope="row">Alexandra<span class="plan-why">Flyer. Str 23 is DPS · Def 25 OK · Spd 33 done. Cai R7 / Leda R10. Joined underleveled.</span></th><td><span class="plan-gate">R7 · S2</span><span class="plan-priority">Secondary</span><span class="plan-path"><strong>Wing Soldier → Brigand.</strong> Sword C + Axe C.</span><span class="plan-why">Strength is still the first hole, and R7 is the only window with enough maps left to matter. Brigand Strength +15. Cai’s flyer-damage slot. Do not count on Warrior.</span></td><td><span class="plan-gate">R10 · S3</span><span class="plan-priority">Late flex</span><span class="plan-path"><strong>Stay Wing Soldier. No new exam.</strong></span><span class="plan-why">Renown 10 will not grow Strength. Keep flying so Leda has a flier at all. Guardian here is a wasted certification.</span></td></tr>
+      <tr><th scope="row">Lilian<span class="plan-why">Bow Sniper. Str 30 OK · Def 22 / Res 20 bulk · Dex 42 Spd 31 done. Leda R7 / Cai R8.</span></th><td><span class="plan-gate">R8 · S2 · 5,000G</span><span class="plan-priority ">Secondary</span><span class="plan-path"><strong>Hunter → Archer → Sniper.</strong> Bow already A+. Not Brigand, not Forest Knight.</span><span class="plan-why">Forest Knight grows Speed/Dex she already has. Stay on the bow line that still gives a little Defense. Cai’s bow slot; shorter window than Leda so do not start Axe.</span></td><td><span class="plan-gate">R7 · S2 · 5,000G</span><span class="plan-priority ">Core</span><span class="plan-path"><strong>Archer → Sniper.</strong> Bow A+.</span><span class="plan-why">Earlier bow join, so more Sniper levels. Intended line. Blacksmith would chase Defense with unused Axe/Black; bulk is second, but not at the cost of leaving the bow identity. Leda’s dedicated sniper.</span></td></tr>
+    </tbody></table>
+    <p class="small">If Blacksmith is not offered for Noctula on Cai, keep Pugilist — that is still an early bulk/speed brawl class, not a reason to park her as a mage. Lilian stays Sniper on both files if Forest Knight was in an older note; ignore it.</p>
+    <p class="small">These are merge plans inside each intended family, with route roles split on purpose. Check the exam screen.</p>
+    <p class="small"><strong>Priority:</strong> early joins do the expensive patches (Noctula Blacksmith, Loretta Brigand, Mikaela’s two exams, Ultand Guardian, Mu Shido). Late joins (Alexandra Leda, Mu Cai, Sofia Cai, Noctula Leda) only play the intended class.</p>
+
+    <details class="nested"><summary>Cross-route class pairings <span class="tags">Cross-route planning · no story spoilers</span></summary><div class="section-content small">
+      <p>When versions of a unit are merged, the higher value of each stat is retained. Raise leftover lows only with classes inside that unit’s intended weapon family; Part 3 returns everyone to that line. These pairings are suggestions based on class growth modifiers, not guaranteed results or established community rankings.</p>
+      <table>
+        <thead><tr><th>Goal</th><th>Train across routes</th><th>Why it fits</th></tr></thead>
+        <tbody>
+          <tr><td>Fast, sturdy physical fighter</td><td>Dreadnought + Shido</td><td>Dreadnought favors Strength and Defense; Shido favors Speed and Dexterity.</td></tr>
+          <tr><td>Fast physical attacker</td><td>Warrior + Shido</td><td>Warrior emphasizes Strength; Shido brings Speed and Dexterity.</td></tr>
+          <tr><td>Hard-hitting, accurate archer</td><td>Sniper + Warrior</td><td>Sniper favors Dexterity and Speed; Warrior adds a stronger Strength growth focus.</td></tr>
+          <tr><td>Durable offensive mage</td><td>Ovate + Dreadnought</td><td>Ovate favors Magic and Resistance; Dreadnought helps build physical Defense.</td></tr>
+          <tr><td>Tank with better magical bulk</td><td>Dreadnought + Bishop</td><td>Bishop's high Resistance growth addresses Dreadnought's weak spot. Its Magic growth can also help a healer build.</td></tr>
+          <tr><td>Faster mounted fighter</td><td>Bardinger + Shido</td><td>Bardinger contributes Strength and Resistance growth; Shido emphasizes Speed.</td></tr>
+        </tbody>
+      </table>
+      <p><strong>If a unit has three routes:</strong> Dreadnought + Shido + Ovate covers Defense and Strength, Speed and Dexterity, and Magic and Resistance. Prioritize the third class only if its magic growth or learned abilities suit that unit.</p>
+      <p>Class growth rates influence level-up chances; they do not guarantee particular numbers. The final class still determines which weapons and spells the unit can use.</p>
+    </div></details>
+<p class="small">The collapsible cards below are leftover generic class notes. Use the combined table above for Cai and Leda.</p>
+<details class="nested"><summary>Starting party <span class="tags">3 characters</span></summary><div class="section-content">
+<details class="nested build-card"><summary>Dietrich <span class="tags">No recruitment rank</span></summary><div class="section-content small"><p><strong>Route class:</strong> Myrmidon → Shido. <strong>Later:</strong> Swordmaster.</p><p><strong>Train:</strong> Sword, then Infantry; Bow only for a later mixed build. <strong>Use:</strong> Sword.</p><p><strong>Useful mastery:</strong> Ever Vigilant (Shido). <strong>Arts:</strong> Prioritize reliable sword crit/finishing arts. Use the Dread Warrior arts you have actually unlocked.</p>
+</div></details>
+<details class="nested build-card"><summary>Esmeralda <span class="tags">No recruitment rank</span></summary><div class="section-content small"><p><strong>Route class:</strong> Armored Knight → Dreadnought. <strong>Later:</strong> Castle Knight.</p><p><strong>Train:</strong> Heavy Armor and her preferred lance. <strong>Use:</strong> Lance.</p><p><strong>Useful mastery:</strong> Focused Counter (Dreadnought). <strong>Arts:</strong> Use a reliable heavy-hit art only when she can safely hold the position afterward.</p>
+</div></details>
+<details class="nested build-card"><summary>Fabio <span class="tags">No recruitment rank</span></summary><div class="section-content small"><p><strong>Route class:</strong> Shaman → Ovate. <strong>Later:</strong> Druid.</p><p><strong>Train:</strong> Black Magic; a little White Magic for backup healing. <strong>Use:</strong> Black Magic.</p><p><strong>Useful mastery:</strong> Bind Speed (Ovate). <strong>Arts:</strong> Spells first; no named weapon art investment required.</p>
+</div></details>
+</div></details>
+<details class="nested"><summary>Automatic additions <span class="tags">2 characters</span></summary><div class="section-content">
+<details class="nested build-card"><summary>Mikaela <span class="tags">No recruitment rank · story interaction</span></summary><div class="section-content small"><p><strong>Route class:</strong> Brigand → Warrior. <strong>Later:</strong> Battle Master.</p><p><strong>Train:</strong> Axe; Brawl as a secondary option. <strong>Use:</strong> Axe.</p><p><strong>Useful mastery:</strong> Practiced Art (Warrior). <strong>Arts:</strong> Accuracy or effective-damage axe arts offset heavier weapons.</p>
+</div></details>
+<details class="nested build-card"><summary>Yokai <span class="tags">No recruitment rank</span></summary><div class="section-content small"><p><strong>Route class:</strong> Priest → Bishop. <strong>Later:</strong> Wiseman.</p><p><strong>Train:</strong> White Magic; keep healing spell access. <strong>Use:</strong> White Magic.</p><p><strong>Useful mastery:</strong> Barrier (Bishop). <strong>Arts:</strong> Healing/support spells take priority over weapon arts.</p>
+</div></details>
+</div></details>
+<details class="nested"><summary>Chapter 4 earliest appearance <span class="tags">27 characters</span></summary><div class="section-content">
+<details class="nested build-card"><summary>Io <span class="tags">Renown 3 · Support 2</span></summary><div class="section-content small"><p><strong>Route class:</strong> Light Cavalry → Bardinger. <strong>Later:</strong> Orichaldia.</p><p><strong>Train:</strong> Riding and Lance. <strong>Use:</strong> Lance.</p><p><strong>Useful mastery:</strong> Aegis (Bardinger). <strong>Arts:</strong> A dependable lance art is enough; exploit mounted positioning.</p>
+</div></details>
+<details class="nested build-card"><summary>Nydine <span class="tags">Renown 5 · Support 2</span></summary><div class="section-content small"><p><strong>Route class:</strong> Brigand → Bardinger. <strong>Later:</strong> High Savant (if unlocked).</p><p><strong>Train:</strong> Riding and Axe; train Black Magic for a hybrid later. <strong>Use:</strong> Axe / Black Magic.</p><p><strong>Useful mastery:</strong> Aegis (Bardinger). <strong>Arts:</strong> Choose mobile axe utility first; magic broadens matchups later.</p>
+<p class="warn"><strong>Build choice:</strong> A generic English table suggested a flying class; character-specific data favors a mounted build because her personal skill triggers while mounted.</p>
+</div></details>
+<details class="nested build-card"><summary>Ultand <span class="tags">Renown 5 · Support 3 · personal request</span></summary><div class="section-content small"><p><strong>Route class:</strong> Priest → Guardian. <strong>Later:</strong> Sentinel.</p><p><strong>Train:</strong> White Magic and Lance. <strong>Use:</strong> Lance / White Magic.</p><p><strong>Useful mastery:</strong> Brace (Guardian). <strong>Arts:</strong> Use a lance finisher while retaining healing spells.</p>
+</div></details>
+<details class="nested build-card"><summary>Goliath <span class="tags">Renown 6 · Support 3</span></summary><div class="section-content small"><p><strong>Route class:</strong> Armored Knight → Dreadnought. <strong>Later:</strong> Castle Knight or Battle Master.</p><p><strong>Train:</strong> Heavy Armor and Axe; train Brawl only if going Battle Master. <strong>Use:</strong> Axe.</p><p><strong>Useful mastery:</strong> Focused Counter (Dreadnought). <strong>Arts:</strong> Heavy accurate axe arts suit counterattacks; choose damage or wall duty.</p>
+<p class="warn"><strong>Build choice:</strong> Damage-focused guides favor Battle Master; Castle Knight is the safer wall option. Keep the heavy-armour mastery either way.</p>
+</div></details>
+<details class="nested build-card"><summary>Jester <span class="tags">Renown 6 · Support 3 · personal request</span></summary><div class="section-content small"><p><strong>Route class:</strong> Rogue → Shido or Ranger. <strong>Later:</strong> Shadow Seeker.</p><p><strong>Train:</strong> Sword and Bow. <strong>Use:</strong> Sword / Bow.</p><p><strong>Useful mastery:</strong> Ever Vigilant (Shido). <strong>Arts:</strong> Pick one reliable sword art and a ranged option.</p>
+</div></details>
+<details class="nested build-card"><summary>Lysander <span class="tags">Renown 6 · Support 3</span></summary><div class="section-content small"><p><strong>Route class:</strong> Light Cavalry → Bardinger. <strong>Later:</strong> Orichaldia.</p><p><strong>Train:</strong> Riding and Lance. <strong>Use:</strong> Lance.</p><p><strong>Useful mastery:</strong> Aegis (Bardinger). <strong>Arts:</strong> Strong first-strike lance art on mounted targets.</p>
+</div></details>
+<details class="nested build-card"><summary>Fianna <span class="tags">Renown 7 · Support 3</span></summary><div class="section-content small"><p><strong>Route class:</strong> Priest → Bishop (healing) or Shaman → Ovate (damage). <strong>Later:</strong> Wiseman or Druid.</p><p><strong>Train:</strong> White Magic for healer; Black Magic for damage. <strong>Use:</strong> White / Black Magic.</p><p><strong>Useful mastery:</strong> Barrier (Bishop) or Bind Speed (Ovate). <strong>Arts:</strong> Her healing economy rewards support spells; attack magic if built for damage.</p>
+<p class="warn"><strong>Build choice:</strong> Sources split between a healer and offensive mage. Choose based on whether she is your main healer.</p>
+</div></details>
+<details class="nested build-card"><summary>Simon <span class="tags">Renown 7 · Support 3</span></summary><div class="section-content small"><p><strong>Route class:</strong> Brigand → Warrior. <strong>Later:</strong> Battle Master.</p><p><strong>Train:</strong> Axe and optional Brawl. <strong>Use:</strong> Axe / Gauntlets.</p><p><strong>Useful mastery:</strong> Practiced Art (Warrior). <strong>Arts:</strong> High-power axe art with accuracy support.</p>
+</div></details>
+<details class="nested build-card"><summary>Ursula <span class="tags">Renown 7 · Support 3 · optional battle prerequisite</span></summary><div class="section-content small"><p><strong>Route class:</strong> Rogue → Ranger. <strong>Later:</strong> Shadow Seeker.</p><p><strong>Train:</strong> Bow and Sword. <strong>Use:</strong> Bow / Sword.</p><p><strong>Useful mastery:</strong> Countershot (Ranger). <strong>Arts:</strong> Use accurate long-range bow arts; retain map utility.</p>
+</div></details>
+<details class="nested build-card"><summary>Zarcone <span class="tags">Renown 7 · Support 3</span></summary><div class="section-content small"><p><strong>Route class:</strong> Brigand → Warrior. <strong>Later:</strong> Battle Master.</p><p><strong>Train:</strong> Axe. <strong>Use:</strong> Axe.</p><p><strong>Useful mastery:</strong> Practiced Art (Warrior). <strong>Arts:</strong> Accuracy compensates for heavy axes.</p>
+</div></details>
+<details class="nested build-card"><summary>Buccar <span class="tags">Renown 8 · Support 3 · optional battle prerequisite</span></summary><div class="section-content small"><p><strong>Route class:</strong> Armored Knight → Dreadnought. <strong>Later:</strong> Castle Knight.</p><p><strong>Train:</strong> Heavy Armor and Axe. <strong>Use:</strong> Axe.</p><p><strong>Useful mastery:</strong> Focused Counter (Dreadnought). <strong>Arts:</strong> Defensive counter or accurate axe art.</p>
+</div></details>
+<details class="nested build-card"><summary>Catania <span class="tags">Renown 8 · Support 1</span></summary><div class="section-content small"><p><strong>Route class:</strong> Myrmidon → Shido. <strong>Later:</strong> Celestial Trooper (flight) or Swordmaster.</p><p><strong>Train:</strong> Sword first; add Flying if pursuing mobility. <strong>Use:</strong> Sword.</p><p><strong>Useful mastery:</strong> Ever Vigilant (Shido). <strong>Arts:</strong> Accurate sword finishers; mobility is the main alternative.</p>
+</div></details>
+<details class="nested build-card"><summary>Dante <span class="tags">Renown 8 · Support 2</span></summary><div class="section-content small"><p><strong>Route class:</strong> Shaman → Ovate. <strong>Later:</strong> Druid; mounted magic if already unlocked.</p><p><strong>Train:</strong> Black Magic; Riding only for mounted option. <strong>Use:</strong> Black Magic.</p><p><strong>Useful mastery:</strong> Bind Speed (Ovate). <strong>Arts:</strong> Offensive spells; prioritize accuracy over a physical art detour.</p>
+<p class="warn"><strong>Build choice:</strong> A mounted magic recommendation relies on a class that may not be available on this route yet.</p>
+</div></details>
+<details class="nested build-card"><summary>Guzran <span class="tags">Renown 8 · Support 3</span></summary><div class="section-content small"><p><strong>Route class:</strong> Myrmidon → Shido. <strong>Later:</strong> Swordmaster; Shadow Seeker for utility.</p><p><strong>Train:</strong> Sword; Bow only for mixed utility. <strong>Use:</strong> Sword.</p><p><strong>Useful mastery:</strong> Ever Vigilant (Shido). <strong>Arts:</strong> Sword arts that reward speed and reliable finishing.</p>
+</div></details>
+<details class="nested build-card"><summary>Lilian <span class="tags">Renown 8 · Support 2</span></summary><div class="section-content small"><p><strong>Route class:</strong> Archer → Sniper. <strong>Later:</strong> Bow Adept.</p><p><strong>Train:</strong> Bow. <strong>Use:</strong> Bow.</p><p><strong>Useful mastery:</strong> Marksmanship (Sniper). <strong>Arts:</strong> Reliable range and effective-damage bow arts.</p>
+</div></details>
+<details class="nested build-card"><summary>Ninae <span class="tags">Renown 8 · Support 3</span></summary><div class="section-content small"><p><strong>Route class:</strong> Priest → Guardian. <strong>Later:</strong> Sentinel.</p><p><strong>Train:</strong> White Magic and Lance. <strong>Use:</strong> Lance / White Magic.</p><p><strong>Useful mastery:</strong> Brace (Guardian). <strong>Arts:</strong> Healing first; lance finishing art only if frontline is safe.</p>
+</div></details>
+<details class="nested build-card"><summary>Peppe <span class="tags">Renown 8 · Support 3 · optional battle prerequisite</span></summary><div class="section-content small"><p><strong>Route class:</strong> Rogue → Ranger or Shido. <strong>Later:</strong> Shadow Seeker.</p><p><strong>Train:</strong> Bow and Sword. <strong>Use:</strong> Bow / Sword.</p><p><strong>Useful mastery:</strong> Countershot (Ranger). <strong>Arts:</strong> Take one dependable ranged art and maintain utility.</p>
+</div></details>
+<details class="nested build-card"><summary>Peter <span class="tags">Renown 8 · Support 3 · personal request</span></summary><div class="section-content small"><p><strong>Route class:</strong> Archer → Sniper. <strong>Later:</strong> Bow Adept.</p><p><strong>Train:</strong> Bow. <strong>Use:</strong> Bow.</p><p><strong>Useful mastery:</strong> Marksmanship (Sniper). <strong>Arts:</strong> Range/accuracy and anti-flier arts suit his bow range bonus.</p>
+</div></details>
+<details class="nested build-card"><summary>Diego <span class="tags">Renown 9 · Support 3 · optional battle prerequisite</span></summary><div class="section-content small"><p><strong>Route class:</strong> Rogue → Sniper. <strong>Later:</strong> Bow Adept; Shadow Seeker for utility.</p><p><strong>Train:</strong> Bow; Sword only if choosing mixed utility. <strong>Use:</strong> Bow.</p><p><strong>Useful mastery:</strong> Marksmanship (Sniper). <strong>Arts:</strong> Reliable bow accuracy/range rather than splitting resources too early.</p>
+</div></details>
+<details class="nested build-card"><summary>Halvin <span class="tags">Renown 9 · Support 3</span></summary><div class="section-content small"><p><strong>Route class:</strong> Archer → Forest Knight. <strong>Later:</strong> Bow Knight.</p><p><strong>Train:</strong> Bow and Riding. <strong>Use:</strong> Bow.</p><p><strong>Useful mastery:</strong> Hunter’s Eye (Forest Knight). <strong>Arts:</strong> Mounted shots and accuracy/effective damage.</p>
+</div></details>
+<details class="nested build-card"><summary>Loretta <span class="tags">Renown 9 · Support 3</span></summary><div class="section-content small"><p><strong>Route class:</strong> Myrmidon → Shido. <strong>Later:</strong> Celestial Trooper (flight) or Swordmaster.</p><p><strong>Train:</strong> Sword; Flying if investing in her mobile option. <strong>Use:</strong> Sword.</p><p><strong>Useful mastery:</strong> Ever Vigilant (Shido). <strong>Arts:</strong> Speed-based sword finisher.</p>
+</div></details>
+<details class="nested build-card"><summary>Ludia <span class="tags">Renown 9 · Support 3 · personal request</span></summary><div class="section-content small"><p><strong>Route class:</strong> Myrmidon → Shido. <strong>Later:</strong> Celestial Trooper (flight) or Swordmaster.</p><p><strong>Train:</strong> Sword, then Flying for the mobile option. <strong>Use:</strong> Sword.</p><p><strong>Useful mastery:</strong> Ever Vigilant (Shido). <strong>Arts:</strong> Fast sword finisher; avoid expensive arts if mobility is the goal.</p>
+</div></details>
+<details class="nested build-card"><summary>Sofia <span class="tags">Renown 9 · Support 3</span></summary><div class="section-content small"><p><strong>Route class:</strong> Priest → Bishop. <strong>Later:</strong> Wiseman.</p><p><strong>Train:</strong> White Magic. <strong>Use:</strong> White Magic.</p><p><strong>Useful mastery:</strong> Barrier (Bishop). <strong>Arts:</strong> Healing/support spells; leverage her healing bonus.</p>
+</div></details>
+<details class="nested build-card"><summary>Tialla <span class="tags">Renown 9 · Support 3 · optional battle prerequisite</span></summary><div class="section-content small"><p><strong>Route class:</strong> Priest → Bishop. <strong>Later:</strong> Wiseman.</p><p><strong>Train:</strong> White Magic. <strong>Use:</strong> White Magic.</p><p><strong>Useful mastery:</strong> Barrier (Bishop). <strong>Arts:</strong> Healing and support spells; no specific weapon art needed.</p>
+</div></details>
+<details class="nested build-card"><summary>Dadao <span class="tags">Renown 10 · Support 3</span></summary><div class="section-content small"><p><strong>Route class:</strong> Armored Knight → Dreadnought. <strong>Later:</strong> Castle Knight.</p><p><strong>Train:</strong> Heavy Armor and Axe. <strong>Use:</strong> Axe.</p><p><strong>Useful mastery:</strong> Focused Counter (Dreadnought). <strong>Arts:</strong> Use a high-hit axe art against a target he can safely counter.</p>
+</div></details>
+<details class="nested build-card"><summary>Nezha <span class="tags">Renown 10 · Support 3</span></summary><div class="section-content small"><p><strong>Route class:</strong> Myrmidon → Shido. <strong>Later:</strong> Swordmaster.</p><p><strong>Train:</strong> Sword and Infantry. <strong>Use:</strong> Sword.</p><p><strong>Useful mastery:</strong> Ever Vigilant (Shido). <strong>Arts:</strong> Fast sword finisher and accurate crit arts.</p>
+</div></details>
+<details class="nested build-card"><summary>Sha Lan <span class="tags">Renown 10 · Support 3 · optional battle prerequisite</span></summary><div class="section-content small"><p><strong>Route class:</strong> Priest → Bishop. <strong>Later:</strong> Wiseman.</p><p><strong>Train:</strong> White Magic. <strong>Use:</strong> White Magic.</p><p><strong>Useful mastery:</strong> Barrier (Bishop). <strong>Arts:</strong> Healing/support spells.</p>
+</div></details>
+</div></details>
+<details class="nested"><summary>Chapter 5 earliest appearance <span class="tags">3 characters</span></summary><div class="section-content">
+<details class="nested build-card"><summary>Olympia <span class="tags">Renown 6 · Support 3 · personal request</span></summary><div class="section-content small"><p><strong>Route class:</strong> Priest → Bishop. <strong>Later:</strong> Wiseman.</p><p><strong>Train:</strong> White Magic. <strong>Use:</strong> White Magic.</p><p><strong>Useful mastery:</strong> Barrier (Bishop). <strong>Arts:</strong> Healing and support spells.</p>
+</div></details>
+<details class="nested build-card"><summary>Benditz <span class="tags">Renown 7 · Support 2 · available from Chapter 5</span></summary><div class="section-content small"><p><strong>Route class:</strong> Light Cavalry → Forest Knight. <strong>Later:</strong> Bow Knight; Charioteer if available.</p><p><strong>Train:</strong> Bow and Riding. <strong>Use:</strong> Bow.</p><p><strong>Useful mastery:</strong> Hunter’s Eye (Forest Knight). <strong>Arts:</strong> Mobile bow range and accuracy arts.</p>
+</div></details>
+<details class="nested build-card"><summary>Sirocco <span class="tags">Renown 9 · Support 3 · personal request</span></summary><div class="section-content small"><p><strong>Route class:</strong> Shaman → Ovate. <strong>Later:</strong> High Savant (if unlocked).</p><p><strong>Train:</strong> Black Magic; train Riding for mounted magic later. <strong>Use:</strong> Black Magic.</p><p><strong>Useful mastery:</strong> Bind Speed (Ovate). <strong>Arts:</strong> Offensive spells first; weapon arts are optional.</p>
+</div></details>
+</div></details>
+<details class="nested"><summary>Chapter 6 earliest appearance <span class="tags">1 characters</span></summary><div class="section-content">
+<details class="nested build-card"><summary>Kiroc <span class="tags">Renown 4 · Support 1 · available from Chapter 6</span></summary><div class="section-content small"><p><strong>Route class:</strong> Rogue → Sniper or Ranger. <strong>Later:</strong> Shadow Seeker.</p><p><strong>Train:</strong> Bow first; add Sword for the Ranger path. <strong>Use:</strong> Bow.</p><p><strong>Useful mastery:</strong> Marksmanship (Sniper). <strong>Arts:</strong> Long-range, accurate, and anti-flier bow arts are the useful picks.</p>
+</div></details>
+</div></details>
+<details class="nested"><summary>Chapter 7 earliest appearance <span class="tags">1 characters</span></summary><div class="section-content">
+<details class="nested build-card"><summary>Alexandra <span class="tags">Renown 8 · Support 3</span></summary><div class="section-content small"><p><strong>Route class:</strong> Myrmidon → Shido. <strong>Later:</strong> Swordmaster; flying alternative.</p><p><strong>Train:</strong> Sword; add Flying only for the alternate route. <strong>Use:</strong> Sword.</p><p><strong>Useful mastery:</strong> Ever Vigilant (Shido). <strong>Arts:</strong> Sword crit/finisher arts; avoid spreading training too thin.</p>
+</div></details>
+</div></details>
+<details class="nested"><summary>Chapter 9 earliest appearance <span class="tags">1 characters</span></summary><div class="section-content">
+<details class="nested build-card"><summary>Inyoni <span class="tags">Renown 8 · Support 3</span></summary><div class="section-content small"><p><strong>Route class:</strong> Archer → Sniper. <strong>Later:</strong> Bow Adept.</p><p><strong>Train:</strong> Bow. <strong>Use:</strong> Bow.</p><p><strong>Useful mastery:</strong> Marksmanship (Sniper). <strong>Arts:</strong> Accurate long-range and effective-damage bow arts.</p>
+</div></details>
+</div></details>
+<details class="nested"><summary>Later route-specific recruitment <span class="tags">1 characters</span></summary><div class="section-content">
+<details class="nested build-card"><summary>Gaitz <span class="tags">Late unlock · Renown 10 · Support 3 · late route-specific conditions</span></summary><div class="section-content small"><p><strong>Route class:</strong> Light Cavalry → Bardinger. <strong>Later:</strong> Orichaldia.</p><p><strong>Train:</strong> Riding and Lance. <strong>Use:</strong> Lance.</p><p><strong>Useful mastery:</strong> Aegis (Bardinger). <strong>Arts:</strong> Prioritize lance arts that secure a mounted first-strike kill.</p>
+<p class="warn"><strong>Build choice:</strong> Route-specific recruit is gated by late progress and additional conditions despite the table listing an early appearance.</p>
+</div></details>
+</div></details>
+<details class="nested"><summary>Other recruits — timing varies / check in game <span class="tags">5 characters</span></summary><div class="section-content">
+<details class="nested build-card"><summary>Noctula <span class="tags">Renown 6 · Support 1</span></summary><div class="section-content small"><p><strong>Route class:</strong> Pugilist → Warrior. <strong>Later:</strong> War Monk or Battle Master.</p><p><strong>Train:</strong> Brawl; Axe or White Magic for chosen later role. <strong>Use:</strong> Gauntlets.</p><p><strong>Useful mastery:</strong> Practiced Art (Warrior). <strong>Arts:</strong> Low-cost gauntlet arts that secure a second hit.</p>
+</div></details>
+<details class="nested build-card"><summary>Mu <span class="tags">Renown 7 · Support 3</span></summary><div class="section-content small"><p><strong>Route class:</strong> Brigand → Warrior. <strong>Later:</strong> Battle Master.</p><p><strong>Train:</strong> Axe; Brawl when useful. <strong>Use:</strong> Axe / Gauntlets.</p><p><strong>Useful mastery:</strong> Practiced Art (Warrior). <strong>Arts:</strong> Reliable axe or gauntlet finisher; favor efficient durability costs.</p>
+</div></details>
+<details class="nested build-card"><summary>Majide <span class="tags">Renown 8 · Support 3</span></summary><div class="section-content small"><p><strong>Route class:</strong> Brigand → Warrior. <strong>Later:</strong> Battle Master.</p><p><strong>Train:</strong> Axe. <strong>Use:</strong> Axe.</p><p><strong>Useful mastery:</strong> Practiced Art (Warrior). <strong>Arts:</strong> Accuracy or high-power axe art.</p>
+</div></details>
+<details class="nested build-card"><summary>Jasmine <span class="tags">Renown 9 · Support 3</span></summary><div class="section-content small"><p><strong>Route class:</strong> Armored Knight → Dreadnought. <strong>Later:</strong> Castle Knight.</p><p><strong>Train:</strong> Heavy Armor and a physical weapon. <strong>Use:</strong> Axe / Lance.</p><p><strong>Useful mastery:</strong> Focused Counter (Dreadnought). <strong>Arts:</strong> Counter and defensive positioning matter more than expensive arts.</p>
+</div></details>
+<details class="nested build-card"><summary>Nuzzuo <span class="tags">Renown 9 · Support 1</span></summary><div class="section-content small"><p><strong>Route class:</strong> Rogue → Sniper or Ranger. <strong>Later:</strong> Shadow Seeker.</p><p><strong>Train:</strong> Bow; Sword for mixed utility. <strong>Use:</strong> Bow.</p><p><strong>Useful mastery:</strong> Marksmanship (Sniper). <strong>Arts:</strong> Accurate ranged arts, with exploration utility as an option.</p>
+</div></details>
+</div></details>
+<p class="small">Availability is from current Dietrich-specific recruitment tables. If an early appearance and a later special requirement conflict, follow the actual in-game recruitment prompt. Later-story-only additions are omitted from this Part I / II sheet.</p>
+  </div>
+</section>
+
+<section class="tab-panel" id="advClasses" role="tabpanel" aria-labelledby="tab-classes" hidden>
+  <h2 class="panel-title">Advanced classes</h2>
+  <div class="section-content">
+    <p class="small">All <strong>17 Advanced</strong> classes, sorted into four groups by what they grow while you stay in them: Speed/Dex, Strength/HP, Defense/Res, then Magic. Nearby rows overlap a bit. The +/− numbers are <strong>extra growth % while in that class</strong>, not stats you get instantly. Exams: Renown 8, around lv 35, Advanced License. Use the tab on the right to hide the skills column. Mastery stays after you leave the class.</p>
+    <div class="adv-shell">
+    <div class="adv-wrap">
+      <table class="adv-table">
+        <thead>
+          <tr>
+            <th>Class</th>
+            <th>Exam</th>
+            <th>HP</th><th>Str</th><th>Mag</th><th>Spd</th><th>Dex</th><th>Def</th><th>Res</th><th>Lck</th><th>Cha</th>
+            <th>On class / mastery / unlock</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="adv-group"><th colspan="12">Speed &amp; Dex<span class="why">These classes add the most Speed and Dexterity — doubling, avoid, and hit. Elephant Rider is Part 3 only.</span></th></tr>
+          <tr>
+            <th scope="row">Dancer<span class="sub">Foot · Sword, Bow · Dance art</span></th>
+            <td>Sword B, Bow B</td>
+            <td class="g pos">+15</td><td class="g pos">+5</td><td class="g z">0</td><td class="g pos">+25</td><td class="g pos">+10</td><td class="g z">0</td><td class="g pos">+5</td><td class="g pos">+10</td><td class="g pos">+20</td>
+            <td><span class="on">Arts +2, Dance (combat art: refresh an ally)</span><span class="mast">Special Dance — Dance also grants the ally Dex/Spd +3 this phase</span><span class="unl">Leda Ch 9: Great Dancer’s Successor. One dancer at a time</span></td>
+          </tr>
+          <tr>
+            <th scope="row">Shido<span class="sub">Foot · Sword, Spear</span></th>
+            <td>Sword B</td>
+            <td class="g pos">+10</td><td class="g pos">+5</td><td class="g z">0</td><td class="g pos">+15</td><td class="g pos">+10</td><td class="g z">0</td><td class="g neg">−5</td><td class="g pos">+5</td><td class="g pos">+5</td>
+            <td><span class="on">Arts +2, Sword Crit +5</span><span class="mast">Ever Vigilant — after a crit kill, restore a little HP</span><span class="unl">Auto</span></td>
+          </tr>
+          <tr>
+            <th scope="row">Ranger<span class="sub">Foot · Bow, Sword</span></th>
+            <td>Bow B, Sword B</td>
+            <td class="g pos">+10</td><td class="g pos">+5</td><td class="g z">0</td><td class="g pos">+15</td><td class="g pos">+15</td><td class="g z">0</td><td class="g pos">+10</td><td class="g pos">+15</td><td class="g z">0</td>
+            <td><span class="on">Arts +2, Locktouch, Advanced Search</span><span class="mast">Countershot — 50% to counter adjacent foes while using a bow</span><span class="unl">Leda: Elegant Drink Recipes (also used for Troubadour)</span></td>
+          </tr>
+          <tr>
+            <th scope="row">Sniper<span class="sub">Foot · Bow</span></th>
+            <td>Bow B</td>
+            <td class="g pos">+10</td><td class="g pos">+5</td><td class="g z">0</td><td class="g pos">+10</td><td class="g pos">+20</td><td class="g pos">+5</td><td class="g pos">+5</td><td class="g pos">+5</td><td class="g pos">+5</td>
+            <td><span class="on">Arts +2, Bow Hit +10</span><span class="mast">Marksmanship — Hit +15 while using a bow</span><span class="unl">Auto</span></td>
+          </tr>
+          <tr>
+            <th scope="row">Forest Knight<span class="sub">Cavalry · Bow, Sword</span></th>
+            <td>Riding D, Bow B</td>
+            <td class="g pos">+10</td><td class="g pos">+5</td><td class="g z">0</td><td class="g pos">+10</td><td class="g pos">+10</td><td class="g pos">+5</td><td class="g pos">+5</td><td class="g pos">+5</td><td class="g pos">+5</td>
+            <td><span class="on">Arts +1, Bow Hit +5, Mount/Dismount</span><span class="mast">Hunter’s Eye — Atk +3 on a bow follow-up</span><span class="unl">Auto</span></td>
+          </tr>
+          <tr>
+            <th scope="row">Elephant Rider<span class="sub">Elephant cavalry · not in Part I/II</span></th>
+            <td>Riding C</td>
+            <td class="g pos">+20</td><td class="g pos">+10</td><td class="g neg">−5</td><td class="g pos">+20</td><td class="g neg">−10</td><td class="g pos">+15</td><td class="g neg">−5</td><td class="g pos">+5</td><td class="g pos">+10</td>
+            <td><span class="on">War-Elephant Boots (half damage taken, cannot avoid), Elephant Tactics (Mount/Dismount, Heavy Charge), Elephant Rider’s Path (growth scales with level)</span><span class="mast">Elephant Vanguard — Hit +10 as Elephant Rider</span><span class="unl">Unlocks at the start of Part 3 · Elephant License. Listed so the Advanced set is complete; skip until then</span></td>
+          </tr>
+          <tr class="adv-group"><th colspan="12">Strength &amp; HP<span class="why">These classes add the most Strength and HP. Physical attackers.</span></th></tr>
+          <tr>
+            <th scope="row">Warrior<span class="sub">Foot · Sword, Axe, Gauntlet</span></th>
+            <td>Sword B, Axe B, Brawl B</td>
+            <td class="g pos">+20</td><td class="g pos">+20</td><td class="g neg">−5</td><td class="g z">0</td><td class="g z">0</td><td class="g pos">+5</td><td class="g neg">−5</td><td class="g z">0</td><td class="g pos">+5</td>
+            <td><span class="on">Arts +2, Axe Hit +5, Brawl Hit +5</span><span class="mast">Practiced Art — Hit +10 when attacking with a combat art</span><span class="unl">Auto</span></td>
+          </tr>
+          <tr>
+            <th scope="row">Cataphract<span class="sub">Cavalry armor · Spear, Axe, Sword</span></th>
+            <td>Armor E+, Riding D, Axe B, Spear B</td>
+            <td class="g pos">+15</td><td class="g pos">+15</td><td class="g neg">−5</td><td class="g neg">−10</td><td class="g z">0</td><td class="g pos">+10</td><td class="g neg">−5</td><td class="g z">0</td><td class="g pos">+5</td>
+            <td><span class="on">Arts +1, Strike-Last Def +3, Mount/Dismount</span><span class="mast">Pavise — 20% to take half physical damage</span><span class="unl">Theodora Ch 9: Send supplies Landon Loach + Steel Fish</span></td>
+          </tr>
+          <tr class="adv-group"><th colspan="12">Defense &amp; Resistance<span class="why">These classes add the most Def, Res, or mixed bulk. Tanks and hybrids.</span></th></tr>
+          <tr>
+            <th scope="row">Dreadnought<span class="sub">Armor · Spear, Axe</span></th>
+            <td>Armor D, Axe B, Spear B</td>
+            <td class="g pos">+15</td><td class="g pos">+15</td><td class="g neg">−5</td><td class="g neg">−10</td><td class="g pos">+5</td><td class="g pos">+30</td><td class="g neg">−10</td><td class="g z">0</td><td class="g pos">+5</td>
+            <td><span class="on">Arts +2, Strike-Last Def +5 (Prt +5 if foe attacks first)</span><span class="mast">Focused Counter — Hit +10 if foe attacks first</span><span class="unl">Auto</span></td>
+          </tr>
+          <tr>
+            <th scope="row">Guardian<span class="sub">Foot · Spear; White if already learned</span></th>
+            <td>Spear B</td>
+            <td class="g pos">+10</td><td class="g pos">+10</td><td class="g z">0</td><td class="g z">0</td><td class="g pos">+5</td><td class="g pos">+10</td><td class="g pos">+15</td><td class="g pos">+5</td><td class="g pos">+5</td>
+            <td><span class="on">Arts +2, Magic Heal +10 (heals only if White is trained)</span><span class="mast">Brace — after a kill, Prt +3 until next phase</span><span class="unl">Dietrich: Il-Lara headhunt · Theodora Ch 9: Send supplies Roca + Kothar Gar</span></td>
+          </tr>
+          <tr>
+            <th scope="row">Bardinger<span class="sub">Cavalry · Sword, Spear, Axe</span></th>
+            <td>Riding C, Sword B, Spear B</td>
+            <td class="g pos">+10</td><td class="g pos">+10</td><td class="g neg">−5</td><td class="g z">0</td><td class="g z">0</td><td class="g pos">+5</td><td class="g pos">+10</td><td class="g pos">+5</td><td class="g pos">+10</td>
+            <td><span class="on">Arts +2, Mount/Dismount</span><span class="mast">Aegis — 20% to take half damage from magic</span><span class="unl">Auto</span></td>
+          </tr>
+          <tr>
+            <th scope="row">Dragoon<span class="sub">Flying · Spear, Axe, Sword</span></th>
+            <td>Flying C, Axe B, Spear B</td>
+            <td class="g pos">+15</td><td class="g pos">+5</td><td class="g z">0</td><td class="g z">0</td><td class="g pos">+5</td><td class="g pos">+10</td><td class="g pos">+10</td><td class="g pos">+10</td><td class="g pos">+5</td>
+            <td><span class="on">Arts +1, Mount/Dismount</span><span class="mast">Besieger — Hit +20 if foe is on favorable terrain</span><span class="unl">Cai: Aurora mentoring · Theodora Ch 11: Send supplies Lir Fish + Sea-Star Stone</span></td>
+          </tr>
+          <tr>
+            <th scope="row">Blacksmith<span class="sub">Foot · Axe, Black</span></th>
+            <td>Axe C, Black D</td>
+            <td class="g pos">+15</td><td class="g pos">+10</td><td class="g pos">+10</td><td class="g z">0</td><td class="g pos">+5</td><td class="g pos">+10</td><td class="g pos">+10</td><td class="g z">0</td><td class="g pos">+5</td>
+            <td><span class="on">Black-Magic Seeker, Axe Hit +5</span><span class="mast">Makeshift — 10% to pay 0 durability on a combat art</span><span class="unl">Dietrich: Smyrnos to lv 1 + R8. Reported extra: upgrade 10 combat arts at Smyrnos</span></td>
+          </tr>
+          <tr class="adv-group"><th colspan="12">Magic<span class="why">These classes add the most Magic (and Res/Luck on the healer line). Mages and staff users.</span></th></tr>
+          <tr>
+            <th scope="row">Caladrius<span class="sub">Cavalry · Black; also Sword, Spear, Axe</span></th>
+            <td>Riding D, Black B</td>
+            <td class="g pos">+15</td><td class="g z">0</td><td class="g pos">+10</td><td class="g pos">+5</td><td class="g pos">+10</td><td class="g pos">+10</td><td class="g pos">+10</td><td class="g pos">+5</td><td class="g pos">+5</td>
+            <td><span class="on">Black-Magic Seeker, Arts +1, Mount/Dismount</span><span class="mast">Overtake — after a kill, Mov +1 through next turn (max +3)</span><span class="unl">Cai: Castor mentoring</span></td>
+          </tr>
+          <tr>
+            <th scope="row">Ovate<span class="sub">Foot · Black; also Sword, Gauntlet, White</span></th>
+            <td>Black B</td>
+            <td class="g pos">+10</td><td class="g neg">−5</td><td class="g pos">+20</td><td class="g pos">+5</td><td class="g pos">+15</td><td class="g neg">−10</td><td class="g pos">+15</td><td class="g pos">+10</td><td class="g z">0</td>
+            <td><span class="on">Black-Magic Seeker (×2 uses), Magic Hit +5</span><span class="mast">Bind Speed — Spd −3 on adjacent foes</span><span class="unl">Auto</span></td>
+          </tr>
+          <tr>
+            <th scope="row">Bishop<span class="sub">Foot · White; also Axe, Gauntlet, Black</span></th>
+            <td>White B</td>
+            <td class="g pos">+10</td><td class="g neg">−5</td><td class="g pos">+15</td><td class="g z">0</td><td class="g z">0</td><td class="g neg">−10</td><td class="g pos">+20</td><td class="g pos">+20</td><td class="g pos">+10</td>
+            <td><span class="on">White-Magic Seeker (×2 uses), Magic Heal +10</span><span class="mast">Barrier — Res +3 to adjacent allies</span><span class="unl">Auto</span></td>
+          </tr>
+          <tr>
+            <th scope="row">Troubadour<span class="sub">Cavalry · White, Black</span></th>
+            <td>Riding D, White B, Black B</td>
+            <td class="g pos">+10</td><td class="g z">0</td><td class="g pos">+15</td><td class="g pos">+5</td><td class="g z">0</td><td class="g pos">+5</td><td class="g pos">+15</td><td class="g pos">+15</td><td class="g pos">+10</td>
+            <td><span class="on">Magic Hit +3, Magic Heal +5, Mount/Dismount</span><span class="mast">Song of Courage — Dex/Spd +3 to allies in range until next phase</span><span class="unl">Cai: Bertrand mentoring · Leda: Elegant Drink Recipes</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <button type="button" id="advSkillsToggle" class="adv-skills-toggle" aria-controls="advClasses" aria-expanded="true">Hide skills</button>
+    </div>
+    <p class="small">Seeker multiplies spell uses. Strike-Last Def / Prt is protection when the foe initiates. Dancer’s Dance is the refresh combat art; Special Dance is the mastery add-on. Warrior’s exam lists Sword, Axe, and Brawl all at B. Bardinger exam uses Sword B + Spear B + Riding C (some lists show Spear C — trust the in-game panel). Blacksmith unlock extras are easy to miss; confirm on Dietrich before training Black D on another route.</p>
+  </div>
+</section>
+
+<section class="tab-panel" id="statLog" role="tabpanel" aria-labelledby="tab-stats" hidden>
+  <h2 class="panel-title">Banked stats — Theodora × Dietrich</h2>
+  <div class="section-content">
+    <div class="callout">Each number is the <strong>higher</strong> value from your Theodora and Dietrich War Arc clear data. Route-by-route snapshots stay on the Original stats tab. Units who only appear on one of those two routes keep that route’s values.</div>
+    <p class="small">Class shows both finals when they differ. Rating is the sum of Str, Mag, Spd, Dex, Def, Res, Lck, and Cha after the merge. Skill ranks take the higher rank of the two routes. This table is derived from Original stats and is not edited here.</p>
+    <div class="stat-actions"><button type="button" id="exportStats">Export CSV</button></div>
+    <div class="stat-scroll" id="mergedStatTable"></div>
+    <details class="nested persist-open" open data-persist-open="merged-skills">
+      <summary>Merged skill ranks</summary>
+      <div class="section-content">
+        <div class="stat-scroll" id="mergedSkillTable"></div>
+        <p class="small">Black and White are magic; Armor is Heavy Armor. Rank order: E, E+, D, D+, C, C+, B, B+, A, A+, S.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<section class="tab-panel" id="originalStats" role="tabpanel" aria-labelledby="tab-original" hidden>
+  <h2 class="panel-title">Original clear-data stats</h2>
+  <div class="section-content">
+    <p class="small">War Arc snapshots from your Obelisk Chamber photos. These tables are built into the sheet and cannot be edited by the Stats tab. Dietrich’s block uses the 14 character screens in Original Reference; units without a photo are omitted.</p>
+
+    <details class="nested persist-open" open data-persist-open="orig-theodora">
+      <summary>Theodora Route</summary>
+      <div class="section-content">
+        <details class="nested persist-open" open data-persist-open="orig-theodora-stats">
+          <summary>Theodora Route - Stats</summary>
+          <div class="section-content">
+            <div class="stat-scroll">
+              <table class="stat-table stat-table-reference">
+                <thead><tr><th>Character</th><th>Final class</th><th>Lv</th><th>HP</th><th>Mov</th><th>Str</th><th>Mag</th><th>Spd</th><th>Dex</th><th>Def</th><th>Res</th><th>Lck</th><th>Cha</th><th>Rating</th></tr></thead>
+                <tbody>
+                  <tr><td>Mu</td><td>Warrior</td><td>49</td><td>53</td><td>5</td><td>39</td><td>10</td><td>30</td><td>31</td><td>27</td><td>17</td><td>15</td><td>23</td><td>192</td></tr>
+                  <tr><td>Noctula</td><td>Warrior</td><td>49</td><td>62</td><td>5</td><td>39</td><td>9</td><td>29</td><td>27</td><td>30</td><td>10</td><td>27</td><td>20</td><td>191</td></tr>
+                  <tr><td>Sofia</td><td>Ovate</td><td>52</td><td>46</td><td>5</td><td>17</td><td>50</td><td>30</td><td>37</td><td>12</td><td>38</td><td>32</td><td>27</td><td>243</td></tr>
+                  <tr><td>Dante</td><td>Ovate</td><td>49</td><td>42</td><td>5</td><td>17</td><td>40</td><td>32</td><td>29</td><td>10</td><td>31</td><td>25</td><td>19</td><td>203</td></tr>
+                  <tr><td>Alexandra</td><td>Wing Soldier</td><td>36</td><td>34</td><td>6</td><td>16</td><td>15</td><td>33</td><td>24</td><td>14</td><td>23</td><td>26</td><td>28</td><td>179</td></tr>
+                  <tr><td>Ursula</td><td>Sniper</td><td>46</td><td>45</td><td>5</td><td>20</td><td>18</td><td>36</td><td>39</td><td>20</td><td>17</td><td>22</td><td>26</td><td>198</td></tr>
+                  <tr><td>Olympia</td><td>Bishop</td><td>51</td><td>41</td><td>5</td><td>18</td><td>40</td><td>26</td><td>21</td><td>14</td><td>37</td><td>33</td><td>32</td><td>221</td></tr>
+                  <tr><td>Inyoni</td><td>Sniper</td><td>44</td><td>42</td><td>5</td><td>31</td><td>15</td><td>27</td><td>28</td><td>21</td><td>16</td><td>22</td><td>14</td><td>174</td></tr>
+                  <tr><td>Ninae</td><td>Cataphract</td><td>39</td><td>53</td><td>5</td><td>26</td><td>16</td><td>15</td><td>22</td><td>26</td><td>20</td><td>22</td><td>21</td><td>168</td></tr>
+                  <tr><td>Loretta</td><td>Shido</td><td>43</td><td>40</td><td>5</td><td>23</td><td>20</td><td>37</td><td>31</td><td>17</td><td>18</td><td>20</td><td>19</td><td>185</td></tr>
+                  <tr><td>Lilian</td><td>Sniper</td><td>47</td><td>44</td><td>5</td><td>30</td><td>21</td><td>31</td><td>42</td><td>16</td><td>20</td><td>31</td><td>12</td><td>203</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </details>
+        <details class="nested persist-open" data-persist-open="orig-theodora-skills">
+          <summary>Theodora Route - Skill Ranks</summary>
+          <div class="section-content">
+            <div class="stat-scroll">
+              <table class="stat-table stat-table-reference">
+                <thead><tr><th>Character</th><th>Sword</th><th>Spear</th><th>Axe</th><th>Bow</th><th>Brawl</th><th>Black</th><th>White</th><th>Infantry</th><th>Authority</th><th>Armor</th><th>Cavalry</th><th>Flying</th></tr></thead>
+                <tbody>
+                  <tr><td>Mu</td><td>B</td><td>D+</td><td>B</td><td>E</td><td>A+</td><td>E</td><td>C+</td><td>E</td><td>C</td><td>D+</td><td>C</td><td>E</td></tr>
+                  <tr><td>Noctula</td><td>B</td><td>C+</td><td>A</td><td>E</td><td>S</td><td>E</td><td>E</td><td>E+</td><td>B</td><td>C</td><td>B</td><td>E+</td></tr>
+                  <tr><td>Sofia</td><td>D</td><td>D</td><td>E</td><td>E+</td><td>D</td><td>A</td><td>A+</td><td>D</td><td>B+</td><td>E</td><td>C</td><td>D</td></tr>
+                  <tr><td>Dante</td><td>D</td><td>E</td><td>E</td><td>E</td><td>E</td><td>A</td><td>A</td><td>E</td><td>B</td><td>E</td><td>D+</td><td>E</td></tr>
+                  <tr><td>Alexandra</td><td>C</td><td>C</td><td>D</td><td>E</td><td>E</td><td>E</td><td>E</td><td>E+</td><td>D+</td><td>E</td><td>E</td><td>C+</td></tr>
+                  <tr><td>Ursula</td><td>B</td><td>E</td><td>E</td><td>B+</td><td>E</td><td>E</td><td>E</td><td>E</td><td>D+</td><td>E</td><td>C</td><td>E</td></tr>
+                  <tr><td>Olympia</td><td>E</td><td>E</td><td>E</td><td>E</td><td>D+</td><td>D+</td><td>A</td><td>E</td><td>C</td><td>E</td><td>C</td><td>E</td></tr>
+                  <tr><td>Inyoni</td><td>D</td><td>E</td><td>E</td><td>B+</td><td>E</td><td>E</td><td>E</td><td>E</td><td>D+</td><td>E</td><td>D+</td><td>E</td></tr>
+                  <tr><td>Ninae</td><td>C</td><td>A+</td><td>C+</td><td>E</td><td>E</td><td>E</td><td>C+</td><td>B+</td><td>B</td><td>C+</td><td>D</td><td>C</td></tr>
+                  <tr><td>Loretta</td><td>B+</td><td>B+</td><td>D+</td><td>C+</td><td>D</td><td>E</td><td>E</td><td>C</td><td>C</td><td>D</td><td>B</td><td>B</td></tr>
+                  <tr><td>Lilian</td><td>B</td><td>B</td><td>D+</td><td>A+</td><td>D</td><td>E</td><td>E</td><td>C+</td><td>B+</td><td>D</td><td>A+</td><td>C+</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="small">Black and White are magic; Armor is Heavy Armor. Ranks are copied from the 12 skill icons on each clear-data screen.</p>
+          </div>
+        </details>
+      </div>
+    </details>
+
+    <details class="nested persist-open" open data-persist-open="orig-dietrich">
+      <summary>Dietrich Route</summary>
+      <div class="section-content">
+        <details class="nested persist-open" open data-persist-open="orig-dietrich-stats">
+          <summary>Dietrich Route - Stats</summary>
+          <div class="section-content">
+            <div class="stat-scroll">
+              <table class="stat-table stat-table-reference">
+                <thead><tr><th>Character</th><th>Final class</th><th>Lv</th><th>HP</th><th>Mov</th><th>Str</th><th>Mag</th><th>Spd</th><th>Dex</th><th>Def</th><th>Res</th><th>Lck</th><th>Cha</th><th>Rating</th></tr></thead>
+                <tbody>
+                  <tr><td>Esmeralda</td><td>Dreadnought</td><td>50</td><td>68</td><td>4</td><td>46</td><td>12</td><td>14</td><td>21</td><td>48</td><td>16</td><td>22</td><td>24</td><td>203</td></tr>
+                  <tr><td>Ultand</td><td>Bishop</td><td>49</td><td>49</td><td>5</td><td>24</td><td>31</td><td>25</td><td>28</td><td>18</td><td>42</td><td>40</td><td>37</td><td>245</td></tr>
+                  <tr><td>Mu</td><td>Blacksmith</td><td>44</td><td>51</td><td>5</td><td>30</td><td>14</td><td>27</td><td>32</td><td>27</td><td>21</td><td>15</td><td>24</td><td>190</td></tr>
+                  <tr><td>Mikaela</td><td>Warrior</td><td>47</td><td>60</td><td>5</td><td>43</td><td>18</td><td>24</td><td>22</td><td>24</td><td>13</td><td>22</td><td>28</td><td>194</td></tr>
+                  <tr><td>Ninae</td><td>Shido</td><td>46</td><td>57</td><td>5</td><td>28</td><td>16</td><td>30</td><td>31</td><td>21</td><td>27</td><td>25</td><td>21</td><td>199</td></tr>
+                  <tr><td>Catania</td><td>Dreadnought</td><td>42</td><td>47</td><td>4</td><td>26</td><td>20</td><td>23</td><td>30</td><td>30</td><td>16</td><td>21</td><td>27</td><td>193</td></tr>
+                  <tr><td>Olympia</td><td>Dreadnought</td><td>39</td><td>41</td><td>4</td><td>18</td><td>28</td><td>13</td><td>16</td><td>25</td><td>19</td><td>23</td><td>23</td><td>165</td></tr>
+                  <tr><td>Loretta</td><td>Dreadnought</td><td>40</td><td>43</td><td>4</td><td>21</td><td>18</td><td>22</td><td>22</td><td>24</td><td>18</td><td>16</td><td>15</td><td>156</td></tr>
+                  <tr><td>Sofia</td><td>Dreadnought</td><td>41</td><td>42</td><td>4</td><td>18</td><td>32</td><td>9</td><td>23</td><td>26</td><td>21</td><td>17</td><td>22</td><td>168</td></tr>
+                  <tr><td>Alexandra</td><td>Dreadnought</td><td>39</td><td>38</td><td>4</td><td>23</td><td>15</td><td>22</td><td>21</td><td>25</td><td>21</td><td>25</td><td>27</td><td>179</td></tr>
+                  <tr><td>Lilian</td><td>Dreadnought</td><td>38</td><td>41</td><td>4</td><td>22</td><td>14</td><td>20</td><td>30</td><td>22</td><td>10</td><td>23</td><td>15</td><td>156</td></tr>
+                  <tr><td>Inyoni</td><td>Sniper</td><td>35</td><td>40</td><td>5</td><td>25</td><td>10</td><td>22</td><td>24</td><td>16</td><td>11</td><td>18</td><td>14</td><td>140</td></tr>
+                  <tr><td>Noctula</td><td>Dreadnought</td><td>35</td><td>51</td><td>4</td><td>30</td><td>7</td><td>17</td><td>21</td><td>29</td><td>11</td><td>17</td><td>15</td><td>147</td></tr>
+                  <tr><td>Dante</td><td>Ovate</td><td>35</td><td>36</td><td>5</td><td>11</td><td>31</td><td>26</td><td>26</td><td>9</td><td>27</td><td>19</td><td>13</td><td>162</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </details>
+        <details class="nested persist-open" data-persist-open="orig-dietrich-skills">
+          <summary>Dietrich Route - Skill Ranks</summary>
+          <div class="section-content">
+            <div class="stat-scroll">
+              <table class="stat-table stat-table-reference">
+                <thead><tr><th>Character</th><th>Sword</th><th>Spear</th><th>Axe</th><th>Bow</th><th>Brawl</th><th>Black</th><th>White</th><th>Infantry</th><th>Authority</th><th>Armor</th><th>Cavalry</th><th>Flying</th></tr></thead>
+                <tbody>
+                  <tr><td>Esmeralda</td><td>A</td><td>S</td><td>A</td><td>C</td><td>E</td><td>E</td><td>E</td><td>B</td><td>B</td><td>C</td><td>A</td><td>C</td></tr>
+                  <tr><td>Ultand</td><td>E</td><td>C</td><td>E</td><td>E</td><td>D</td><td>A</td><td>S</td><td>D</td><td>B</td><td>E</td><td>C</td><td>D</td></tr>
+                  <tr><td>Mu</td><td>B</td><td>C</td><td>A</td><td>D</td><td>A</td><td>C</td><td>C</td><td>D</td><td>C</td><td>C</td><td>B</td><td>B</td></tr>
+                  <tr><td>Mikaela</td><td>A</td><td>B</td><td>S</td><td>D</td><td>B</td><td>E</td><td>E</td><td>D</td><td>C</td><td>B</td><td>B</td><td>E</td></tr>
+                  <tr><td>Ninae</td><td>B</td><td>B</td><td>C</td><td>C</td><td>C</td><td>E</td><td>C</td><td>B</td><td>C</td><td>D</td><td>C</td><td>D</td></tr>
+                  <tr><td>Catania</td><td>C</td><td>C</td><td>D</td><td>E</td><td>E</td><td>E</td><td>E</td><td>D</td><td>D</td><td>D</td><td>D</td><td>C</td></tr>
+                  <tr><td>Olympia</td><td>E</td><td>D</td><td>D</td><td>E</td><td>E</td><td>D</td><td>B</td><td>E</td><td>D</td><td>D</td><td>D</td><td>E</td></tr>
+                  <tr><td>Loretta</td><td>B</td><td>B</td><td>D</td><td>E</td><td>D</td><td>E</td><td>E</td><td>E</td><td>E</td><td>D</td><td>D</td><td>B</td></tr>
+                  <tr><td>Sofia</td><td>D</td><td>C</td><td>C</td><td>D</td><td>D</td><td>D</td><td>B</td><td>D</td><td>C</td><td>C</td><td>D</td><td>D</td></tr>
+                  <tr><td>Alexandra</td><td>C</td><td>B</td><td>D</td><td>E</td><td>E</td><td>E</td><td>E</td><td>E</td><td>D</td><td>D</td><td>E</td><td>B</td></tr>
+                  <tr><td>Lilian</td><td>D</td><td>D</td><td>D</td><td>B</td><td>E</td><td>E</td><td>E</td><td>D</td><td>D</td><td>D</td><td>B</td><td>D</td></tr>
+                  <tr><td>Inyoni</td><td>D</td><td>E</td><td>E</td><td>B</td><td>E</td><td>E</td><td>E</td><td>E</td><td>D</td><td>E</td><td>C</td><td>E</td></tr>
+                  <tr><td>Noctula</td><td>D</td><td>D</td><td>D</td><td>E</td><td>B</td><td>E</td><td>E</td><td>D</td><td>E</td><td>E</td><td>D</td><td>E</td></tr>
+                  <tr><td>Dante</td><td>E</td><td>E</td><td>E</td><td>E</td><td>D</td><td>C</td><td>C</td><td>E</td><td>E</td><td>E</td><td>D</td><td>E</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="small">Black and White are magic; Armor is Heavy Armor. Ranks follow the 12-icon grid on each clear-data screen (left-to-right, top-to-bottom: Sword/Spear/Axe, Bow/Brawl/Black, White/Authority/Cavalry, Infantry/Armor/Flying).</p>
+          </div>
+        </details>
+      </div>
+    </details>
+  </div>
+</section>
+
+<section class="tab-panel" id="sharedPlanner" role="tabpanel" aria-labelledby="tab-recruits" hidden>
+  <h2 class="panel-title">Shared recruit planner — Part I/II only</h2>
+  <div class="section-content">
+    <div class="callout">37 characters with documented Part I availability on <strong>all four</strong> routes. Use each route cell to record whether you recruited or cleared the War Arc with that unit, and what class you want to train there. The ten people shown in your Theodora clear-data photos start marked Cleared.</div>
+    <p class="small"><strong>R</strong> = Renown level; <strong>S</strong> = Support level. “First seen” gives a documented Dagsion appearance date when known. A blank date is not a promise that the character is there from the first cycle. Renown and Support carry across routes, so an exact recruitment cycle varies with your save; extra quests/items and the in-game Character Info prompt still matter.</p>
+    <p class="small">The default Cai + Leda view orders characters by the lower listed gate across those routes and marks which route has it. This compares Renown first, then Support; automatic recruits appear at the top, except the Chapter 6 automatic recruit. Dates, quests, and item costs can change the practical order.</p>
+    <div class="planner-controls">
+      <input type="search" id="plannerSearch" placeholder="Find a character or requirement" aria-label="Find a shared recruit">
+      <label>Prioritize <select id="plannerSort"><option value="CaiLeda">Cai + Leda (earliest gate)</option><option>Cai</option><option>Leda</option><option>Dietrich</option><option>Theodora</option></select></label>
+      <label><input type="checkbox" id="plannerPending"> <span id="plannerPendingLabel">Hide cleared on both Cai and Leda</span></label>
+      <label><input type="checkbox" id="plannerShowHidden"> Show hidden characters</label>
+      <button type="button" id="exportPlanner">Export planner CSV</button>
+    </div>
+    <p class="small" id="plannerCount" role="status"></p>
+    <div class="planner-scroll">
+      <table class="planner-table">
+        <thead><tr><th>Character</th><th>First seen</th><th>Cai</th><th>Dietrich</th><th>Theodora</th><th>Leda</th></tr></thead>
+        <tbody id="plannerRows"></tbody>
+      </table>
+    </div>
+    <p class="small">Color key: amber = recruited; green = cleared with the unit. Use Hide beside a name to remove that character from the list; turn on “Show hidden characters” to restore one. Theodora class-plan boxes start with the classes from your clear-data photos and remain editable. Changes save in this browser for this copy of the sheet; download all progress before replacing the file.</p>
+    <p class="small"><strong>Guide discrepancy:</strong> Halvin on Cai is listed as R5 by a character-specific guide but R9 by RPG Site; Ninae on Leda is listed as R8 by two guides but R6 by RPG Site. This planner uses R5 and R8 respectively. Check their in-game prompts before gathering items.</p>
+  </div>
+</section>
+
+</main>
+<script>
+const STAT_KEY = 'fw-stat-log-v1';
+const PLANNER_KEY = 'fw-shared-recruits-v1';
+
+if (localStorage.getItem('fw-tab-v2-classes') !== '1') {
+  const priorTab = Number(localStorage.getItem('fw-tab'));
+  if (Number.isInteger(priorTab) && priorTab >= 3) {
+    localStorage.setItem('fw-tab', String(priorTab + 1));
+  }
+  localStorage.setItem('fw-tab-v2-classes', '1');
+}
+
+function persistSoon() {
+  clearTimeout(persistSoon.timer);
+  persistSoon.timer = setTimeout(() => { writeProgressFile(); }, 400);
+}
+
+function setBackupStatus(message) {
+  const el = document.getElementById('backupStatus');
+  if (el) el.textContent = message;
+}
+
+let progressFileHandle = null;
+
+function collectStorage() {
+  const storage = {};
+  for (let i = 0; i < localStorage.length; i++) {
+    const key = localStorage.key(i);
+    if (key && key.startsWith('fw-')) storage[key] = localStorage.getItem(key);
+  }
+  document.querySelectorAll('input.persist').forEach(cb => {
+    storage['fw-check-' + cb.id] = cb.checked ? '1' : '0';
+  });
+  document.querySelectorAll('details.persist-open[data-persist-open]').forEach(el => {
+    storage['fw-open-' + el.dataset.persistOpen] = el.open ? '1' : '0';
+  });
+  storage['fw-theme'] = document.documentElement.classList.contains('light') ? 'light' : 'dark';
+  const activeTab = [...document.querySelectorAll('.tab-nav [role="tab"]')].findIndex(tab => tab.getAttribute('aria-selected') === 'true');
+  if (activeTab >= 0) storage['fw-tab'] = String(activeTab);
+  const giftSearch = document.getElementById('giftSearch');
+  if (giftSearch) storage['fw-gift-search'] = giftSearch.value;
+  const plannerSearch = document.getElementById('plannerSearch');
+  if (plannerSearch) storage['fw-planner-search'] = plannerSearch.value;
+  const plannerSort = document.getElementById('plannerSort');
+  if (plannerSort) storage['fw-planner-sort'] = plannerSort.value;
+  const plannerPending = document.getElementById('plannerPending');
+  if (plannerPending) storage['fw-planner-pending'] = plannerPending.checked ? '1' : '0';
+  const plannerShowHidden = document.getElementById('plannerShowHidden');
+  if (plannerShowHidden) storage['fw-planner-show-hidden'] = plannerShowHidden.checked ? '1' : '0';
+  if (typeof statLog !== 'undefined') storage[STAT_KEY] = JSON.stringify(statLog);
+  if (typeof plannerState !== 'undefined') storage[PLANNER_KEY] = JSON.stringify(plannerState);
+  return storage;
+}
+
+function applyStoredDetails() {
+  document.querySelectorAll('details.persist-open[data-persist-open]').forEach(el => {
+    const saved = localStorage.getItem('fw-open-' + el.dataset.persistOpen);
+    if (saved === '1') el.open = true;
+    else if (saved === '0') el.open = false;
+  });
+}
+
+function openHandleDb() {
+  return new Promise((resolve, reject) => {
+    const req = indexedDB.open('fw-progress-file', 1);
+    req.onupgradeneeded = () => req.result.createObjectStore('handles');
+    req.onsuccess = () => resolve(req.result);
+    req.onerror = () => reject(req.error);
+  });
+}
+
+async function rememberProgressHandle(handle) {
+  progressFileHandle = handle;
+  try {
+    const db = await openHandleDb();
+    await new Promise((resolve, reject) => {
+      const tx = db.transaction('handles', 'readwrite');
+      tx.oncomplete = resolve;
+      tx.onerror = () => reject(tx.error);
+      tx.objectStore('handles').put(handle, 'progress');
+    });
+    db.close();
+  } catch (_) { /* IndexedDB unavailable — still write this session */ }
+}
+
+async function restoreProgressHandle() {
+  try {
+    const db = await openHandleDb();
+    const handle = await new Promise((resolve, reject) => {
+      const tx = db.transaction('handles', 'readonly');
+      const req = tx.objectStore('handles').get('progress');
+      req.onsuccess = () => resolve(req.result || null);
+      req.onerror = () => reject(req.error);
+    });
+    db.close();
+    if (!handle) return;
+    const query = await handle.queryPermission({ mode: 'readwrite' });
+    if (query !== 'granted') {
+      const next = await handle.requestPermission({ mode: 'readwrite' });
+      if (next !== 'granted') return;
+    }
+    progressFileHandle = handle;
+    setBackupStatus('Linked progress file is ready. Copy that JSON with this HTML when you switch PCs.');
+  } catch (_) { /* no stored handle */ }
+}
+
+async function writeProgressFile() {
+  if (!progressFileHandle) return;
+  try {
+    const backup = {app:'fortunes-weave-quick-sheet', formatVersion:1, exportedAt:new Date().toISOString(), storage: collectStorage()};
+    const writable = await progressFileHandle.createWritable();
+    await writable.write(JSON.stringify(backup, null, 2));
+    await writable.close();
+    setBackupStatus('Saved to progress file.');
+  } catch (error) {
+    setBackupStatus(`Could not write progress file: ${error.message}`);
+  }
+}
+
+(function hydrateEmbeddedProgress() {
+  const el = document.getElementById('fw-embedded-progress');
+  if (!el) return;
+  const raw = el.textContent.trim();
+  if (!raw) return;
+  try {
+    const backup = JSON.parse(raw);
+    if (backup?.app !== 'fortunes-weave-quick-sheet' || !backup.storage) return;
+    const hasLocal = Object.keys(localStorage).some(key => key.startsWith('fw-'));
+    if (hasLocal) return;
+    Object.entries(backup.storage).forEach(([key, value]) => {
+      if (key.startsWith('fw-') && typeof value === 'string') localStorage.setItem(key, value);
+    });
+  } catch (_) { /* ignore a bad embed */ }
+})();
+
+document.querySelectorAll('details.persist-open[data-persist-open]').forEach(el => {
+  el.addEventListener('toggle', () => {
+    localStorage.setItem('fw-open-' + el.dataset.persistOpen, el.open ? '1' : '0');
+    persistSoon();
+  });
+});
+applyStoredDetails();
+
+const ledaRoute = document.getElementById('route-leda');
+const caiRoute = document.getElementById('route-cai');
+document.getElementById('openLedaOnly')?.addEventListener('click', () => {
+  ledaRoute.open = true; caiRoute.open = false; persistSoon();
+});
+document.getElementById('openCaiOnly')?.addEventListener('click', () => {
+  caiRoute.open = true; ledaRoute.open = false; persistSoon();
+});
+document.getElementById('openBothRoutes')?.addEventListener('click', () => {
+  ledaRoute.open = true; caiRoute.open = true; persistSoon();
+});
+
+document.getElementById('linkProgressFile')?.addEventListener('click', async () => {
+  if (!window.showOpenFilePicker && !window.showSaveFilePicker) {
+    setBackupStatus('This browser cannot keep a linked file. Use Download all progress, then Import on the other PC.');
+    return;
+  }
+  try {
+    if (window.showOpenFilePicker) {
+      const [handle] = await window.showOpenFilePicker({
+        types: [{description: "Fortune's Weave progress", accept: {'application/json': ['.json']}}],
+        multiple: false
+      });
+      await rememberProgressHandle(handle);
+      const file = await handle.getFile();
+      const text = (await file.text()).trim();
+      if (text && window.applyFortuneBackup) await window.applyFortuneBackup(JSON.parse(text));
+      else await writeProgressFile();
+      setBackupStatus('Using progress file. Copy that JSON with this HTML when you switch PCs.');
+      return;
+    }
+  } catch (error) {
+    if (error && error.name === 'AbortError') return;
+  }
+  try {
+    const handle = await window.showSaveFilePicker({
+      suggestedName: 'fortunes_weave_progress.json',
+      types: [{description: "Fortune's Weave progress", accept: {'application/json': ['.json']}}]
+    });
+    await rememberProgressHandle(handle);
+    await writeProgressFile();
+    setBackupStatus('Created progress file. Copy it with this HTML to another PC.');
+  } catch (inner) {
+    if (inner && inner.name !== 'AbortError') setBackupStatus(`Could not link a file: ${inner.message}`);
+  }
+});
+
+document.getElementById('exportSheet')?.addEventListener('click', () => {
+  try {
+    const backup = {app:'fortunes-weave-quick-sheet', formatVersion:1, exportedAt:new Date().toISOString(), storage: collectStorage()};
+    const root = document.documentElement.cloneNode(true);
+    let tag = root.querySelector('#fw-embedded-progress');
+    if (!tag) {
+      tag = document.createElement('script');
+      tag.type = 'application/json';
+      tag.id = 'fw-embedded-progress';
+      const firstScript = root.querySelector('script:not([type]), script[type="text/javascript"]');
+      firstScript ? firstScript.parentNode.insertBefore(tag, firstScript) : root.querySelector('body').append(tag);
+    }
+    tag.textContent = JSON.stringify(backup);
+    const html = '<!doctype html>\n' + root.outerHTML;
+    const url = URL.createObjectURL(new Blob([html], {type:'text/html;charset=utf-8'}));
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'fortunes_weave_reference.html';
+    link.click();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+    setBackupStatus('Downloaded this sheet with progress baked in. Open that copy on the other PC.');
+  } catch (error) {
+    setBackupStatus(`Could not export the sheet: ${error.message}`);
+  }
+});
+
+restoreProgressHandle();
+
+(function initAdvSkillsToggle() {
+  const panel = document.getElementById('advClasses');
+  const btn = document.getElementById('advSkillsToggle');
+  if (!panel || !btn) return;
+  const apply = (collapsed) => {
+    panel.classList.toggle('skills-collapsed', collapsed);
+    panel.querySelectorAll('.adv-group th').forEach(th => { th.colSpan = collapsed ? 11 : 12; });
+    btn.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
+    btn.textContent = collapsed ? 'Show skills' : 'Hide skills';
+    localStorage.setItem('fw-adv-skills', collapsed ? '1' : '0');
+  };
+  apply(localStorage.getItem('fw-adv-skills') === '1');
+  btn.addEventListener('click', () => {
+    apply(!panel.classList.contains('skills-collapsed'));
+    persistSoon();
+  });
+})();
+
+
+const tabs = [...document.querySelectorAll('.tab-nav [role="tab"]')];
+const panels = tabs.map(tab => document.getElementById(tab.getAttribute('aria-controls')));
+function showTab(index, save = true) {
+  if (index < 0 || index >= tabs.length) index = 0;
+  tabs.forEach((tab, i) => {
+    const active = i === index;
+    tab.setAttribute('aria-selected', String(active));
+    tab.tabIndex = active ? 0 : -1;
+    panels[i].hidden = !active;
+  });
+  if (save) {
+    localStorage.setItem('fw-tab', String(index));
+    persistSoon();
+    window.scrollTo(0, 0);
+  }
+}
+const savedTab = Number(localStorage.getItem('fw-tab'));
+showTab(Number.isInteger(savedTab) ? savedTab : 0, false);
+tabs.forEach((tab, i) => {
+  tab.addEventListener('click', () => showTab(i));
+  tab.addEventListener('keydown', event => {
+    const target = event.key === 'ArrowRight' ? (i + 1) % tabs.length
+      : event.key === 'ArrowLeft' ? (i - 1 + tabs.length) % tabs.length
+      : event.key === 'Home' ? 0 : event.key === 'End' ? tabs.length - 1 : -1;
+    if (target < 0) return;
+    event.preventDefault();
+    showTab(target);
+    tabs[target].focus();
+  });
+});
+
+const root = document.documentElement;
+const themeBtn = document.getElementById('themeBtn');
+const savedTheme = localStorage.getItem('fw-theme');
+if (savedTheme === 'light') {
+  root.classList.add('light');
+  themeBtn.textContent = 'Dark mode';
+}
+themeBtn.addEventListener('click', () => {
+  root.classList.toggle('light');
+  const light = root.classList.contains('light');
+  themeBtn.textContent = light ? 'Dark mode' : 'Light mode';
+  localStorage.setItem('fw-theme', light ? 'light' : 'dark');
+  persistSoon();
+});
+
+const search = document.getElementById('giftSearch');
+const applyGiftSearch = () => {
+  const q = search.value.trim().toLowerCase();
+  document.querySelectorAll('.gift-card').forEach(card => {
+    card.style.display = card.dataset.search.includes(q) ? '' : 'none';
+  });
+};
+search.value = localStorage.getItem('fw-gift-search') || '';
+applyGiftSearch();
+search.addEventListener('input', () => {
+  localStorage.setItem('fw-gift-search', search.value);
+  applyGiftSearch();
+  persistSoon();
+});
+
+document.querySelectorAll('input.persist').forEach(cb => {
+  cb.checked = localStorage.getItem('fw-check-' + cb.id) === '1';
+  cb.addEventListener('change', () => {
+    localStorage.setItem('fw-check-' + cb.id, cb.checked ? '1' : '0');
+    persistSoon();
+  });
+});
+document.getElementById('resetChecks').addEventListener('click', () => {
+  const scope = document.getElementById('cycles');
+  scope.querySelectorAll('input.persist').forEach(cb => {
+    cb.checked = false;
+    localStorage.removeItem('fw-check-' + cb.id);
+  });
+  persistSoon();
+});
+
+const statFields = ['name', 'class', 'lv', 'hp', 'mov', 'str', 'mag', 'spd', 'dex', 'def', 'res', 'lck', 'cha'];
+const statNames = ['Character', 'Final class', 'Lv', 'HP', 'Mov', 'Str', 'Mag', 'Spd', 'Dex', 'Def', 'Res', 'Lck', 'Cha'];
+const ratingFields = ['str', 'mag', 'spd', 'dex', 'def', 'res', 'lck', 'cha'];
+const skillFields = ['sword', 'spear', 'axe', 'bow', 'brawl', 'black', 'white', 'infantry', 'authority', 'armor', 'cavalry', 'flying'];
+const skillNames = ['Sword', 'Spear', 'Axe', 'Bow', 'Brawl', 'Black', 'White', 'Infantry', 'Authority', 'Armor', 'Cavalry', 'Flying'];
+const rankOptions = ['', 'E', 'E+', 'D', 'D+', 'C', 'C+', 'B', 'B+', 'A', 'A+', 'S'];
+// War Arc clear data, read from the user's 11 screenshots. Order follows the photos.
+const originalStats = {
+  Theodora: [
+    ['Mu','Warrior',49,53,5,39,10,30,31,27,17,15,23],
+    ['Noctula','Warrior',49,62,5,39,9,29,27,30,10,27,20],
+    ['Sofia','Ovate',52,46,5,17,50,30,37,12,38,32,27],
+    ['Dante','Ovate',49,42,5,17,40,32,29,10,31,25,19],
+    ['Alexandra','Wing Soldier',36,34,6,16,15,33,24,14,23,26,28],
+    ['Ursula','Sniper',46,45,5,20,18,36,39,20,17,22,26],
+    ['Olympia','Bishop',51,41,5,18,40,26,21,14,37,33,32],
+    ['Inyoni','Sniper',44,42,5,31,15,27,28,21,16,22,14],
+    ['Ninae','Cataphract',39,53,5,26,16,15,22,26,20,22,21],
+    ['Loretta','Shido',43,40,5,23,20,37,31,17,18,20,19],
+    ['Lilian','Sniper',47,44,5,30,21,31,42,16,20,31,12]
+  ].map(values => Object.fromEntries(statFields.map((field, i) => [field, values[i]]))),
+  Dietrich: [
+    ['Esmeralda','Dreadnought',50,68,4,46,12,14,21,48,16,22,24],
+    ['Ultand','Bishop',49,49,5,24,31,25,28,18,42,40,37],
+    ['Mu','Blacksmith',44,51,5,30,14,27,32,27,21,15,24],
+    ['Mikaela','Warrior',47,60,5,43,18,24,22,24,13,22,28],
+    ['Ninae','Shido',46,57,5,28,16,30,31,21,27,25,21],
+    ['Catania','Dreadnought',42,47,4,26,20,23,30,30,16,21,27],
+    ['Olympia','Dreadnought',39,41,4,18,28,13,16,25,19,23,23],
+    ['Loretta','Dreadnought',40,43,4,21,18,22,22,24,18,16,15],
+    ['Sofia','Dreadnought',41,42,4,18,32,9,23,26,21,17,22],
+    ['Alexandra','Dreadnought',39,38,4,23,15,22,21,25,21,25,27],
+    ['Lilian','Dreadnought',38,41,4,22,14,20,30,22,10,23,15],
+    ['Inyoni','Sniper',35,40,5,25,10,22,24,16,11,18,14],
+    ['Noctula','Dreadnought',35,51,4,30,7,17,21,29,11,17,15],
+    ['Dante','Ovate',35,36,5,11,31,26,26,9,27,19,13]
+  ].map(values => Object.fromEntries(statFields.map((field, i) => [field, values[i]]))),
+  Cai: [], Leda: []
+};
+// Rank order above; read from the same 11 clear-data screenshots.
+const originalSkillRanks = Object.fromEntries([
+  ['Mu',       'B','D+','B','E','A+','E','C+','E','C','D+','C','E'],
+  ['Noctula',  'B','C+','A','E','S','E','E','E+','B','C','B','E+'],
+  ['Sofia',    'D','D','E','E+','D','A','A+','D','B+','E','C','D'],
+  ['Dante',    'D','E','E','E','E','A','A','E','B','E','D+','E'],
+  ['Alexandra','C','C','D','E','E','E','E','E+','D+','E','E','C+'],
+  ['Ursula',   'B','E','E','B+','E','E','E','E','D+','E','C','E'],
+  ['Olympia',  'E','E','E','E','D+','D+','A','E','C','E','C','E'],
+  ['Inyoni',   'D','E','E','B+','E','E','E','E','D+','E','D+','E'],
+  ['Ninae',    'C','A+','C+','E','E','E','C+','B+','B','C+','D','C'],
+  ['Loretta',  'B+','B+','D+','C+','D','E','E','C','C','D','B','B'],
+  ['Lilian',   'B','B','D+','A+','D','E','E','C+','B+','D','A+','C+']
+].map(([name, ...ranks]) => [name, Object.fromEntries(skillFields.map((field, i) => [field, ranks[i]]))]));
+const originalSkillRanksDietrich = Object.fromEntries([
+  ['Esmeralda','A','S','A','C','E','E','E','B','B','C','A','C'],
+  ['Ultand','E','C','E','E','D','A','S','D','B','E','C','D'],
+  ['Mu','B','C','A','D','A','C','C','D','C','C','B','B'],
+  ['Mikaela','A','B','S','D','B','E','E','D','C','B','B','E'],
+  ['Ninae','B','B','C','C','C','E','C','B','C','D','C','D'],
+  ['Catania','C','C','D','E','E','E','E','D','D','D','D','C'],
+  ['Olympia','E','D','D','E','E','D','B','E','D','D','D','E'],
+  ['Loretta','B','B','D','E','D','E','E','E','E','D','D','B'],
+  ['Sofia','D','C','C','D','D','D','B','D','C','C','D','D'],
+  ['Alexandra','C','B','D','E','E','E','E','E','D','D','E','B'],
+  ['Lilian','D','D','D','B','E','E','E','D','D','D','B','D'],
+  ['Inyoni','D','E','E','B','E','E','E','E','D','E','C','E'],
+  ['Noctula','D','D','D','E','B','E','E','D','E','E','D','E'],
+  ['Dante','E','E','E','E','D','C','C','E','E','E','D','E']
+].map(([name, ...ranks]) => [name, Object.fromEntries(skillFields.map((field, i) => [field, ranks[i]]))]));
+const statStorageKey = 'fw-stat-log-v1';
+let statLog = JSON.parse(JSON.stringify(originalStats));
+let statLocked = true;
+// Correct the earlier level-35 transcription only when the rest of the saved row
+// still matches Alexandra's original clear-data snapshot.
+function correctAlexandraLevel() {
+  const row = statLog.Theodora.find(entry => entry.name === 'Alexandra');
+  const expected = {hp:34, mov:6, str:16, mag:15, spd:33, dex:24, def:14, res:23, lck:26, cha:28};
+  if (!row || row.class !== 'Wing Soldier' || Number(row.lv) !== 35 ||
+      !Object.entries(expected).every(([field, value]) => Number(row[field]) === value)) return false;
+  row.lv = 36;
+  return true;
+}
+try {
+  const saved = JSON.parse(localStorage.getItem(statStorageKey));
+  if (saved && Object.keys(originalStats).every(route => Array.isArray(saved[route]))) statLog = saved;
+} catch (_) { /* A malformed older entry should not hide the photographed values. */ }
+const correctedAlexandraLevel = correctAlexandraLevel();
+// Add ranks to existing browser-saved rows without replacing the user's edited stats.
+statLog.Theodora.forEach(row => {
+  if (!row.skills && originalSkillRanks[row.name]) row.skills = {...originalSkillRanks[row.name]};
+});
+const saveStats = () => { localStorage.setItem(statStorageKey, JSON.stringify(statLog)); persistSoon(); };
+if (correctedAlexandraLevel) saveStats();
+const statRating = row => ratingFields.every(field => row[field] !== '' && row[field] != null && Number.isFinite(Number(row[field])))
+  ? ratingFields.reduce((total, field) => total + Number(row[field]), 0) : '—';
+function rankIndex(rank) {
+  const index = rankOptions.indexOf(rank);
+  return index < 0 ? -1 : index;
+}
+function betterRank(a, b) {
+  return rankIndex(a) >= rankIndex(b) ? (a || b || '') : (b || a || '');
+}
+function maxStat(a, b) {
+  const na = Number(a), nb = Number(b);
+  const aOk = a !== '' && a != null && Number.isFinite(na);
+  const bOk = b !== '' && b != null && Number.isFinite(nb);
+  if (aOk && bOk) return Math.max(na, nb);
+  if (aOk) return na;
+  if (bOk) return nb;
+  return '';
+}
+function mergedClass(theo, diet) {
+  const c1 = theo?.class || '';
+  const c2 = diet?.class || '';
+  if (c1 && c2 && c1 !== c2) return c1 + ' / ' + c2;
+  return c1 || c2;
+}
+function mergedBankedRows() {
+  const theo = Object.fromEntries((originalStats.Theodora || []).map(row => [row.name, row]));
+  const diet = Object.fromEntries((originalStats.Dietrich || []).map(row => [row.name, row]));
+  const names = [];
+  (originalStats.Theodora || []).forEach(row => names.push(row.name));
+  (originalStats.Dietrich || []).forEach(row => { if (!names.includes(row.name)) names.push(row.name); });
+  return names.map(name => {
+    const t = theo[name], d = diet[name];
+    const row = { name, class: mergedClass(t, d) };
+    ['lv','hp','mov','str','mag','spd','dex','def','res','lck','cha'].forEach(field => {
+      row[field] = maxStat(t?.[field], d?.[field]);
+    });
+    row.skills = {};
+    skillFields.forEach(field => {
+      row.skills[field] = betterRank(originalSkillRanks[name]?.[field], originalSkillRanksDietrich[name]?.[field]);
+    });
+    return row;
+  });
+}
+function fillStatTable(target, rows, includeClass) {
+  const table = document.createElement('table');
+  table.className = 'stat-table stat-table-reference';
+  const head = document.createElement('thead');
+  const header = document.createElement('tr');
+  const labels = includeClass ? [...statNames, 'Rating'] : ['Character', ...skillNames];
+  labels.forEach(label => { const th = document.createElement('th'); th.textContent = label; header.append(th); });
+  head.append(header); table.append(head);
+  const body = document.createElement('tbody');
+  rows.forEach(row => {
+    const tr = document.createElement('tr');
+    if (includeClass) {
+      [...statFields, 'rating'].forEach(field => {
+        const td = document.createElement('td');
+        td.textContent = field === 'rating' ? String(statRating(row)) : String(row[field] ?? '');
+        tr.append(td);
+      });
+    } else {
+      const name = document.createElement('td'); name.textContent = row.name; tr.append(name);
+      skillFields.forEach(field => {
+        const td = document.createElement('td'); td.textContent = row.skills?.[field] || '—'; tr.append(td);
+      });
+    }
+    body.append(tr);
+  });
+  table.append(body);
+  target.replaceChildren(table);
+}
+function renderMergedStats() {
+  const rows = mergedBankedRows();
+  const statsHost = document.getElementById('mergedStatTable');
+  const skillsHost = document.getElementById('mergedSkillTable');
+  if (statsHost) fillStatTable(statsHost, rows, true);
+  if (skillsHost) fillStatTable(skillsHost, rows, false);
+}
+function renderStatRoute(section) {
+  const route = section.dataset.statRoute;
+  const table = document.createElement('table');
+  table.className = 'stat-table';
+  const head = document.createElement('thead');
+  const header = document.createElement('tr');
+  [...statNames, 'Rating', ''].forEach(label => {
+    const th = document.createElement('th'); th.textContent = label; header.append(th);
+  });
+  head.append(header); table.append(head);
+  const body = document.createElement('tbody');
+  statLog[route].forEach((row, index) => {
+    const tr = document.createElement('tr');
+    statFields.forEach((field, i) => {
+      const td = document.createElement('td');
+      const input = document.createElement('input');
+      input.dataset.field = field;
+      input.dataset.index = String(index);
+      input.type = i < 2 ? 'text' : 'number';
+      if (i >= 2) { input.min = '0'; input.max = '999'; input.step = '1'; }
+      input.value = row[field] ?? '';
+      input.disabled = statLocked;
+      input.setAttribute('aria-label', `${route} ${row.name || 'new character'}: ${statNames[i]}`);
+      td.append(input); tr.append(td);
+    });
+    const rating = document.createElement('td');
+    rating.className = 'stat-rating';
+    rating.textContent = String(statRating(row));
+    tr.append(rating);
+    const action = document.createElement('td');
+    const remove = document.createElement('button');
+    remove.type = 'button'; remove.dataset.removeIndex = String(index);
+    remove.disabled = statLocked;
+    remove.textContent = 'Remove';
+    remove.setAttribute('aria-label', `Remove ${row.name || 'new character'} from ${route}`);
+    action.append(remove); tr.append(action);
+    body.append(tr);
+  });
+  table.append(body);
+  section.querySelector('[data-stat-table]').replaceChildren(table);
+  const tag = section.querySelector('.tags');
+  if (tag) tag.textContent = `${statLog[route].length} recorded`;
+  renderSkillRoute(section);
+}
+function renderSkillRoute(section) {
+  const route = section.dataset.statRoute;
+  const table = document.createElement('table');
+  table.className = 'stat-table stat-table-reference';
+  const head = document.createElement('thead');
+  const header = document.createElement('tr');
+  ['Character', ...skillNames].forEach(label => {
+    const th = document.createElement('th'); th.textContent = label; header.append(th);
+  });
+  head.append(header); table.append(head);
+  const body = document.createElement('tbody');
+  statLog[route].forEach((row, index) => {
+    const tr = document.createElement('tr');
+    const name = document.createElement('td');
+    name.textContent = row.name || `New ${index + 1}`;
+    tr.append(name);
+    skillFields.forEach((field, i) => {
+      const td = document.createElement('td');
+      const select = document.createElement('select');
+      select.dataset.skillField = field;
+      select.dataset.index = String(index);
+      select.disabled = statLocked;
+      select.setAttribute('aria-label', `${route} ${row.name || 'new character'}: ${skillNames[i]} rank`);
+      rankOptions.forEach(rank => {
+        const option = document.createElement('option');
+        option.value = rank; option.textContent = rank || '—';
+        select.append(option);
+      });
+      select.value = row.skills?.[field] || '';
+      td.append(select); tr.append(td);
+    });
+    body.append(tr);
+  });
+  table.append(body);
+  section.querySelector('[data-skill-table]').replaceChildren(table);
+}
+renderMergedStats();
+document.querySelectorAll('[data-stat-route]').forEach(section => {
+  const route = section.dataset.statRoute;
+  renderStatRoute(section);
+  section.addEventListener('input', event => {
+    if (statLocked) return;
+    const input = event.target.closest('input[data-field]');
+    if (!input) return;
+    const row = statLog[route][Number(input.dataset.index)];
+    row[input.dataset.field] = input.value;
+    input.closest('tr').querySelector('.stat-rating').textContent = String(statRating(row));
+    if (input.dataset.field === 'name') renderSkillRoute(section);
+    saveStats();
+  });
+  section.addEventListener('change', event => {
+    if (statLocked) return;
+    const select = event.target.closest('select[data-skill-field]');
+    if (!select) return;
+    const row = statLog[route][Number(select.dataset.index)];
+    row.skills ||= {};
+    row.skills[select.dataset.skillField] = select.value;
+    saveStats();
+  });
+  section.addEventListener('click', event => {
+    if (statLocked) return;
+    if (event.target.closest('[data-add-stat]')) {
+      statLog[route].push({});
+      saveStats(); renderStatRoute(section);
+      section.querySelector('tbody tr:last-child input').focus();
+    }
+    const remove = event.target.closest('[data-remove-index]');
+    if (remove) {
+      statLog[route].splice(Number(remove.dataset.removeIndex), 1);
+      saveStats(); renderStatRoute(section);
+    }
+  });
+});
+function applyStatLock() {
+  document.querySelectorAll('#statLog input[data-field], #statLog select[data-skill-field], #statLog [data-add-stat], #statLog [data-remove-index]').forEach(control => {
+    control.disabled = statLocked;
+  });
+  const button = document.getElementById('toggleStatLock');
+  button.textContent = statLocked ? 'Unlock editing' : 'Lock editing';
+  button.setAttribute('aria-pressed', String(!statLocked));
+  document.getElementById('statLockStatus').textContent = statLocked ? 'Locked' : 'Editing enabled';
+}
+function applyStatLock() { /* Merged Stats tab is read-only. */ }
+document.getElementById('exportStats').addEventListener('click', () => {
+  const quote = value => '"' + String(value ?? '').replaceAll('"', '""') + '"';
+  const rows = [['Character', 'Classes', ...statNames.slice(2), 'Rating', ...skillNames]];
+  mergedBankedRows().forEach(row => {
+    rows.push([row.name, row.class, ...statFields.slice(2).map(field => row[field] ?? ''), statRating(row), ...skillFields.map(field => row.skills?.[field] ?? '')]);
+  });
+  const csv = rows.map(row => row.map(quote).join(',')).join('\r\n');
+  const url = URL.createObjectURL(new Blob(['\uFEFF', csv], {type:'text/csv;charset=utf-8'}));
+  const link = document.createElement('a');
+  link.href = url; link.download = 'fortunes_weave_class_stats.csv'; link.click();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+});
+
+// Part I recruitability on all four routes; order: Cai, Dietrich, Theodora, Leda.
+const sharedRecruits = [
+  {"name":"Tialla","seen":"","gates":[{"auto":"Auto"},{"s":3,"r":9,"extra":"Clear Cai’s Paralogue, Pay 3,000G"},{"s":3,"r":10,"extra":"Clear Cai’s Paralogue, Pay 3,000G"},{"s":3,"r":8,"extra":"Clear Cai’s Paralogue, Pay 3,000G"}]},
+  {"name":"Peter","seen":"","gates":[{"auto":"Auto"},{"s":3,"r":8,"extra":"Quest"},{"s":3,"r":7,"extra":"Quest"},{"s":3,"r":10,"extra":"Quest"}]},
+  {"name":"Ultand","seen":"","gates":[{"auto":"Auto Ch 6"},{"s":3,"r":5,"extra":"Quest"},{"s":3,"r":6,"extra":"Quest"},{"s":3,"r":8,"extra":"Quest"}]},
+  {"name":"Jester","seen":"","gates":[{"s":3,"r":10,"extra":"3 quests"},{"s":3,"r":6,"extra":"3 quests"},{"s":3,"r":9,"extra":"3 quests"},{"s":3,"r":10,"extra":"3 quests"}]},
+  {"name":"Goliath","seen":"","gates":[{"s":3,"r":7,"extra":"3 Giant’s Meat"},{"s":3,"r":6,"extra":"3 Giant’s Meat"},{"s":3,"r":9,"extra":"3 Giant’s Meat"},{"s":3,"r":10,"extra":"3 Giant’s Meat"}]},
+  {"name":"Dante","seen":"","gates":[{"s":3,"r":10,"extra":"8,000G"},{"s":2,"r":8,"extra":"8,000G"},{"s":3,"r":6,"extra":"8,000G"},{"s":3,"r":10,"extra":"8,000G"}]},
+  {"name":"Esmeralda","seen":"","gates":[{"s":3,"r":7,"extra":"Quest"},{"auto":"Auto"},{"s":3,"r":9,"extra":"Quest"},{"s":3,"r":6,"extra":"Quest"}]},
+  {"name":"Mikaela","seen":"","gates":[{"s":3,"r":5,"extra":"3,000G"},{"auto":"Auto"},{"s":3,"r":8,"extra":"3,000G"},{"s":3,"r":6,"extra":"3,000G"}]},
+  {"name":"Diego","seen":"","gates":[{"s":3,"r":10,"extra":"Clear Orchel’s Paralogue"},{"s":3,"r":9,"extra":"Clear Orchel’s Paralogue"},{"s":2,"r":8,"extra":"Clear Orchel’s Paralogue"},{"s":3,"r":8,"extra":"Clear Orchel’s Paralogue"}]},
+  {"name":"Loretta","seen":"","gates":[{"s":3,"r":7,"extra":"3 Iron Swords"},{"s":3,"r":9,"extra":"3 Iron Swords"},{"s":3,"r":5,"extra":"3 Iron Swords"},{"s":3,"r":5,"extra":"3 Iron Swords"}]},
+  {"name":"Ninae","seen":"","gates":[{"s":3,"r":6,"extra":"1 Paradise Fish"},{"s":3,"r":8,"extra":"1 Paradise Fish"},{"s":3,"r":6,"extra":"1 Paradise Fish"},{"s":3,"r":8,"extra":"1 Paradise Fish"}]},
+  {"name":"Lilian","seen":"","gates":[{"s":2,"r":8,"extra":"5,000G"},{"s":2,"r":8,"extra":"5,000G"},{"auto":"Auto"},{"s":2,"r":7,"extra":"5,000G"}]},
+  {"name":"Lysander","seen":"","gates":[{"s":3,"r":8,"extra":"5 Iron Spears"},{"s":3,"r":6,"extra":"5 Iron Spears"},{"auto":"Auto"},{"s":3,"r":7,"extra":"5 Iron Spears"}]},
+  {"name":"Ludia","seen":"","gates":[{"s":3,"r":9,"extra":"Quest"},{"s":3,"r":9,"extra":"Quest"},{"s":3,"r":7,"extra":"Quest"},{"s":3,"r":7,"extra":"Quest"}]},
+  {"name":"Simon","seen":"","gates":[{"s":3,"r":8,"extra":"Choose Tails"},{"s":3,"r":7,"extra":"Choose Tails"},{"s":3,"r":7,"extra":"Choose Tails"},{"s":3,"r":6,"extra":"Choose Tails"}]},
+  {"name":"Fianna","seen":"","gates":[{"s":3,"r":8,"extra":"3,000G"},{"s":3,"r":7,"extra":"3,000G"},{"s":3,"r":9,"extra":"3,000G"},{"s":3,"r":5,"extra":"3,000G"}]},
+  {"name":"Sirocco","seen":"","gates":[{"s":3,"r":9,"extra":"Quest"},{"s":3,"r":9,"extra":"Quest"},{"s":1,"r":5,"extra":"Quest"},{"auto":"Auto"}]},
+  {"name":"Olympia","seen":"","gates":[{"s":3,"r":8,"extra":"3 quests"},{"s":3,"r":6,"extra":"3 quests"},{"s":3,"r":9,"extra":"3 quests"},{"auto":"Auto"}]},
+  {"name":"Mu","seen":"","gates":[{"s":3,"r":9,"extra":"3 Glirmosa"},{"s":3,"r":7,"extra":"3 Glirmosa"},{"s":3,"r":9,"extra":"3 Glirmosa"},{"auto":"Auto"}]},
+  {"name":"Nezha","seen":"","gates":[{"s":3,"r":6,"extra":"3 Sandworm Meat"},{"s":3,"r":10,"extra":"3 Sandworm Meat"},{"s":2,"r":6,"extra":"3 Sandworm Meat"},{"s":3,"r":9,"extra":"3 Sandworm Meat"}]},
+  {"name":"Dadao","seen":"","gates":[{"s":3,"r":7,"extra":"2 Kothar Gar"},{"s":3,"r":10,"extra":"2 Kothar Gar"},{"s":2,"r":5,"extra":"2 Kothar Gar"},{"s":2,"r":5,"extra":"2 Kothar Gar"}]},
+  {"name":"Halvin","seen":"","gates":[{"s":3,"r":5,"extra":"10 Dates"},{"s":3,"r":9,"extra":"10 Dates"},{"s":3,"r":7,"extra":"10 Dates"},{"s":3,"r":7,"extra":"10 Dates"}]},
+  {"name":"Guzran","seen":"","gates":[{"auto":"Auto tutorial"},{"s":3,"r":8,"extra":""},{"s":3,"r":8,"extra":""},{"s":1,"r":3,"extra":""}]},
+  {"name":"Yang Jie","seen":"","gates":[{"s":2,"r":3,"extra":"Quiz: Cheese / Moon / Potatoes"},{"auto":"Auto tutorial"},{"s":3,"r":9,"extra":"Quiz: Cheese / Moon / Potatoes"},{"s":3,"r":8,"extra":"Quiz: Cheese / Moon / Potatoes"}]},
+  {"name":"Io","seen":"","gates":[{"s":3,"r":10,"extra":"4,000G"},{"s":2,"r":3,"extra":"800G"},{"s":3,"r":10,"extra":"4,000G"},{"s":1,"r":6,"extra":"1,500G"}]},
+  {"name":"Noctula","seen":"","gates":[{"s":1,"r":4,"extra":""},{"s":1,"r":6,"extra":""},{"s":1,"r":3,"extra":""},{"s":3,"r":8,"extra":""}]},
+  {"name":"Sofia","seen":"","gates":[{"s":3,"r":9,"extra":""},{"s":3,"r":9,"extra":""},{"auto":"Auto tutorial"},{"s":3,"r":7,"extra":""}]},
+  {"name":"Catania","seen":"","gates":[{"s":3,"r":10,"extra":""},{"s":1,"r":8,"extra":""},{"s":3,"r":7,"extra":""},{"auto":"Auto tutorial"}]},
+  {"name":"Nydine","seen":"","gates":[{"s":1,"r":6,"extra":"2 Bronze Axes"},{"s":2,"r":5,"extra":"2 Bronze Axes"},{"s":3,"r":5,"extra":"3 Iron Axes"},{"s":3,"r":10,"extra":"3 Iron Axes"}]},
+  {"name":"Zarcone","seen":"","gates":[{"s":3,"r":8,"extra":"Negotiate"},{"s":3,"r":7,"extra":"Negotiate"},{"s":1,"r":4,"extra":"Negotiate"},{"s":2,"r":5,"extra":"Negotiate"}]},
+  {"name":"Majide","seen":"","gates":[{"s":2,"r":5,"extra":"Question ×3"},{"s":3,"r":8,"extra":"Question ×3"},{"s":3,"r":8,"extra":"Question ×3"},{"s":3,"r":9,"extra":"Question ×3"}]},
+  {"name":"Benditz","seen":"4/11","gates":[{"s":3,"r":9,"extra":""},{"s":2,"r":7,"extra":""},{"s":1,"r":8,"extra":""},{"s":3,"r":7,"extra":""}]},
+  {"name":"Inyoni","seen":"7/10","gates":[{"s":3,"r":8,"extra":"6,000G"},{"s":3,"r":8,"extra":"6,000G"},{"s":1,"r":9,"extra":"4,000G"},{"s":1,"r":7,"extra":"3,000G"}]},
+  {"name":"Jasmine","seen":"5/8","gates":[{"s":1,"r":8,"extra":"2,000G"},{"s":3,"r":9,"extra":"5,000G"},{"s":3,"r":8,"extra":"5,000G"},{"s":2,"r":4,"extra":"500G"}]},
+  {"name":"Alexandra","seen":"5/29","gates":[{"s":2,"r":7,"extra":""},{"s":3,"r":8,"extra":""},{"s":1,"r":6,"extra":""},{"s":3,"r":10,"extra":""}]},
+  {"name":"Nuzzuo","seen":"7/1","gates":[{"s":2,"r":6,"extra":"3 Iron Bows"},{"s":1,"r":9,"extra":"2 Iron Bows"},{"s":1,"r":6,"extra":"3 Iron Bows"},{"s":3,"r":9,"extra":"3 Iron Bows"}]},
+  {"name":"Kiroc","seen":"5/4","gates":[{"s":3,"r":8,"extra":"8 Pure Water"},{"s":1,"r":4,"extra":"3 Pure Water"},{"s":3,"r":10,"extra":"8 Pure Water"},{"s":1,"r":4,"extra":"3 Pure Water"}]}
+];
+const recruitRoutes = ['Cai', 'Dietrich', 'Theodora', 'Leda'];
+const photographedTheodora = new Set(['Mu','Noctula','Sofia','Dante','Alexandra','Olympia','Inyoni','Ninae','Loretta','Lilian']);
+const plannerKey = 'fw-shared-recruits-v1';
+const completedTheodoraClasses = Object.fromEntries(originalStats.Theodora.map(row => [row.name, row.class]));
+let plannerState = {};
+try {
+  const saved = JSON.parse(localStorage.getItem(plannerKey));
+  if (saved && typeof saved === 'object' && !Array.isArray(saved)) plannerState = saved;
+} catch (_) { /* Start with the photographed clear data if storage is malformed. */ }
+function ensurePlannerDefaults() {
+  let updated = false;
+  sharedRecruits.forEach(person => {
+    if (!plannerState[person.name]) { plannerState[person.name] = {}; updated = true; }
+    if (typeof plannerState[person.name].hidden !== 'boolean') {
+      plannerState[person.name].hidden = false;
+      updated = true;
+    }
+    recruitRoutes.forEach(route => {
+      if (!plannerState[person.name][route]) {
+        plannerState[person.name][route] = {
+          status: route === 'Theodora' && photographedTheodora.has(person.name) ? 'cleared' : '',
+          classPlan: ''
+        };
+        updated = true;
+      }
+      const state = plannerState[person.name][route];
+      if (route === 'Theodora' && completedTheodoraClasses[person.name] && !state.theodoraClassSeeded) {
+        if (!state.classPlan) state.classPlan = completedTheodoraClasses[person.name];
+        state.theodoraClassSeeded = true;
+        updated = true;
+      }
+    });
+  });
+  return updated;
+}
+const plannerDefaultsUpdated = ensurePlannerDefaults();
+const savePlanner = () => { localStorage.setItem(plannerKey, JSON.stringify(plannerState)); persistSoon(); };
+if (plannerDefaultsUpdated) savePlanner();
+const plannerRows = document.getElementById('plannerRows');
+function gateText(gate) {
+  return gate.auto || `R${gate.r} · S${gate.s}`;
+}
+function gateOrder(gate) {
+  return [gate.auto ? (gate.auto.includes('Ch 6') ? 6.5 : -1) : gate.r, gate.s || 0];
+}
+function compareGates(left, right) {
+  const a = gateOrder(left), b = gateOrder(right);
+  return a[0] - b[0] || a[1] - b[1];
+}
+function caiLedaPriority(person) {
+  const difference = compareGates(person.gates[0], person.gates[3]);
+  return difference < 0 ? 'Cai lower gate' : difference > 0 ? 'Leda lower gate' : 'Same gate';
+}
+function renderPlanner() {
+  const route = document.getElementById('plannerSort').value;
+  const routeIndex = recruitRoutes.indexOf(route);
+  const combined = route === 'CaiLeda';
+  const searchText = document.getElementById('plannerSearch').value.trim().toLowerCase();
+  const hideCleared = document.getElementById('plannerPending').checked;
+  const showHidden = document.getElementById('plannerShowHidden').checked;
+  document.getElementById('plannerPendingLabel').textContent = combined ? 'Hide cleared on both Cai and Leda' : `Hide cleared on ${route}`;
+  const preferredGate = person => {
+    if (!combined) return person.gates[routeIndex];
+    return compareGates(person.gates[0], person.gates[3]) <= 0 ? person.gates[0] : person.gates[3];
+  };
+  const matches = [...sharedRecruits].filter(person => {
+    if (!showHidden && plannerState[person.name].hidden) return false;
+    if (hideCleared && (combined
+      ? plannerState[person.name].Cai.status === 'cleared' && plannerState[person.name].Leda.status === 'cleared'
+      : plannerState[person.name][route].status === 'cleared')) return false;
+    const searchable = [person.name, person.seen, ...person.gates.flatMap(gate => [gateText(gate), gate.extra || ''])].join(' ').toLowerCase();
+    return searchable.includes(searchText);
+  }).sort((a, b) => compareGates(preferredGate(a), preferredGate(b)) || a.name.localeCompare(b.name));
+  const fragment = document.createDocumentFragment();
+  matches.forEach(person => {
+    const tr = document.createElement('tr');
+    const hidden = plannerState[person.name].hidden;
+    if (hidden) tr.classList.add('is-hidden');
+    const name = document.createElement('td'); name.textContent = person.name;
+    if (combined || hidden) {
+      const priority = document.createElement('span');
+      priority.className = 'planner-priority';
+      priority.textContent = hidden ? (combined ? `Hidden · ${caiLedaPriority(person)}` : 'Hidden') : caiLedaPriority(person);
+      name.append(priority);
+    }
+    const hideButton = document.createElement('button');
+    hideButton.type = 'button'; hideButton.className = 'planner-hide';
+    hideButton.dataset.person = person.name; hideButton.dataset.action = 'toggle-hidden';
+    hideButton.textContent = hidden ? 'Unhide' : 'Hide';
+    hideButton.setAttribute('aria-label', `${hidden ? 'Unhide' : 'Hide'} ${person.name}`);
+    name.append(hideButton);
+    tr.append(name);
+    const seen = document.createElement('td'); seen.textContent = person.seen || '—'; tr.append(seen);
+    person.gates.forEach((gate, index) => {
+      const routeName = recruitRoutes[index];
+      const state = plannerState[person.name][routeName];
+      const td = document.createElement('td');
+      const wrap = document.createElement('div');
+      wrap.className = 'planner-cell' + (state.status ? ' is-' + state.status : '');
+      const gateLine = document.createElement('div');
+      gateLine.className = 'planner-gate'; gateLine.textContent = gateText(gate); wrap.append(gateLine);
+      if (gate.extra) {
+        const extra = document.createElement('div');
+        extra.className = 'planner-extra'; extra.textContent = gate.extra; wrap.append(extra);
+      }
+      const status = document.createElement('select');
+      status.dataset.person = person.name; status.dataset.route = routeName; status.dataset.kind = 'status';
+      status.setAttribute('aria-label', `${person.name} on ${routeName}: progress`);
+      [['','Not done'],['recruited','Recruited'],['cleared','Cleared']].forEach(([value,label]) => {
+        const option = document.createElement('option');
+        option.value = value; option.textContent = label; status.append(option);
+      });
+      status.value = state.status || '';
+      wrap.append(status);
+      const classPlan = document.createElement('input');
+      classPlan.type = 'text'; classPlan.placeholder = 'Class plan';
+      classPlan.dataset.person = person.name; classPlan.dataset.route = routeName; classPlan.dataset.kind = 'classPlan';
+      classPlan.value = state.classPlan || '';
+      classPlan.setAttribute('aria-label', `${person.name} on ${routeName}: planned class`);
+      wrap.append(classPlan); td.append(wrap); tr.append(td);
+    });
+    fragment.append(tr);
+  });
+  plannerRows.replaceChildren(fragment);
+  const clearedCount = routeName => sharedRecruits.filter(person => plannerState[person.name][routeName].status === 'cleared').length;
+  const hiddenCount = sharedRecruits.filter(person => plannerState[person.name].hidden).length;
+  document.getElementById('plannerCount').textContent = combined
+    ? `${matches.length} of ${sharedRecruits.length} shown · ${hiddenCount} hidden · Cai: ${clearedCount('Cai')} cleared · Leda: ${clearedCount('Leda')} cleared`
+    : `${matches.length} of ${sharedRecruits.length} shown · ${hiddenCount} hidden · ${clearedCount(route)} cleared on ${route}`;
+}
+document.getElementById('plannerSearch').addEventListener('input', renderPlanner);
+document.getElementById('plannerSort').addEventListener('change', renderPlanner);
+document.getElementById('plannerPending').addEventListener('change', renderPlanner);
+document.getElementById('plannerShowHidden').addEventListener('change', renderPlanner);
+plannerRows.addEventListener('click', event => {
+  const button = event.target.closest('button[data-action="toggle-hidden"]');
+  if (!button) return;
+  plannerState[button.dataset.person].hidden = !plannerState[button.dataset.person].hidden;
+  savePlanner(); renderPlanner();
+});
+plannerRows.addEventListener('change', event => {
+  const select = event.target.closest('select[data-kind="status"]');
+  if (!select) return;
+  plannerState[select.dataset.person][select.dataset.route].status = select.value;
+  savePlanner(); renderPlanner();
+});
+plannerRows.addEventListener('input', event => {
+  const input = event.target.closest('input[data-kind="classPlan"]');
+  if (!input) return;
+  plannerState[input.dataset.person][input.dataset.route].classPlan = input.value;
+  savePlanner();
+});
+document.getElementById('exportPlanner').addEventListener('click', () => {
+  const quote = value => '"' + String(value ?? '').replaceAll('"', '""') + '"';
+  const headers = ['Character','Hidden','First seen', ...recruitRoutes.flatMap(route => [route + ' requirement',route + ' status',route + ' class plan'])];
+  const rows = [headers, ...sharedRecruits.map(person => [
+    person.name, plannerState[person.name].hidden ? 'Yes' : 'No', person.seen,
+    ...person.gates.flatMap((gate,i) => {
+      const state = plannerState[person.name][recruitRoutes[i]];
+      return [gateText(gate) + (gate.extra ? ' · ' + gate.extra : ''), state.status, state.classPlan];
+    })
+  ])];
+  const csv = rows.map(row => row.map(quote).join(',')).join('\r\n');
+  const url = URL.createObjectURL(new Blob(['\uFEFF',csv],{type:'text/csv;charset=utf-8'}));
+  const link = document.createElement('a');
+  link.href = url; link.download = 'fortunes_weave_shared_recruits.csv'; link.click();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+});
+function restorePlannerFilters() {
+  const sort = localStorage.getItem('fw-planner-sort');
+  const pending = localStorage.getItem('fw-planner-pending');
+  const hidden = localStorage.getItem('fw-planner-show-hidden');
+  const searchText = localStorage.getItem('fw-planner-search');
+  if (sort) document.getElementById('plannerSort').value = sort;
+  if (pending === '1') document.getElementById('plannerPending').checked = true;
+  if (hidden === '1') document.getElementById('plannerShowHidden').checked = true;
+  if (searchText) document.getElementById('plannerSearch').value = searchText;
+}
+restorePlannerFilters();
+['plannerSearch','plannerSort','plannerPending','plannerShowHidden'].forEach(id => {
+  const el = document.getElementById(id);
+  const eventName = id === 'plannerSearch' ? 'input' : 'change';
+  el.addEventListener(eventName, () => {
+    if (id === 'plannerSearch') localStorage.setItem('fw-planner-search', el.value);
+    if (id === 'plannerSort') localStorage.setItem('fw-planner-sort', el.value);
+    if (id === 'plannerPending') localStorage.setItem('fw-planner-pending', el.checked ? '1' : '0');
+    if (id === 'plannerShowHidden') localStorage.setItem('fw-planner-show-hidden', el.checked ? '1' : '0');
+    persistSoon();
+  });
+});
+renderPlanner();
+
+const backupStatus = document.getElementById('backupStatus');
+document.getElementById('exportBackup').addEventListener('click', () => {
+  try {
+    const storage = collectStorage();
+    storage[statStorageKey] = JSON.stringify(statLog);
+    storage[plannerKey] = JSON.stringify(plannerState);
+    const backup = {app:'fortunes-weave-quick-sheet', formatVersion:1, exportedAt:new Date().toISOString(), storage};
+    const url = URL.createObjectURL(new Blob([JSON.stringify(backup, null, 2)], {type:'application/json'}));
+    const link = document.createElement('a');
+    link.href = url; link.download = `fortunes_weave_progress_${backup.exportedAt.slice(0, 10)}.json`;
+    link.click();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+    backupStatus.textContent = 'Progress backup downloaded.';
+  } catch (error) {
+    backupStatus.textContent = `Could not create backup: ${error.message}`;
+  }
+});
+
+const backupFileInput = document.getElementById('importBackupFile');
+document.getElementById('importBackup').addEventListener('click', () => backupFileInput.click());
+backupFileInput.addEventListener('change', async () => {
+  const file = backupFileInput.files?.[0];
+  if (!file) return;
+  try {
+    if (file.size > 5_000_000) throw new Error('The backup file is too large.');
+    const backup = JSON.parse(await file.text());
+    if (backup?.app !== 'fortunes-weave-quick-sheet' || backup.formatVersion !== 1 ||
+        !backup.storage || typeof backup.storage !== 'object' || Array.isArray(backup.storage)) {
+      throw new Error('This is not a supported progress backup.');
+    }
+    const entries = Object.entries(backup.storage);
+    if (!entries.length || entries.some(([key, value]) => !key.startsWith('fw-') || typeof value !== 'string')) {
+      throw new Error('The backup contains invalid saved values.');
+    }
+    if (entries.some(([key, value]) => key.startsWith('fw-check-') && value !== '0' && value !== '1')) {
+      throw new Error('The backup contains invalid checklist values.');
+    }
+    const hasStats = backup.storage[statStorageKey] !== undefined;
+    const savedStats = hasStats ? JSON.parse(backup.storage[statStorageKey]) : null;
+    if (hasStats && (!savedStats || typeof savedStats !== 'object' || Array.isArray(savedStats) ||
+        !Object.keys(originalStats).every(route => Array.isArray(savedStats[route]) &&
+          savedStats[route].every(row => row && typeof row === 'object' && !Array.isArray(row))))) {
+      throw new Error('The backup has invalid stats.');
+    }
+    const hasPlanner = backup.storage[plannerKey] !== undefined;
+    const savedPlanner = hasPlanner ? JSON.parse(backup.storage[plannerKey]) : null;
+    if (hasPlanner && (!savedPlanner || typeof savedPlanner !== 'object' || Array.isArray(savedPlanner) ||
+        Object.values(savedPlanner).some(person => !person || typeof person !== 'object' || Array.isArray(person) ||
+          recruitRoutes.some(route => person[route] !== undefined &&
+            (!person[route] || typeof person[route] !== 'object' || Array.isArray(person[route])))))) {
+      throw new Error('The backup has invalid recruit progress.');
+    }
+    if (backup.storage['fw-theme'] !== undefined && !['light','dark'].includes(backup.storage['fw-theme'])) {
+      throw new Error('The backup has an invalid theme.');
+    }
+    if (backup.storage['fw-tab'] !== undefined &&
+        (!/^\d+$/.test(backup.storage['fw-tab']) || Number(backup.storage['fw-tab']) >= panels.length)) {
+      throw new Error('The backup has an invalid tab selection.');
+    }
+    const previous = entries.map(([key]) => [key, localStorage.getItem(key)]);
+    try {
+      entries.forEach(([key, value]) => localStorage.setItem(key, value));
+    } catch (error) {
+      previous.forEach(([key, value]) => value === null ? localStorage.removeItem(key) : localStorage.setItem(key, value));
+      throw error;
+    }
+    if (savedStats) {
+      statLog = savedStats;
+      correctAlexandraLevel();
+      statLog.Theodora.forEach(row => {
+        if (!row.skills && originalSkillRanks[row.name]) row.skills = {...originalSkillRanks[row.name]};
+      });
+      saveStats();
+      document.querySelectorAll('[data-stat-route]').forEach(renderStatRoute);
+      applyStatLock();
+    }
+    if (savedPlanner) {
+      plannerState = savedPlanner;
+      ensurePlannerDefaults();
+      savePlanner();
+      renderPlanner();
+    }
+    document.querySelectorAll('input.persist').forEach(cb => {
+      cb.checked = localStorage.getItem('fw-check-' + cb.id) === '1';
+    });
+    const light = localStorage.getItem('fw-theme') === 'light';
+    root.classList.toggle('light', light);
+    themeBtn.textContent = light ? 'Dark mode' : 'Light mode';
+    const tab = Number(localStorage.getItem('fw-tab'));
+    if (Number.isInteger(tab) && tab >= 0 && tab < panels.length) showTab(tab, false);
+    applyStoredDetails();
+    backupStatus.textContent = 'Progress imported: checklists, stats, recruits, and preferences restored.';
+    persistSoon();
+  } catch (error) {
+    backupStatus.textContent = `Import failed: ${error.message}`;
+  } finally {
+    backupFileInput.value = '';
+  }
+});
+
+window.applyFortuneBackup = async function(obj) {
+  const blob = new Blob([JSON.stringify(obj)], {type:'application/json'});
+  const file = new File([blob], 'progress.json', {type:'application/json'});
+  const data = new DataTransfer();
+  data.items.add(file);
+  backupFileInput.files = data.files;
+  backupFileInput.dispatchEvent(new Event('change'));
+};
+
+</script>
+</body>
+</html>
