@@ -187,11 +187,12 @@ details.cycle > summary .date { float:none; margin-left:8px; }
   height:min(240px, 42vh);
   z-index:2;
 }
+.stat-table { border-collapse:collapse; }
 .stat-table th, .stat-table td {
-  padding:5px 6px;
-  border-right:1px solid var(--line);
+  padding:8px 7px;
+  border:2px solid #0a0c10;
 }
-.stat-table th:last-child, .stat-table td:last-child { border-right:0; }
+:root.light .stat-table th, :root.light .stat-table td { border-color:#5c6573; }
 .stat-table thead th, .adv-table thead th {
   background:var(--bg);
   color:var(--accent);
@@ -205,6 +206,30 @@ details.cycle > summary .date { float:none; margin-left:8px; }
 .stat-table tbody tr:nth-child(even) > * { background:var(--chip); }
 .stat-table tbody tr:nth-child(odd) td:first-child { background:var(--panel2); }
 .stat-table tbody tr:nth-child(even) td:first-child { background:var(--chip); }
+.stat-good, .stat-mid, .stat-low, .stat-bad, .stat-na { color:var(--text); font-weight:650; }
+.stat-good { background:#1f5a38; }
+.stat-mid { background:#6d5612; }
+.stat-low { background:#7a3d14; }
+.stat-bad { background:#6b2228; }
+.stat-na { background:#243448; }
+:root.light .stat-good { background:#b7e3c6; }
+:root.light .stat-mid { background:#f5d98a; }
+:root.light .stat-low { background:#f0b27a; }
+:root.light .stat-bad { background:#efb0b0; }
+:root.light .stat-na { background:#c5d8ec; }
+.stat-table tbody tr td.stat-good { background:#1f5a38; }
+.stat-table tbody tr td.stat-mid { background:#6d5612; }
+.stat-table tbody tr td.stat-low { background:#7a3d14; }
+.stat-table tbody tr td.stat-bad { background:#6b2228; }
+.stat-table tbody tr td.stat-na { background:#243448; }
+:root.light .stat-table tbody tr td.stat-good { background:#b7e3c6; }
+:root.light .stat-table tbody tr td.stat-mid { background:#f5d98a; }
+:root.light .stat-table tbody tr td.stat-low { background:#f0b27a; }
+:root.light .stat-table tbody tr td.stat-bad { background:#efb0b0; }
+:root.light .stat-table tbody tr td.stat-na { background:#c5d8ec; }
+p.small .stat-good, p.small .stat-mid, p.small .stat-low, p.small .stat-bad, p.small .stat-na {
+  padding:1px 7px; border-radius:4px;
+}
 .adv-table { width:100%; min-width:980px; border-collapse:collapse; font-size:13px; line-height:1.3; }
 .adv-table th, .adv-table td { padding:5px 6px; vertical-align:top; border-right:1px solid var(--line); }
 .adv-table th:last-child, .adv-table td:last-child { border-right:0; }
@@ -1387,6 +1412,7 @@ details.cycle > summary .date { float:none; margin-left:8px; }
   <div class="section-content">
     <div class="callout">Each number is the <strong>higher</strong> value from your Theodora and Dietrich War Arc clear data. Route-by-route snapshots stay on the Original stats tab. Units who only appear on one of those two routes keep that route’s values.</div>
     <p class="small">Class shows both finals when they differ. Rating is the sum of Str, Mag, Spd, Dex, Def, Res, Lck, and Cha after the merge. Skill ranks take the higher rank of the two routes. This table is derived from Original stats and is not edited here.</p>
+    <p class="small">Cell colors vs a typical deployed lv 45–50: <span class="stat-good">green</span> at or above the mark, <span class="stat-mid">yellow</span> a little under, <span class="stat-low">orange</span> clearly under, <span class="stat-bad">red</span> dump. <span class="stat-na">Blue-grey</span> is off-role (Magic on a physical unit, Strength on a mage).</p>
     <div class="stat-actions"><button type="button" id="exportStats">Export CSV</button></div>
     <div class="stat-scroll" id="mergedStatTable"></div>
     <details class="nested persist-open" open data-persist-open="merged-skills">
@@ -1994,6 +2020,34 @@ function mergedBankedRows() {
     return row;
   });
 }
+const STAT_TIER = { hp:46, str:32, mag:34, spd:28, dex:28, def:24, res:22, lck:22, cha:22 };
+const STAT_ROLE = {
+  Mu:'phys', Noctula:'phys', Mikaela:'phys', Loretta:'phys', Ninae:'phys',
+  Esmeralda:'phys', Alexandra:'phys', Lilian:'phys', Inyoni:'phys', Catania:'phys',
+  Ursula:'phys', Olympia:'mag', Sofia:'mag', Dante:'mag', Ultand:'hybrid'
+};
+function inferStatRole(row) {
+  if (STAT_ROLE[row.name]) return STAT_ROLE[row.name];
+  const cls = String(row.class || '').toLowerCase();
+  if (/(bishop|ovate|troubadour|caladrius|shaman|priest|diviner)/.test(cls)) return 'mag';
+  if (/(blacksmith|guardian)/.test(cls)) return 'hybrid';
+  return 'phys';
+}
+function unusedCombatStat(row, field) {
+  const role = inferStatRole(row);
+  return (field === 'mag' && role === 'phys') || (field === 'str' && role === 'mag');
+}
+function statTone(row, field) {
+  if (unusedCombatStat(row, field)) return 'stat-na';
+  const target = STAT_TIER[field];
+  if (target == null) return '';
+  const n = Number(row[field]);
+  if (!Number.isFinite(n)) return '';
+  if (n >= target) return 'stat-good';
+  if (n >= target - 5) return 'stat-mid';
+  if (n >= target - 10) return 'stat-low';
+  return 'stat-bad';
+}
 function fillStatTable(target, rows, includeClass) {
   const table = document.createElement('table');
   table.className = 'stat-table stat-table-reference';
@@ -2009,6 +2063,11 @@ function fillStatTable(target, rows, includeClass) {
       [...statFields, 'rating'].forEach(field => {
         const td = document.createElement('td');
         td.textContent = field === 'rating' ? String(statRating(row)) : String(row[field] ?? '');
+        const tone = includeClass ? statTone(row, field) : '';
+        if (tone) {
+          td.className = tone;
+          if (STAT_TIER[field] != null && tone !== 'stat-na') td.title = 'vs ' + STAT_TIER[field];
+        }
         tr.append(td);
       });
     } else {
