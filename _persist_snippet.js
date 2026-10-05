@@ -215,6 +215,32 @@ document.getElementById('exportSheet')?.addEventListener('click', () => {
 
 restoreProgressHandle();
 
+(function initPlanSort() {
+  const table = document.getElementById('combinedPlan');
+  const ledaBtn = document.getElementById('sortPlanLeda');
+  const caiBtn = document.getElementById('sortPlanCai');
+  if (!table || !ledaBtn || !caiBtn) return;
+  const body = table.tBodies[0];
+  const apply = (route) => {
+    const key = route === 'cai' ? 'cai' : 'leda';
+    const rows = [...body.rows];
+    rows.sort((a, b) => {
+      const na = Number(a.dataset[key]);
+      const nb = Number(b.dataset[key]);
+      if (na !== nb) return na - nb;
+      return a.dataset.name.localeCompare(b.dataset.name);
+    });
+    rows.forEach(row => body.append(row));
+    ledaBtn.setAttribute('aria-pressed', key === 'leda' ? 'true' : 'false');
+    caiBtn.setAttribute('aria-pressed', key === 'cai' ? 'true' : 'false');
+    localStorage.setItem('fw-plan-sort', key);
+  };
+  const saved = localStorage.getItem('fw-plan-sort');
+  apply(saved === 'cai' ? 'cai' : 'leda');
+  ledaBtn.addEventListener('click', () => { apply('leda'); persistSoon(); });
+  caiBtn.addEventListener('click', () => { apply('cai'); persistSoon(); });
+})();
+
 (function initAdvSkillsToggle() {
   const panel = document.getElementById('advClasses');
   const btn = document.getElementById('advSkillsToggle');

@@ -25,7 +25,7 @@ builds = builds.replace('<h2 class="panel-title">9. Shared recruit planner — P
 builds = builds.replace('Part III planning · no story spoilers', 'Cross-route planning · no story spoilers')
 builds = builds.replace(
     'When versions of a unit are merged, the higher value of each stat is retained. Training different strengths on different routes can therefore complement each other.',
-    'When versions of a unit are merged, the higher value of each stat is retained. Raise leftover lows only with classes inside that unit’s intended weapon family; Part 3 returns everyone to that line.',
+    'When versions of a unit are merged, the higher value of each stat is retained. The combined table above is the Cai and Leda training plan; ranks from Theodora or Dietrich are not already available on a fresh file.',
 )
 builds = builds.replace(
     '<details class="nested"><summary>Starting party',
@@ -82,6 +82,27 @@ script = text.split("<script>", 1)[1]
 script = script.split("</script>", 1)[0]
 
 css_extra = """
+.combined-plan th:first-child, .combined-plan td:first-child { width:11%; }
+.combined-plan th:nth-child(2), .combined-plan td:nth-child(2),
+.combined-plan th:nth-child(3), .combined-plan td:nth-child(3) { width:44.5%; }
+.combined-plan thead th { vertical-align:top; }
+.combined-plan .plan-sort {
+  display:block;
+  margin-top:5px;
+  font-size:11px;
+  padding:3px 8px;
+  font-weight:650;
+}
+.combined-plan .plan-sort[aria-pressed="true"] {
+  background:var(--accent);
+  color:var(--bg);
+  border-color:var(--accent);
+}
+.combined-plan tbody tr:nth-child(even) > th { background:var(--panel); }
+@media (max-width:720px) {
+  .combined-plan td:nth-child(2)::before { content:"Leda"; }
+  .combined-plan td:nth-child(3)::before { content:"Cai"; }
+}
 .route-block > summary { font-size:17px; }
 .route-toolbar { display:flex; flex-wrap:wrap; gap:8px; margin:10px 0; }
 details.cycle > summary .date { float:none; margin-left:8px; }
