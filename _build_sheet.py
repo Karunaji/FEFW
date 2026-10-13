@@ -378,7 +378,24 @@ script = script.replace(
     ['Noctula','Dreadnought',35,51,4,30,7,17,21,29,11,17,15],
     ['Dante','Ovate',35,36,5,11,31,26,26,9,27,19,13]
   ].map(values => Object.fromEntries(statFields.map((field, i) => [field, values[i]]))),
-  Cai: [], Leda: []""",
+  Cai: [],
+  Leda: [
+    ['Leda','Dancer',52,58,5,34,28,60,37,20,30,17,52],
+    ['Esmeralda','Shido',46,64,5,39,13,31,24,28,10,24,21],
+    ['Catania','Dreadnought',49,42,4,34,24,30,31,38,15,34,33],
+    ['Sirocco','Ovate',52,49,5,29,42,34,40,20,34,44,38],
+    ['Mu','Shido',50,47,5,34,14,41,33,21,21,22,33],
+    ['Alexandra','Cataphract',38,43,5,21,16,28,25,18,26,25,29],
+    ['Mikaela','Blacksmith',47,56,5,40,16,27,24,29,14,19,29],
+    ['Sofia','Troubadour',41,35,6,14,38,20,21,13,35,20,21],
+    ['Ninae','Dreadnought',48,56,4,30,15,13,26,38,21,26,22],
+    ['Noctula','Warrior',46,56,5,38,11,32,22,25,11,19,21],
+    ['Ultand','Troubadour',42,45,6,20,25,22,24,14,28,31,31],
+    ['Loretta','Warrior',44,43,5,27,19,32,25,17,21,16,15],
+    ['Olympia','Ovate',53,48,5,22,56,32,38,22,35,31,27],
+    ['Lilian','Forest Knight',36,38,6,20,14,28,32,15,14,23,13],
+    ['Inyoni','Ranger',36,41,5,28,9,23,25,18,14,21,13]
+  ].map(values => Object.fromEntries(statFields.map((field, i) => [field, values[i]]))),"""
 )
 
 script = script.replace(
@@ -399,7 +416,24 @@ const originalSkillRanksDietrich = Object.fromEntries([
   ['Inyoni','D','E','E','B','E','E','E','E','D','E','C','E'],
   ['Noctula','D','D','D','E','B','E','E','D','E','E','D','E'],
   ['Dante','E','E','E','E','D','C','C','E','E','E','D','E']
-].map(([name, ...ranks]) => [name, Object.fromEntries(skillFields.map((field, i) => [field, ranks[i]]))]));""",
+].map(([name, ...ranks]) => [name, Object.fromEntries(skillFields.map((field, i) => [field, ranks[i]]))]));
+const originalSkillRanksLeda = Object.fromEntries([
+  ['Leda','A','E','D','S','D','E','E','E','E','E','S','E'],
+  ['Esmeralda','A','B','B','C','C','E','E','C','C','C','B','D'],
+  ['Catania','D','S','B','E','E','E','E','B','A','B','C','B'],
+  ['Sirocco','D','E','D','E','D','S','E','E','B','E','C','E'],
+  ['Mu','S','D','B','B','B','E','E','D','C','E','A','D'],
+  ['Alexandra','C','B','D','E','E','E','D','D','B','E','B','C'],
+  ['Mikaela','B','C','A','C','C','D','E','D','C','C','C','D'],
+  ['Sofia','D','D','D','E','D','D','B','D','D','E','D','D'],
+  ['Ninae','C','S','B','E','E','E','A','B','A','B','C','B'],
+  ['Noctula','D','E','D','E','B','E','E','E','D','E','D','E'],
+  ['Ultand','D','C','D','E','E','D','B','D','E','E','D','E'],
+  ['Loretta','B','C','B','D','C','E','E','E','C','C','C','D'],
+  ['Olympia','D','E','D','E','D','A','S','E','B','E','C','E'],
+  ['Lilian','D','D','E','C','E','E','E','D','E','E','C','D'],
+  ['Inyoni','D','E','E','C','E','E','E','E','D','E','D','E']
+].map(([name, ...ranks]) => [name, Object.fromEntries(skillFields.map((field, i) => [field, ranks[i]]))]));"""
 )
 
 # The following replace is applied after persistSoon saveStats patch.
@@ -421,27 +455,31 @@ function maxStat(a, b) {
   if (bOk) return nb;
   return '';
 }
-function mergedClass(theo, diet) {
-  const c1 = theo?.class || '';
-  const c2 = diet?.class || '';
-  if (c1 && c2 && c1 !== c2) return c1 + ' / ' + c2;
-  return c1 || c2;
+function mergedClass(...rows) {
+  const classes = [];
+  rows.forEach(r => {
+    const c = r?.class || '';
+    if (c && !classes.includes(c)) classes.push(c);
+  });
+  return classes.join(' / ');
 }
 function mergedBankedRows() {
   const theo = Object.fromEntries((originalStats.Theodora || []).map(row => [row.name, row]));
   const diet = Object.fromEntries((originalStats.Dietrich || []).map(row => [row.name, row]));
+  const leda = Object.fromEntries((originalStats.Leda || []).map(row => [row.name, row]));
   const names = [];
   (originalStats.Theodora || []).forEach(row => names.push(row.name));
   (originalStats.Dietrich || []).forEach(row => { if (!names.includes(row.name)) names.push(row.name); });
+  (originalStats.Leda || []).forEach(row => { if (!names.includes(row.name)) names.push(row.name); });
   return names.map(name => {
-    const t = theo[name], d = diet[name];
-    const row = { name, class: mergedClass(t, d) };
+    const t = theo[name], d = diet[name], l = leda[name];
+    const row = { name, class: mergedClass(t, d, l) };
     ['lv','hp','mov','str','mag','spd','dex','def','res','lck','cha'].forEach(field => {
-      row[field] = maxStat(t?.[field], d?.[field]);
+      row[field] = maxStat(maxStat(t?.[field], d?.[field]), l?.[field]);
     });
     row.skills = {};
     skillFields.forEach(field => {
-      row.skills[field] = betterRank(originalSkillRanks[name]?.[field], originalSkillRanksDietrich[name]?.[field]);
+      row.skills[field] = betterRank(betterRank(originalSkillRanks[name]?.[field], originalSkillRanksDietrich[name]?.[field]), originalSkillRanksLeda[name]?.[field]);
     });
     return row;
   });
@@ -450,7 +488,8 @@ const STAT_TIER = { hp:46, str:32, mag:34, spd:28, dex:28, def:24, res:22, lck:2
 const STAT_ROLE = {
   Mu:'phys', Noctula:'phys', Mikaela:'phys', Loretta:'phys', Ninae:'phys',
   Esmeralda:'phys', Alexandra:'phys', Lilian:'phys', Inyoni:'phys', Catania:'phys',
-  Ursula:'phys', Olympia:'mag', Sofia:'mag', Dante:'mag', Ultand:'hybrid'
+  Ursula:'phys', Olympia:'mag', Sofia:'mag', Dante:'mag', Ultand:'hybrid',
+  Leda:'phys', Sirocco:'mag'
 };
 function inferStatRole(row) {
   if (STAT_ROLE[row.name]) return STAT_ROLE[row.name];

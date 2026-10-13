@@ -1480,10 +1480,10 @@ p.small .stat-good, p.small .stat-mid, p.small .stat-low, p.small .stat-bad, p.s
 </section>
 
 <section class="tab-panel" id="statLog" role="tabpanel" aria-labelledby="tab-stats" hidden>
-  <h2 class="panel-title">Banked stats — Theodora × Dietrich</h2>
+  <h2 class="panel-title">Banked stats — Theodora × Dietrich × Leda</h2>
   <div class="section-content">
-    <div class="callout">Each number is the <strong>higher</strong> value from your Theodora and Dietrich War Arc clear data. Route-by-route snapshots stay on the Original stats tab. Units who only appear on one of those two routes keep that route’s values.</div>
-    <p class="small">Class shows both finals when they differ. Rating is the sum of Str, Mag, Spd, Dex, Def, Res, Lck, and Cha after the merge. Skill ranks take the higher rank of the two routes. This table is derived from Original stats and is not edited here.</p>
+    <div class="callout">Each number is the <strong>higher</strong> value from your Theodora, Dietrich, and Leda War Arc clear data. Route-by-route snapshots stay on the Original stats tab. Units who only appear on one route keep that route’s values.</div>
+    <p class="small">Class shows every distinct final when they differ. Rating is the sum of Str, Mag, Spd, Dex, Def, Res, Lck, and Cha after the merge. Skill ranks take the highest rank of the three routes. This table is derived from Original stats and is not edited here.</p>
     <p class="small">Cell colors vs a typical deployed lv 45–50: <span class="stat-good">green</span> at or above the mark, <span class="stat-mid">yellow</span> a little under, <span class="stat-low">orange</span> clearly under, <span class="stat-bad">red</span> dump. <span class="stat-na">Blue-grey</span> is off-role (Magic on a physical unit, Strength on a mage).</p>
     <div class="stat-actions"><button type="button" id="exportStats">Export CSV</button></div>
     <div class="stat-scroll" id="mergedStatTable"></div>
@@ -1500,7 +1500,7 @@ p.small .stat-good, p.small .stat-mid, p.small .stat-low, p.small .stat-bad, p.s
 <section class="tab-panel" id="originalStats" role="tabpanel" aria-labelledby="tab-original" hidden>
   <h2 class="panel-title">Original clear-data stats</h2>
   <div class="section-content">
-    <p class="small">War Arc snapshots from your Obelisk Chamber photos. These tables are built into the sheet and cannot be edited by the Stats tab. Dietrich’s block uses the 14 character screens in Original Reference; units without a photo are omitted.</p>
+    <p class="small">War Arc snapshots from your Obelisk Chamber photos. These tables are built into the sheet and cannot be edited by the Stats tab. Dietrich uses the 14 screens in Original Reference; Leda uses the 15 screens in Original Reference/Leda Reference. Units without a photo are omitted.</p>
 
     <details class="nested persist-open" open data-persist-open="orig-theodora">
       <summary>Theodora Route</summary>
@@ -1609,6 +1609,67 @@ p.small .stat-good, p.small .stat-mid, p.small .stat-low, p.small .stat-bad, p.s
               </table>
             </div>
             <p class="small">Black and White are magic; Armor is Heavy Armor. Ranks follow the 12-icon grid on each clear-data screen (left-to-right, top-to-bottom: Sword/Spear/Axe, Bow/Brawl/Black, White/Authority/Cavalry, Infantry/Armor/Flying).</p>
+          </div>
+        </details>
+      </div>
+    </details>
+
+    <details class="nested persist-open" open data-persist-open="orig-leda">
+      <summary>Leda Route</summary>
+      <div class="section-content">
+        <details class="nested persist-open" open data-persist-open="orig-leda-stats">
+          <summary>Leda Route - Stats</summary>
+          <div class="section-content">
+            <div class="stat-scroll">
+              <table class="stat-table stat-table-reference">
+                <thead><tr><th>Character</th><th>Final class</th><th>Lv</th><th>HP</th><th>Mov</th><th>Str</th><th>Mag</th><th>Spd</th><th>Dex</th><th>Def</th><th>Res</th><th>Lck</th><th>Cha</th><th>Rating</th></tr></thead>
+                <tbody>
+                  <tr><td>Leda</td><td>Dancer</td><td>52</td><td>58</td><td>5</td><td>34</td><td>28</td><td>60</td><td>37</td><td>20</td><td>30</td><td>17</td><td>52</td><td>278</td></tr>
+                  <tr><td>Esmeralda</td><td>Shido</td><td>46</td><td>64</td><td>5</td><td>39</td><td>13</td><td>31</td><td>24</td><td>28</td><td>10</td><td>24</td><td>21</td><td>190</td></tr>
+                  <tr><td>Catania</td><td>Dreadnought</td><td>49</td><td>42</td><td>4</td><td>34</td><td>24</td><td>30</td><td>31</td><td>38</td><td>15</td><td>34</td><td>33</td><td>239</td></tr>
+                  <tr><td>Sirocco</td><td>Ovate</td><td>52</td><td>49</td><td>5</td><td>29</td><td>42</td><td>34</td><td>40</td><td>20</td><td>34</td><td>44</td><td>38</td><td>281</td></tr>
+                  <tr><td>Mu</td><td>Shido</td><td>50</td><td>47</td><td>5</td><td>34</td><td>14</td><td>41</td><td>33</td><td>21</td><td>21</td><td>22</td><td>33</td><td>219</td></tr>
+                  <tr><td>Alexandra</td><td>Cataphract</td><td>38</td><td>43</td><td>5</td><td>21</td><td>16</td><td>28</td><td>25</td><td>18</td><td>26</td><td>25</td><td>29</td><td>188</td></tr>
+                  <tr><td>Mikaela</td><td>Blacksmith</td><td>47</td><td>56</td><td>5</td><td>40</td><td>16</td><td>27</td><td>24</td><td>29</td><td>14</td><td>19</td><td>29</td><td>198</td></tr>
+                  <tr><td>Sofia</td><td>Troubadour</td><td>41</td><td>35</td><td>6</td><td>14</td><td>38</td><td>20</td><td>21</td><td>13</td><td>35</td><td>20</td><td>21</td><td>182</td></tr>
+                  <tr><td>Ninae</td><td>Dreadnought</td><td>48</td><td>56</td><td>4</td><td>30</td><td>15</td><td>13</td><td>26</td><td>38</td><td>21</td><td>26</td><td>22</td><td>191</td></tr>
+                  <tr><td>Noctula</td><td>Warrior</td><td>46</td><td>56</td><td>5</td><td>38</td><td>11</td><td>32</td><td>22</td><td>25</td><td>11</td><td>19</td><td>21</td><td>179</td></tr>
+                  <tr><td>Ultand</td><td>Troubadour</td><td>42</td><td>45</td><td>6</td><td>20</td><td>25</td><td>22</td><td>24</td><td>14</td><td>28</td><td>31</td><td>31</td><td>195</td></tr>
+                  <tr><td>Loretta</td><td>Warrior</td><td>44</td><td>43</td><td>5</td><td>27</td><td>19</td><td>32</td><td>25</td><td>17</td><td>21</td><td>16</td><td>15</td><td>172</td></tr>
+                  <tr><td>Olympia</td><td>Ovate</td><td>53</td><td>48</td><td>5</td><td>22</td><td>56</td><td>32</td><td>38</td><td>22</td><td>35</td><td>31</td><td>27</td><td>263</td></tr>
+                  <tr><td>Lilian</td><td>Forest Knight</td><td>36</td><td>38</td><td>6</td><td>20</td><td>14</td><td>28</td><td>32</td><td>15</td><td>14</td><td>23</td><td>13</td><td>159</td></tr>
+                  <tr><td>Inyoni</td><td>Ranger</td><td>36</td><td>41</td><td>5</td><td>28</td><td>9</td><td>23</td><td>25</td><td>18</td><td>14</td><td>21</td><td>13</td><td>151</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </details>
+        <details class="nested persist-open" data-persist-open="orig-leda-skills">
+          <summary>Leda Route - Skill Ranks</summary>
+          <div class="section-content">
+            <div class="stat-scroll">
+              <table class="stat-table stat-table-reference">
+                <thead><tr><th>Character</th><th>Sword</th><th>Spear</th><th>Axe</th><th>Bow</th><th>Brawl</th><th>Black</th><th>White</th><th>Infantry</th><th>Authority</th><th>Armor</th><th>Cavalry</th><th>Flying</th></tr></thead>
+                <tbody>
+                  <tr><td>Leda</td><td>A</td><td>E</td><td>D</td><td>S</td><td>D</td><td>E</td><td>E</td><td>E</td><td>E</td><td>E</td><td>S</td><td>E</td></tr>
+                  <tr><td>Esmeralda</td><td>A</td><td>B</td><td>B</td><td>C</td><td>C</td><td>E</td><td>E</td><td>C</td><td>C</td><td>C</td><td>B</td><td>D</td></tr>
+                  <tr><td>Catania</td><td>D</td><td>S</td><td>B</td><td>E</td><td>E</td><td>E</td><td>E</td><td>B</td><td>A</td><td>B</td><td>C</td><td>B</td></tr>
+                  <tr><td>Sirocco</td><td>D</td><td>E</td><td>D</td><td>E</td><td>D</td><td>S</td><td>E</td><td>E</td><td>B</td><td>E</td><td>C</td><td>E</td></tr>
+                  <tr><td>Mu</td><td>S</td><td>D</td><td>B</td><td>B</td><td>B</td><td>E</td><td>E</td><td>D</td><td>C</td><td>E</td><td>A</td><td>D</td></tr>
+                  <tr><td>Alexandra</td><td>C</td><td>B</td><td>D</td><td>E</td><td>E</td><td>E</td><td>D</td><td>D</td><td>B</td><td>E</td><td>B</td><td>C</td></tr>
+                  <tr><td>Mikaela</td><td>B</td><td>C</td><td>A</td><td>C</td><td>C</td><td>D</td><td>E</td><td>D</td><td>C</td><td>C</td><td>C</td><td>D</td></tr>
+                  <tr><td>Sofia</td><td>D</td><td>D</td><td>D</td><td>E</td><td>D</td><td>D</td><td>B</td><td>D</td><td>D</td><td>E</td><td>D</td><td>D</td></tr>
+                  <tr><td>Ninae</td><td>C</td><td>S</td><td>B</td><td>E</td><td>E</td><td>E</td><td>A</td><td>B</td><td>A</td><td>B</td><td>C</td><td>B</td></tr>
+                  <tr><td>Noctula</td><td>D</td><td>E</td><td>D</td><td>E</td><td>B</td><td>E</td><td>E</td><td>E</td><td>D</td><td>E</td><td>D</td><td>E</td></tr>
+                  <tr><td>Ultand</td><td>D</td><td>C</td><td>D</td><td>E</td><td>E</td><td>D</td><td>B</td><td>D</td><td>E</td><td>E</td><td>D</td><td>E</td></tr>
+                  <tr><td>Loretta</td><td>B</td><td>C</td><td>B</td><td>D</td><td>C</td><td>E</td><td>E</td><td>E</td><td>C</td><td>C</td><td>C</td><td>D</td></tr>
+                  <tr><td>Olympia</td><td>D</td><td>E</td><td>D</td><td>E</td><td>D</td><td>A</td><td>S</td><td>E</td><td>B</td><td>E</td><td>C</td><td>E</td></tr>
+                  <tr><td>Lilian</td><td>D</td><td>D</td><td>E</td><td>C</td><td>E</td><td>E</td><td>E</td><td>D</td><td>E</td><td>E</td><td>C</td><td>D</td></tr>
+                  <tr><td>Inyoni</td><td>D</td><td>E</td><td>E</td><td>C</td><td>E</td><td>E</td><td>E</td><td>E</td><td>D</td><td>E</td><td>D</td><td>E</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="small">Black and White are magic; Armor is Heavy Armor. Ranks follow the 12-icon grid (Sword/Spear/Axe, Bow/Brawl/Black, White/Authority/Cavalry, Infantry/Armor/Flying).</p>
           </div>
         </details>
       </div>
@@ -2019,7 +2080,24 @@ const originalStats = {
     ['Noctula','Dreadnought',35,51,4,30,7,17,21,29,11,17,15],
     ['Dante','Ovate',35,36,5,11,31,26,26,9,27,19,13]
   ].map(values => Object.fromEntries(statFields.map((field, i) => [field, values[i]]))),
-  Cai: [], Leda: []
+  Cai: [],
+  Leda: [
+    ['Leda','Dancer',52,58,5,34,28,60,37,20,30,17,52],
+    ['Esmeralda','Shido',46,64,5,39,13,31,24,28,10,24,21],
+    ['Catania','Dreadnought',49,42,4,34,24,30,31,38,15,34,33],
+    ['Sirocco','Ovate',52,49,5,29,42,34,40,20,34,44,38],
+    ['Mu','Shido',50,47,5,34,14,41,33,21,21,22,33],
+    ['Alexandra','Cataphract',38,43,5,21,16,28,25,18,26,25,29],
+    ['Mikaela','Blacksmith',47,56,5,40,16,27,24,29,14,19,29],
+    ['Sofia','Troubadour',41,35,6,14,38,20,21,13,35,20,21],
+    ['Ninae','Dreadnought',48,56,4,30,15,13,26,38,21,26,22],
+    ['Noctula','Warrior',46,56,5,38,11,32,22,25,11,19,21],
+    ['Ultand','Troubadour',42,45,6,20,25,22,24,14,28,31,31],
+    ['Loretta','Warrior',44,43,5,27,19,32,25,17,21,16,15],
+    ['Olympia','Ovate',53,48,5,22,56,32,38,22,35,31,27],
+    ['Lilian','Forest Knight',36,38,6,20,14,28,32,15,14,23,13],
+    ['Inyoni','Ranger',36,41,5,28,9,23,25,18,14,21,13]
+  ].map(values => Object.fromEntries(statFields.map((field, i) => [field, values[i]]))),
 };
 // Rank order above; read from the same 11 clear-data screenshots.
 const originalSkillRanks = Object.fromEntries([
@@ -2050,6 +2128,23 @@ const originalSkillRanksDietrich = Object.fromEntries([
   ['Inyoni','D','E','E','B','E','E','E','E','D','E','C','E'],
   ['Noctula','D','D','D','E','B','E','E','D','E','E','D','E'],
   ['Dante','E','E','E','E','D','C','C','E','E','E','D','E']
+].map(([name, ...ranks]) => [name, Object.fromEntries(skillFields.map((field, i) => [field, ranks[i]]))]));
+const originalSkillRanksLeda = Object.fromEntries([
+  ['Leda','A','E','D','S','D','E','E','E','E','E','S','E'],
+  ['Esmeralda','A','B','B','C','C','E','E','C','C','C','B','D'],
+  ['Catania','D','S','B','E','E','E','E','B','A','B','C','B'],
+  ['Sirocco','D','E','D','E','D','S','E','E','B','E','C','E'],
+  ['Mu','S','D','B','B','B','E','E','D','C','E','A','D'],
+  ['Alexandra','C','B','D','E','E','E','D','D','B','E','B','C'],
+  ['Mikaela','B','C','A','C','C','D','E','D','C','C','C','D'],
+  ['Sofia','D','D','D','E','D','D','B','D','D','E','D','D'],
+  ['Ninae','C','S','B','E','E','E','A','B','A','B','C','B'],
+  ['Noctula','D','E','D','E','B','E','E','E','D','E','D','E'],
+  ['Ultand','D','C','D','E','E','D','B','D','E','E','D','E'],
+  ['Loretta','B','C','B','D','C','E','E','E','C','C','C','D'],
+  ['Olympia','D','E','D','E','D','A','S','E','B','E','C','E'],
+  ['Lilian','D','D','E','C','E','E','E','D','E','E','C','D'],
+  ['Inyoni','D','E','E','C','E','E','E','E','D','E','D','E']
 ].map(([name, ...ranks]) => [name, Object.fromEntries(skillFields.map((field, i) => [field, ranks[i]]))]));
 const statStorageKey = 'fw-stat-log-v1';
 let statLog = JSON.parse(JSON.stringify(originalStats));
@@ -2093,27 +2188,31 @@ function maxStat(a, b) {
   if (bOk) return nb;
   return '';
 }
-function mergedClass(theo, diet) {
-  const c1 = theo?.class || '';
-  const c2 = diet?.class || '';
-  if (c1 && c2 && c1 !== c2) return c1 + ' / ' + c2;
-  return c1 || c2;
+function mergedClass(...rows) {
+  const classes = [];
+  rows.forEach(r => {
+    const c = r?.class || '';
+    if (c && !classes.includes(c)) classes.push(c);
+  });
+  return classes.join(' / ');
 }
 function mergedBankedRows() {
   const theo = Object.fromEntries((originalStats.Theodora || []).map(row => [row.name, row]));
   const diet = Object.fromEntries((originalStats.Dietrich || []).map(row => [row.name, row]));
+  const leda = Object.fromEntries((originalStats.Leda || []).map(row => [row.name, row]));
   const names = [];
   (originalStats.Theodora || []).forEach(row => names.push(row.name));
   (originalStats.Dietrich || []).forEach(row => { if (!names.includes(row.name)) names.push(row.name); });
+  (originalStats.Leda || []).forEach(row => { if (!names.includes(row.name)) names.push(row.name); });
   return names.map(name => {
-    const t = theo[name], d = diet[name];
-    const row = { name, class: mergedClass(t, d) };
+    const t = theo[name], d = diet[name], l = leda[name];
+    const row = { name, class: mergedClass(t, d, l) };
     ['lv','hp','mov','str','mag','spd','dex','def','res','lck','cha'].forEach(field => {
-      row[field] = maxStat(t?.[field], d?.[field]);
+      row[field] = maxStat(maxStat(t?.[field], d?.[field]), l?.[field]);
     });
     row.skills = {};
     skillFields.forEach(field => {
-      row.skills[field] = betterRank(originalSkillRanks[name]?.[field], originalSkillRanksDietrich[name]?.[field]);
+      row.skills[field] = betterRank(betterRank(originalSkillRanks[name]?.[field], originalSkillRanksDietrich[name]?.[field]), originalSkillRanksLeda[name]?.[field]);
     });
     return row;
   });
@@ -2122,7 +2221,8 @@ const STAT_TIER = { hp:46, str:32, mag:34, spd:28, dex:28, def:24, res:22, lck:2
 const STAT_ROLE = {
   Mu:'phys', Noctula:'phys', Mikaela:'phys', Loretta:'phys', Ninae:'phys',
   Esmeralda:'phys', Alexandra:'phys', Lilian:'phys', Inyoni:'phys', Catania:'phys',
-  Ursula:'phys', Olympia:'mag', Sofia:'mag', Dante:'mag', Ultand:'hybrid'
+  Ursula:'phys', Olympia:'mag', Sofia:'mag', Dante:'mag', Ultand:'hybrid',
+  Leda:'phys', Sirocco:'mag'
 };
 function inferStatRole(row) {
   if (STAT_ROLE[row.name]) return STAT_ROLE[row.name];
