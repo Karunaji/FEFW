@@ -142,14 +142,21 @@ applyStoredDetails();
 
 const ledaRoute = document.getElementById('route-leda');
 const caiRoute = document.getElementById('route-cai');
+const p3Route = document.getElementById('route-p3');
 document.getElementById('openLedaOnly')?.addEventListener('click', () => {
   ledaRoute.open = true; caiRoute.open = false; persistSoon();
 });
 document.getElementById('openCaiOnly')?.addEventListener('click', () => {
   caiRoute.open = true; ledaRoute.open = false; persistSoon();
 });
+document.getElementById('openPart3Only')?.addEventListener('click', () => {
+  if (p3Route) p3Route.open = true;
+  ledaRoute.open = false; caiRoute.open = false; persistSoon();
+});
 document.getElementById('openBothRoutes')?.addEventListener('click', () => {
-  ledaRoute.open = true; caiRoute.open = true; persistSoon();
+  ledaRoute.open = true; caiRoute.open = true;
+  if (p3Route) p3Route.open = true;
+  persistSoon();
 });
 
 document.getElementById('linkProgressFile')?.addEventListener('click', async () => {

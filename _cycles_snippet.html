@@ -1,11 +1,12 @@
 <section class="tab-panel" id="cycles" role="tabpanel" aria-labelledby="tab-cycles" hidden>
-  <h2 class="panel-title">Cycle checklists — Leda &amp; Cai missables</h2>
+  <h2 class="panel-title">Cycle checklists — Leda, Cai &amp; Part III</h2>
   <div class="section-content">
-    <div class="callout"><strong>No battle/story walkthroughs here.</strong> Dates and windows follow RPG Site’s Part I Leda and Cai walkthroughs. Generic subquests vary by which path you already cleared; route-specific Perform/Kindness quests, paralogues, and optional pulses still need attention.</div>
+    <div class="callout"><strong>No battle/story walkthroughs here.</strong> Part I dates follow RPG Site’s Leda and Cai walkthroughs. Part III dates follow RPG Site’s Part III walkthrough. Skip any Leda- or Cai-gated line if that path was not brought in. All Part III subquests end <strong>6/6</strong>.</div>
     <div class="route-toolbar">
       <button type="button" id="openLedaOnly">Leda only</button>
       <button type="button" id="openCaiOnly">Cai only</button>
-      <button type="button" id="openBothRoutes">Both open</button>
+      <button type="button" id="openPart3Only">Part 3 only</button>
+      <button type="button" id="openBothRoutes">All open</button>
       <button type="button" id="resetChecks">Reset cycle checkboxes</button>
     </div>
 
@@ -223,6 +224,76 @@
             <label class="checkrow"><input type="checkbox" class="persist" id="cai-10-0"><span><strong>Kindness:</strong> That Dark Hero (Dietrich near Mars Temple) and The Mystery of Headman’s Rock (necrodragon) end 11/27, along with remaining 11/27 Kindness/Mentoring.</span></label>
             <label class="checkrow"><input type="checkbox" class="persist" id="cai-10-1"><span><strong>Recruitment:</strong> finish anyone you want to carry forward before ending Part I.</span></label>
             <label class="checkrow"><input type="checkbox" class="persist" id="cai-10-2"><span><strong>Weekly actions:</strong> use the last useful Sunday resets rather than dumping leftover Turns immediately.</span></label>
+          </div>
+        </details>
+      </div>
+    </details>
+
+    <details class="nested route-block persist-open" open id="route-p3" data-persist-open="route-p3">
+      <summary>Part III</summary>
+      <div class="section-content">
+        <p class="small">Shared calendar. The game calls these Sections. No paralogues. Leda-gated lines need her path brought in; Cai-gated lines need his. Each Free Time: walk every pulse on the Dagsion mini-map, and check the Obelisk Chamber pedestal. After any quest turn-in, talk to that quest’s NPCs again if they are still in town. World-map repairs can wait — squads go 2 → 5 later. Do not sit out Mission Time before a Gate: leftover days after the Gate still explore. Intercept world-map attacks on Dagsion before they arrive.</p>
+
+        <details class="nested cycle persist-open" data-persist-open="p3-s1">
+          <summary>Section 1 — no Free Time</summary>
+          <div class="checklist">
+            <label class="checkrow"><input type="checkbox" class="persist" id="p3-0-0"><span><strong>Note:</strong> no calendar this Section. If you can walk Dagsion, clear every pulse before the story marker. Free Time starts after this Section.</span></label>
+          </div>
+        </details>
+
+        <details class="nested cycle persist-open" open data-persist-open="p3-ft1">
+          <summary>Free Time 1 <span class="date">2/1–2/10</span></summary>
+          <div class="section-content small">Then Mission Time 1: 2/11–2/15 (one Gate). Two squads. Building Materials are bought in other cities.</div>
+          <div class="checklist">
+            <label class="checkrow"><input type="checkbox" class="persist" id="p3-1-0"><span><strong>Unlocks:</strong> Elephant Rider on the Advanced list, Master Class exams, stronger blacksmith refine.</span></label>
+            <label class="checkrow"><input type="checkbox" class="persist" id="p3-1-6"><span><strong>Pulses / town:</strong> walk every mini-map pulse. Talk to any familiar unit standing in Dagsion.</span></label>
+            <label class="checkrow"><input type="checkbox" class="persist" id="p3-1-1"><span><strong>Talk if they appear:</strong> Cai, east Midtown; Leda, Arena Plaza fountain; Theodora, Hightown near the Perch; Dietrich, Lowtown path toward the Port; Fortuna, Entertainment District / Thermae.</span></label>
+            <label class="checkrow"><input type="checkbox" class="persist" id="p3-1-2"><span><strong>Dagsion:</strong> Arena Construction Effort (3 Building Materials). Lost Flavors of the Capital (Inn Worker; 2 materials). Aiding in Prayer (Hopeful Priest, Temple Row; 7 materials).</span></label>
+            <label class="checkrow"><input type="checkbox" class="persist" id="p3-1-3"><span><strong>Leda-only:</strong> Dance for Rebuilt Villages — Tavern Owner; Perform at Port of Pandora, Regia, Zoste, and Baina Oasis. Ends 6/6.</span></label>
+            <label class="checkrow"><input type="checkbox" class="persist" id="p3-1-4"><span><strong>Cai-gated:</strong> The Elephant Rider’s Bond — injured rider, Temple Row; deliver 2 Hakuren (rare farm at Resurgence Stone, Elektra). Rescue Centurio — Temple Soldier, Temple Row; fight at Elissa Pass. After that fight’s turn-in: talk to the quest NPCs again, then walk any new pulse around Temple Row.</span></label>
+            <label class="checkrow"><input type="checkbox" class="persist" id="p3-1-5"><span><strong>Keys of the Diadem</strong> (five): Heretics’ Cave, Cougar Woodlands, Sand-Shadow Fort, Enno Isle, Giant’s-Print Fort. Turn them in when the matching temple opens later.</span></label>
+          </div>
+        </details>
+
+        <details class="nested cycle persist-open" data-persist-open="p3-ft2">
+          <summary>Free Time 2 <span class="date">2/16–2/25</span></summary>
+          <div class="section-content small">Then Mission Time 2: 2/26–3/6. Three squads. Temple requests appear after that temple is repaired (Aurora’s is posted in Dagsion).</div>
+          <div class="checklist">
+            <label class="checkrow"><input type="checkbox" class="persist" id="p3-2-3"><span><strong>Pulses / town:</strong> walk every mini-map pulse. Talk to any familiar unit still standing in Dagsion.</span></label>
+            <label class="checkrow"><input type="checkbox" class="persist" id="p3-2-0"><span><strong>Talk if they appear:</strong> Fortuna, Entertainment District / Thermae. Later Fortuna talks need this one done.</span></label>
+            <label class="checkrow"><input type="checkbox" class="persist" id="p3-2-1"><span><strong>Follow-ups:</strong> Arena Reconstruction Effort Part II (20 materials). Returned Flavors of the Capital (5 materials).</span></label>
+            <label class="checkrow"><input type="checkbox" class="persist" id="p3-2-2"><span><strong>Temple requests</strong> (all end 6/6): Aurora, Temple Row — 5 Angelica. Smyrnos — Iapetus Cavern (bring Fimbulvetr Night from Jurah’s Temple). Jurah — Dagda’s Godshield at Dagsion Summit. Credna — Desert Sunstone at Dragonbone Temple. Mars — Golden Helm at Nemea Cavern. Kalla — Sandalwood at Brigadier Pass. After each turn-in: take the Trial Clash it posts, and talk to that temple’s NPC in Dagsion again if they are still marked.</span></label>
+          </div>
+        </details>
+
+        <details class="nested cycle persist-open" data-persist-open="p3-ft3">
+          <summary>Free Time 3 <span class="date">3/7–3/21</span></summary>
+          <div class="section-content small">Then Mission Time 3: 3/22–4/5 (two Gates). Four squads.</div>
+          <div class="checklist">
+            <label class="checkrow"><input type="checkbox" class="persist" id="p3-3-3"><span><strong>Pulses / town:</strong> walk every mini-map pulse.</span></label>
+            <label class="checkrow"><input type="checkbox" class="persist" id="p3-3-0"><span><strong>Talk if they appear:</strong> Fortuna, Entertainment District / Thermae (needs the previous Fortuna talk).</span></label>
+            <label class="checkrow"><input type="checkbox" class="persist" id="p3-3-1"><span><strong>Turn-in:</strong> Keys of the Diadem can be used at the temple that just opened.</span></label>
+            <label class="checkrow"><input type="checkbox" class="persist" id="p3-3-2"><span><strong>Leda-only:</strong> Dance for Rebuilt Cities — Tavern Owner; Perform at Mahon Castle Town, Grand Aragon, Breston, and Mons. Ends 6/6.</span></label>
+          </div>
+        </details>
+
+        <details class="nested cycle persist-open" data-persist-open="p3-ft4">
+          <summary>Free Time 4 <span class="date">4/6–4/25</span></summary>
+          <div class="section-content small">Then Mission Time 4: 4/26–5/15 (three Gates). Five squads.</div>
+          <div class="checklist">
+            <label class="checkrow"><input type="checkbox" class="persist" id="p3-4-3"><span><strong>Pulses / town:</strong> walk every mini-map pulse.</span></label>
+            <label class="checkrow"><input type="checkbox" class="persist" id="p3-4-0"><span><strong>Talk if they appear:</strong> Fortuna, Entertainment District / Thermae (needs the previous Fortuna talk).</span></label>
+            <label class="checkrow"><input type="checkbox" class="persist" id="p3-4-1"><span><strong>Gate maps:</strong> if an allied guest is on the map, keep them alive until the map ends.</span></label>
+            <label class="checkrow"><input type="checkbox" class="persist" id="p3-4-2"><span><strong>Catch-up:</strong> leftover repairs, temple requests, keys, and Perform dances still end 6/6.</span></label>
+          </div>
+        </details>
+
+        <details class="nested cycle persist-open" data-persist-open="p3-ft5">
+          <summary>Free Time 5 — last calendar <span class="date">5/16–6/6</span></summary>
+          <div class="checklist">
+            <label class="checkrow"><input type="checkbox" class="persist" id="p3-5-2"><span><strong>Pulses / town:</strong> walk every mini-map pulse.</span></label>
+            <label class="checkrow"><input type="checkbox" class="persist" id="p3-5-1"><span><strong>Talk if they appear:</strong> Fortuna, Entertainment District / Thermae (needs the previous Fortuna talk).</span></label>
+            <label class="checkrow"><input type="checkbox" class="persist" id="p3-5-0"><span><strong>Deadline:</strong> every Part III subquest, Perform, and temple request still open ends 6/6. Finish them before taking the story marker.</span></label>
           </div>
         </details>
       </div>

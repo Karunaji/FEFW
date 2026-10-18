@@ -600,7 +600,7 @@ body_start = r'''</head>
   <div>
     <div class="kicker">Spoiler-light reference</div>
     <h1>Fortune's Weave — Leda &amp; Cai sheet</h1>
-    <div class="subtitle">Gifts, Leda and Cai cycle missables, builds, Advanced classes, stats, and shared recruitment. Part I / II only — no later-arc story. Marks save in this browser. To move PCs, copy the HTML plus a progress JSON, or download the sheet with progress baked in.</div>
+    <div class="subtitle">Gifts, Leda and Cai Part I cycles, Part III cycles, builds, Advanced classes, stats, and shared recruitment. No battle walkthroughs. Marks save in this browser. To move PCs, copy the HTML plus a progress JSON, or download the sheet with progress baked in.</div>
     <div class="backup-actions">
       <button type="button" id="exportBackup">Download progress JSON</button>
       <button type="button" id="importBackup">Import progress JSON</button>
