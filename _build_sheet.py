@@ -378,7 +378,21 @@ script = script.replace(
     ['Noctula','Dreadnought',35,51,4,30,7,17,21,29,11,17,15],
     ['Dante','Ovate',35,36,5,11,31,26,26,9,27,19,13]
   ].map(values => Object.fromEntries(statFields.map((field, i) => [field, values[i]]))),
-  Cai: [],
+  Cai: [
+    ['Noctula','Cataphract',48,69,5,35,8,29,26,38,12,24,19],
+    ['Ninae','Cataphract',46,60,5,33,14,22,28,35,24,32,25],
+    ['Esmeralda','Dreadnought',49,64,4,49,11,13,23,46,8,26,18],
+    ['Mu','Pugilist',39,43,5,29,7,25,24,22,14,14,18],
+    ['Lilian','Archer',43,41,5,19,15,29,32,17,13,25,15],
+    ['Ultand','Bishop',47,46,5,22,40,22,28,16,37,41,38],
+    ['Olympia','Priest',40,36,5,13,33,17,19,13,28,27,27],
+    ['Mikaela','Cataphract',50,58,5,41,16,23,24,36,13,22,28],
+    ['Loretta','Charioteer',47,51,5,33,21,31,32,29,25,21,17],
+    ['Catania','Wing Soldier',39,41,6,20,20,32,26,17,22,19,26],
+    ['Sofia','Bishop',43,40,5,16,41,16,24,11,32,19,24],
+    ['Alexandra','Wing Soldier',32,33,6,19,16,34,20,17,22,26,24],
+    ['Nydine','Ornius Rider',32,39,5,18,17,26,19,16,14,19,16]
+  ].map(values => Object.fromEntries(statFields.map((field, i) => [field, values[i]]))),
   Leda: [
     ['Leda','Dancer',52,58,5,34,28,60,37,20,30,17,52],
     ['Esmeralda','Shido',46,64,5,39,13,31,24,28,10,24,21],
@@ -433,6 +447,21 @@ const originalSkillRanksLeda = Object.fromEntries([
   ['Olympia','D','E','D','E','D','A','S','E','B','E','C','E'],
   ['Lilian','D','D','E','C','E','E','E','D','E','E','C','D'],
   ['Inyoni','D','E','E','C','E','E','E','E','D','E','D','E']
+].map(([name, ...ranks]) => [name, Object.fromEntries(skillFields.map((field, i) => [field, ranks[i]]))]));
+const originalSkillRanksCai = Object.fromEntries([
+  ['Noctula','B','B','A','D','A','E','E','C','C','C','C','D'],
+  ['Ninae','C','A','B','E','D','E','E','B','B','B','D','C'],
+  ['Esmeralda','B','S','A','C','D','E','E','C','B','S','B','C'],
+  ['Mu','D','E','D','E','B','E','C','E','D','E','D','E'],
+  ['Lilian','D','E','D','C','E','E','E','E','D','E','C','E'],
+  ['Ultand','E','D','D','E','D','A','S','E','B','D','C','E'],
+  ['Olympia','E','E','D','E','D','D','B','E','E','E','D','E'],
+  ['Mikaela','A','B','S','C','B','E','E','C','C','C','C','D'],
+  ['Loretta','A','C','D','B','D','E','E','C','C','E','B','C'],
+  ['Catania','C','C','D','E','E','E','E','E','D','E','B','C'],
+  ['Sofia','E','E','D','E','D','D','B','E','D','E','D','E'],
+  ['Alexandra','C','C','D','E','E','E','E','D','D','E','B','C'],
+  ['Nydine','E','D','C','E','E','D','E','D','E','E','E','C']
 ].map(([name, ...ranks]) => [name, Object.fromEntries(skillFields.map((field, i) => [field, ranks[i]]))]));"""
 )
 
@@ -467,19 +496,21 @@ function mergedBankedRows() {
   const theo = Object.fromEntries((originalStats.Theodora || []).map(row => [row.name, row]));
   const diet = Object.fromEntries((originalStats.Dietrich || []).map(row => [row.name, row]));
   const leda = Object.fromEntries((originalStats.Leda || []).map(row => [row.name, row]));
+  const cai = Object.fromEntries((originalStats.Cai || []).map(row => [row.name, row]));
   const names = [];
   (originalStats.Theodora || []).forEach(row => names.push(row.name));
   (originalStats.Dietrich || []).forEach(row => { if (!names.includes(row.name)) names.push(row.name); });
   (originalStats.Leda || []).forEach(row => { if (!names.includes(row.name)) names.push(row.name); });
+  (originalStats.Cai || []).forEach(row => { if (!names.includes(row.name)) names.push(row.name); });
   return names.map(name => {
-    const t = theo[name], d = diet[name], l = leda[name];
-    const row = { name, class: mergedClass(t, d, l) };
+    const t = theo[name], d = diet[name], l = leda[name], c = cai[name];
+    const row = { name, class: mergedClass(t, d, l, c) };
     ['lv','hp','mov','str','mag','spd','dex','def','res','lck','cha'].forEach(field => {
-      row[field] = maxStat(maxStat(t?.[field], d?.[field]), l?.[field]);
+      row[field] = maxStat(maxStat(maxStat(t?.[field], d?.[field]), l?.[field]), c?.[field]);
     });
     row.skills = {};
     skillFields.forEach(field => {
-      row.skills[field] = betterRank(betterRank(originalSkillRanks[name]?.[field], originalSkillRanksDietrich[name]?.[field]), originalSkillRanksLeda[name]?.[field]);
+      row.skills[field] = betterRank(betterRank(betterRank(originalSkillRanks[name]?.[field], originalSkillRanksDietrich[name]?.[field]), originalSkillRanksLeda[name]?.[field]), originalSkillRanksCai[name]?.[field]);
     });
     return row;
   });
@@ -489,7 +520,7 @@ const STAT_ROLE = {
   Mu:'phys', Noctula:'phys', Mikaela:'phys', Loretta:'phys', Ninae:'phys',
   Esmeralda:'phys', Alexandra:'phys', Lilian:'phys', Inyoni:'phys', Catania:'phys',
   Ursula:'phys', Olympia:'mag', Sofia:'mag', Dante:'mag', Ultand:'hybrid',
-  Leda:'phys', Sirocco:'mag'
+  Leda:'phys', Sirocco:'mag', Nydine:'phys'
 };
 function inferStatRole(row) {
   if (STAT_ROLE[row.name]) return STAT_ROLE[row.name];
