@@ -8,6 +8,13 @@ if (localStorage.getItem('fw-tab-v2-classes') !== '1') {
   }
   localStorage.setItem('fw-tab-v2-classes', '1');
 }
+if (localStorage.getItem('fw-tab-v3-rebuild') !== '1') {
+  const priorTab = Number(localStorage.getItem('fw-tab'));
+  if (Number.isInteger(priorTab) && priorTab >= 4) {
+    localStorage.setItem('fw-tab', String(priorTab + 1));
+  }
+  localStorage.setItem('fw-tab-v3-rebuild', '1');
+}
 
 function persistSoon() {
   clearTimeout(persistSoon.timer);

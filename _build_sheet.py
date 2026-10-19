@@ -78,6 +78,12 @@ if start < 0:
     raise SystemExit("statLog marker not found for Advanced classes tab")
 builds = builds[:start] + adv_classes + "\n" + builds[start:]
 
+rebuild = Path("_rebuild_snippet.html").read_text(encoding="utf-8")
+start = builds.find('<section class="tab-panel" id="statLog"')
+if start < 0:
+    raise SystemExit("statLog marker not found for Rebuild tab")
+builds = builds[:start] + rebuild + "\n" + builds[start:]
+
 script = text.split("<script>", 1)[1]
 script = script.split("</script>", 1)[0]
 
@@ -631,7 +637,7 @@ body_start = r'''</head>
   <div>
     <div class="kicker">Spoiler-light reference</div>
     <h1>Fortune's Weave — Leda &amp; Cai sheet</h1>
-    <div class="subtitle">Gifts, Leda and Cai Part I cycles, Part III cycles, builds, Advanced classes, stats, and shared recruitment. No battle walkthroughs. Marks save in this browser. To move PCs, copy the HTML plus a progress JSON, or download the sheet with progress baked in.</div>
+    <div class="subtitle">Gifts, Leda and Cai Part I cycles, Part III cycles, builds, Advanced classes, Part III class/repair notes, stats, and shared recruitment. No battle walkthroughs. Marks save in this browser. To move PCs, copy the HTML plus a progress JSON, or download the sheet with progress baked in.</div>
     <div class="backup-actions">
       <button type="button" id="exportBackup">Download progress JSON</button>
       <button type="button" id="importBackup">Import progress JSON</button>
@@ -649,6 +655,7 @@ body_start = r'''</head>
   <button type="button" role="tab" id="tab-cycles" aria-controls="cycles" aria-selected="false" tabindex="-1">Cycles</button>
   <button type="button" role="tab" id="tab-builds" aria-controls="buildGuide" aria-selected="false" tabindex="-1">Builds</button>
   <button type="button" role="tab" id="tab-classes" aria-controls="advClasses" aria-selected="false" tabindex="-1">Classes</button>
+  <button type="button" role="tab" id="tab-rebuild" aria-controls="rebuild" aria-selected="false" tabindex="-1">Rebuild</button>
   <button type="button" role="tab" id="tab-stats" aria-controls="statLog" aria-selected="false" tabindex="-1">Stats</button>
   <button type="button" role="tab" id="tab-original" aria-controls="originalStats" aria-selected="false" tabindex="-1">Original stats</button>
   <button type="button" role="tab" id="tab-recruits" aria-controls="sharedPlanner" aria-selected="false" tabindex="-1">Shared recruits</button>

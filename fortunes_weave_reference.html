@@ -308,7 +308,7 @@ p.small .stat-good, p.small .stat-mid, p.small .stat-low, p.small .stat-bad, p.s
   <div>
     <div class="kicker">Spoiler-light reference</div>
     <h1>Fortune's Weave — Leda &amp; Cai sheet</h1>
-    <div class="subtitle">Gifts, Leda and Cai Part I cycles, Part III cycles, builds, Advanced classes, stats, and shared recruitment. No battle walkthroughs. Marks save in this browser. To move PCs, copy the HTML plus a progress JSON, or download the sheet with progress baked in.</div>
+    <div class="subtitle">Gifts, Leda and Cai Part I cycles, Part III cycles, builds, Advanced classes, Part III class/repair notes, stats, and shared recruitment. No battle walkthroughs. Marks save in this browser. To move PCs, copy the HTML plus a progress JSON, or download the sheet with progress baked in.</div>
     <div class="backup-actions">
       <button type="button" id="exportBackup">Download progress JSON</button>
       <button type="button" id="importBackup">Import progress JSON</button>
@@ -326,6 +326,7 @@ p.small .stat-good, p.small .stat-mid, p.small .stat-low, p.small .stat-bad, p.s
   <button type="button" role="tab" id="tab-cycles" aria-controls="cycles" aria-selected="false" tabindex="-1">Cycles</button>
   <button type="button" role="tab" id="tab-builds" aria-controls="buildGuide" aria-selected="false" tabindex="-1">Builds</button>
   <button type="button" role="tab" id="tab-classes" aria-controls="advClasses" aria-selected="false" tabindex="-1">Classes</button>
+  <button type="button" role="tab" id="tab-rebuild" aria-controls="rebuild" aria-selected="false" tabindex="-1">Rebuild</button>
   <button type="button" role="tab" id="tab-stats" aria-controls="statLog" aria-selected="false" tabindex="-1">Stats</button>
   <button type="button" role="tab" id="tab-original" aria-controls="originalStats" aria-selected="false" tabindex="-1">Original stats</button>
   <button type="button" role="tab" id="tab-recruits" aria-controls="sharedPlanner" aria-selected="false" tabindex="-1">Shared recruits</button>
@@ -1550,6 +1551,155 @@ p.small .stat-good, p.small .stat-mid, p.small .stat-low, p.small .stat-bad, p.s
   </div>
 </section>
 
+<section class="tab-panel" id="rebuild" role="tabpanel" aria-labelledby="tab-rebuild" hidden>
+  <h2 class="panel-title">Part III classes &amp; repairs</h2>
+  <div class="section-content">
+    <div class="callout">Gameplay only: exams, repair recipes, and gather notes. No story. Each Divine class can be on only one unit at a time; you can move its item to someone else later.</div>
+
+    <details class="nested persist-open" open data-persist-open="p3-divine">
+      <summary>Divine classes</summary>
+      <div class="section-content">
+        <p class="small">Exam item comes from the Temple of the Diadem (opens Free Time 3, 3/7–3/21). One Key of the Diadem opens one chamber; keys are not locked to a specific door. Exam needs the item plus the ranks below (aim for 100%). First / alt follows your current roster notes.</p>
+        <div class="stat-scroll">
+          <table class="stat-table">
+            <thead>
+              <tr><th>Class</th><th>Focus</th><th>Exam ranks</th><th>First</th><th>Alt</th><th>Notes</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>The Apsara</td><td>Dance / support</td><td>Sword A, Bow C</td><td>Leda</td><td>—</td><td>Clear fit. Keep her current class until the exam is available.</td></tr>
+              <tr><td>The Blade</td><td>Sword specialist</td><td>Sword S</td><td>Dietrich</td><td>Loretta</td><td>Dietrich is the natural pick; Loretta is the strongest alternative.</td></tr>
+              <tr><td>The Trident</td><td>Defensive spear</td><td>Spear S</td><td>Theodora</td><td>Ninae</td><td>Both fit. Ninae’s Defense and Spear rank are especially strong.</td></tr>
+              <tr><td>The Cavalier</td><td>Mounted physical</td><td>Riding A; Sword S, Spear S, Axe S</td><td>Cai</td><td>Esmeralda</td><td>Cai is the more natural fit. Esmeralda would need extra rank training.</td></tr>
+              <tr><td>The Eternal</td><td>Heavy melee</td><td>Sword S, Axe S, Brawl S</td><td>Mu</td><td>Noctula</td><td>Mu’s Sword / Axe / Brawl ranks line up well.</td></tr>
+              <tr><td>The Godhand</td><td>Brawling / support</td><td>Brawl S, White C</td><td>Mu</td><td>Noctula</td><td>Also a good Mu fit, so these two Divines compete for the same people.</td></tr>
+              <tr><td>The Calamity</td><td>Bow / sword hybrid</td><td>Sword S, Bow S</td><td>Lilian</td><td>Ursula</td><td>Lilian is the furthest along; still needs more weapon rank.</td></tr>
+              <tr><td>The Avatar</td><td>Magic specialist</td><td>Black S or White S</td><td>Olympia</td><td>Sofia</td><td>Olympia’s Magic and magic ranks are the favorite.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </details>
+
+    <details class="nested persist-open" open data-persist-open="p3-temples">
+      <summary>Temples → new classes</summary>
+      <div class="section-content">
+        <p class="small">Repair the world-map temple, wait out the turns, then take the request posted there (Aurora’s is taken in Dagsion). Teleport at that temple stays off until the request is done. Do not need the request text in advance — it appears on the board.</p>
+        <details class="nested persist-open" open data-persist-open="p3-temples-divine">
+          <summary>Temple of the Diadem (Divine)</summary>
+          <div class="section-content">
+            <div class="stat-scroll">
+              <table class="stat-table">
+                <thead><tr><th>Chamber</th><th>Item</th><th>Class</th></tr></thead>
+                <tbody>
+                  <tr><td>Maiden’s Chambers</td><td>Muses’ Necklace</td><td>The Apsara</td></tr>
+                  <tr><td>Chamber of Distortion</td><td>Demonic Swordguard</td><td>The Blade</td></tr>
+                  <tr><td>Disciple’s Chamber</td><td>Trident</td><td>The Trident</td></tr>
+                  <tr><td>Chamber of Sirius</td><td>Divinium Saddle</td><td>The Cavalier</td></tr>
+                  <tr><td>Prophet’s Chamber</td><td>Scales of Judgement</td><td>The Eternal</td></tr>
+                  <tr><td>Disciple’s Chamber</td><td>Emperor’s Sash</td><td>The Godhand</td></tr>
+                  <tr><td>Chamber of Distortion</td><td>Crystal of Darkness</td><td>The Calamity</td></tr>
+                  <tr><td>Prophet’s Chamber</td><td>Lotus of Reincarnation</td><td>The Avatar</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="small">Five keys, five doors. Keys: Heretics’ Cave, Cougar Woodlands, Sand-Shadow Fort, Enno Isle, Giant’s-Print Fort. Same chests as on Cycles.</p>
+          </div>
+        </details>
+        <details class="nested persist-open" open data-persist-open="p3-temples-master">
+          <summary>God temples (Master)</summary>
+          <div class="section-content">
+            <div class="stat-scroll">
+              <table class="stat-table">
+                <thead><tr><th>Temple</th><th>Unlocks</th></tr></thead>
+                <tbody>
+                  <tr><td>Aurora (request in Dagsion)</td><td>War Monk</td></tr>
+                  <tr><td>Smyrnos</td><td>High Savant</td></tr>
+                  <tr><td>Jurah</td><td>Valkyrium</td></tr>
+                  <tr><td>Credna</td><td>Great Knight</td></tr>
+                  <tr><td>Mars</td><td>Swordmaster</td></tr>
+                  <tr><td>Kalla</td><td>Bow Knight</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="small">Other Master exams open at the start of Part III without a temple request (Elephant Rider too). Temple requests also post a Trial Clash after turn-in.</p>
+          </div>
+        </details>
+      </div>
+    </details>
+
+    <details class="nested persist-open" open data-persist-open="p3-repairs">
+      <summary>Repair materials</summary>
+      <div class="section-content">
+        <p class="small">World-map nodes each show their own recipe when selected. A complete public node-by-node English list is not published; temples and Dagsion are below. Materials are shared across squads. Repairs take several turns.</p>
+        <details class="nested persist-open" open data-persist-open="p3-repairs-dagsion">
+          <summary>Dagsion facilities (Building Materials)</summary>
+          <div class="section-content">
+            <div class="stat-scroll">
+              <table class="stat-table">
+                <thead><tr><th>Facility</th><th>Cost</th></tr></thead>
+                <tbody>
+                  <tr><td>Arena, first repair</td><td>3 Building Materials</td></tr>
+                  <tr><td>Inn / meals, first repair</td><td>2 Building Materials</td></tr>
+                  <tr><td>Dagsion temple service upgrade</td><td>7 Building Materials</td></tr>
+                  <tr><td>Arena, second repair</td><td>20 Building Materials</td></tr>
+                  <tr><td>Inn / meals, second repair</td><td>5 Building Materials</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="small">Buy Building Materials at restored markets: cities/capitals sell 3, villages/settlements sell 1. Do Arena first, then meals. Total 37 for all five deliveries.</p>
+          </div>
+        </details>
+        <details class="nested persist-open" open data-persist-open="p3-repairs-temples">
+          <summary>World-map temples</summary>
+          <div class="section-content">
+            <div class="stat-scroll">
+              <table class="stat-table">
+                <thead><tr><th>Temple</th><th>Repair</th></tr></thead>
+                <tbody>
+                  <tr><td>Aurora</td><td>Blue Ginji ×1</td></tr>
+                  <tr><td>Smyrnos</td><td>Almamet ×1</td></tr>
+                  <tr><td>Jurah</td><td>Jyoppa ×1</td></tr>
+                  <tr><td>Credna</td><td>Lightstar ×1</td></tr>
+                  <tr><td>Mars</td><td>Lazanibata ×1</td></tr>
+                  <tr><td>Kalla</td><td>Dakka Monja ×1</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </details>
+        <details class="nested persist-open" data-persist-open="p3-repairs-map">
+          <summary>Other map nodes (posthouses, towns, ports)</summary>
+          <div class="section-content">
+            <p class="small">Select a damaged node on the world map (or the damaged-posthouse shortcut) to see that node’s recipe. Typical pattern: local plants / fish / ore from nearby search tiles. Prioritize posthouses (carriages), then temples, then large towns (better Building Material stock), then villages.</p>
+          </div>
+        </details>
+      </div>
+    </details>
+
+    <details class="nested persist-open" data-persist-open="p3-gather">
+      <summary>Where to get materials</summary>
+      <div class="section-content">
+        <p class="small">Temple rares (search tiles; some tiles are route-locked in Part I but usable now):</p>
+        <div class="stat-scroll">
+          <table class="stat-table">
+            <thead><tr><th>Item</th><th>Search tiles (English names)</th></tr></thead>
+            <tbody>
+              <tr><td>Blue Ginji</td><td>Napier Woods, Wodan Pass, Dragdon Pass</td></tr>
+              <tr><td>Almamet</td><td>Merak Pass, Dubhe Ridge</td></tr>
+              <tr><td>Jyoppa</td><td>Dada Plains, Klytius Plains</td></tr>
+              <tr><td>Lightstar</td><td>Midnight Turn, Smiling Stone</td></tr>
+              <tr><td>Lazanibata</td><td>Giants’ Mount</td></tr>
+              <tr><td>Dakka Monja</td><td>Orion Canyon</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="small">With Theodora in a squad: dispatch to search tiles. With Cai in a squad: farm empty-field crops (anyone can harvest). Search on a stop costs no Turn in Part III. Restored markets sell some ingredients and all Building Materials.</p>
+        <p class="small">Full item index (per-item pages also list which nodes consume that item): <a href="https://game8.jp/fe-banshisenko/816980" target="_blank" rel="noopener">Game8 materials list</a>. Gather method / repair priority: <a href="https://game8.jp/fe-banshisenko/817172" target="_blank" rel="noopener">Game8 repair materials</a>. Building Materials: <a href="https://game8.jp/fe-banshisenko/817220" target="_blank" rel="noopener">Game8 Building Materials</a>. English search-tile names: <a href="https://fortunesweave.wiki.fextralife.com/Ingredients" target="_blank" rel="noopener">Fextralife Ingredients</a>.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
 <section class="tab-panel" id="statLog" role="tabpanel" aria-labelledby="tab-stats" hidden>
   <h2 class="panel-title">Banked stats — Theodora × Dietrich × Leda × Cai</h2>
   <div class="section-content">
@@ -1841,6 +1991,13 @@ if (localStorage.getItem('fw-tab-v2-classes') !== '1') {
     localStorage.setItem('fw-tab', String(priorTab + 1));
   }
   localStorage.setItem('fw-tab-v2-classes', '1');
+}
+if (localStorage.getItem('fw-tab-v3-rebuild') !== '1') {
+  const priorTab = Number(localStorage.getItem('fw-tab'));
+  if (Number.isInteger(priorTab) && priorTab >= 4) {
+    localStorage.setItem('fw-tab', String(priorTab + 1));
+  }
+  localStorage.setItem('fw-tab-v3-rebuild', '1');
 }
 
 function persistSoon() {
